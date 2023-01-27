@@ -37,9 +37,17 @@ class Client
     #[ORM\OneToMany(mappedBy: 'client', targetEntity: favoris::class)]
     private Collection $ajoute;
 
+    #[ORM\OneToMany(mappedBy: 'passee', targetEntity: Reservation::class)]
+    private Collection $reservations;
+
+    #[ORM\OneToMany(mappedBy: 'poste', targetEntity: Publication::class)]
+    private Collection $publications;
+
     public function __construct()
     {
         $this->ajoute = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
+        $this->publications = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -143,6 +151,66 @@ class Client
             // set the owning side to null (unless already changed)
             if ($ajoute->getClient() === $this) {
                 $ajoute->setClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations->add($reservation);
+            $reservation->setPassee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): self
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getPassee() === $this) {
+                $reservation->setPassee(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Publication>
+     */
+    public function getPublications(): Collection
+    {
+        return $this->publications;
+    }
+
+    public function addPublication(Publication $publication): self
+    {
+        if (!$this->publications->contains($publication)) {
+            $this->publications->add($publication);
+            $publication->setPoste($this);
+        }
+
+        return $this;
+    }
+
+    public function removePublication(Publication $publication): self
+    {
+        if ($this->publications->removeElement($publication)) {
+            // set the owning side to null (unless already changed)
+            if ($publication->getPoste() === $this) {
+                $publication->setPoste(null);
             }
         }
 

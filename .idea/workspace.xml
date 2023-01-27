@@ -20,6 +20,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/symfony/maker-bundle" />
@@ -187,8 +190,12 @@
       <option name="presentableId" value="Default" />
       <updated>1674571830560</updated>
       <workItem from="1674571831700" duration="1506000" />
+<<<<<<< HEAD
       <workItem from="1674809223139" duration="1518000" />
       <workItem from="1674811963237" duration="4388000" />
+=======
+      <workItem from="1674809223139" duration="12589000" />
+>>>>>>> ae8be8c89b2ff441db78796aaf134649c558e3f4
     </task>
     <servers />
   </component>

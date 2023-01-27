@@ -17,6 +17,9 @@ class Favoris
     #[ORM\JoinColumn(nullable: false)]
     private ?Client $client = null;
 
+    #[ORM\ManyToOne(inversedBy: 'favoris')]
+    private ?sandwich $correspond = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -30,6 +33,18 @@ class Favoris
     public function setClient(?Client $client): self
     {
         $this->client = $client;
+
+        return $this;
+    }
+
+    public function getCorrespond(): ?sandwich
+    {
+        return $this->correspond;
+    }
+
+    public function setCorrespond(?sandwich $correspond): self
+    {
+        $this->correspond = $correspond;
 
         return $this;
     }

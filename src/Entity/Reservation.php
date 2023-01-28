@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\ReservationRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -14,86 +12,71 @@ class Reservation
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private int $id;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $resa_date = null;
+    private \DateTimeInterface $date;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTimeInterface $resa_time = null;
+    private \DateTimeInterface $time;
 
-    #[ORM\ManyToMany(targetEntity: table::class, inversedBy: 'reservations')]
-    private Collection $refere;
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?table $resa_table = null;
 
-    #[ORM\ManyToOne(inversedBy: 'reservations')]
-    private ?client $passee = null;
-
-    public function __construct()
-    {
-        $this->refere = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(inversedBy: 'user_resa')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?user $resa_user = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getResaDate(): ?\DateTimeInterface
+    public function getDate(): ?\DateTimeInterface
     {
-        return $this->resa_date;
+        return $this->date;
     }
 
-    public function setResaDate(\DateTimeInterface $resa_date): self
+    public function setDate(\DateTimeInterface $date): self
     {
-        $this->resa_date = $resa_date;
+        $this->date = $date;
 
         return $this;
     }
 
-    public function getResaTime(): ?\DateTimeInterface
+    public function getTime(): ?\DateTimeInterface
     {
-        return $this->resa_time;
+        return $this->time;
     }
 
-    public function setResaTime(\DateTimeInterface $resa_time): self
+    public function setTime(\DateTimeInterface $time): self
     {
-        $this->resa_time = $resa_time;
+        $this->time = $time;
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, table>
-     */
-    public function getRefere(): Collection
+    public function getResaTable(): ?table
     {
-        return $this->refere;
+        return $this->resa_table;
     }
 
-    public function addRefere(table $refere): self
+    public function setResaTable(?table $resa_table): self
     {
-        if (!$this->refere->contains($refere)) {
-            $this->refere->add($refere);
-        }
+        $this->resa_table = $resa_table;
 
         return $this;
     }
 
-    public function removeRefere(table $refere): self
+    public function getResaUser(): ?user
     {
-        $this->refere->removeElement($refere);
-
-        return $this;
+        return $this->resa_user;
     }
 
-    public function getPassee(): ?client
+    public function setResaUser(?user $resa_user): self
     {
-        return $this->passee;
-    }
-
-    public function setPassee(?client $passee): self
-    {
-        $this->passee = $passee;
+        $this->resa_user = $resa_user;
 
         return $this;
     }

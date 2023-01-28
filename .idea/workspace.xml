@@ -4,7 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="36f0215c-9187-4df1-9b0b-65f93ab433af" name="Changes" comment="" />
+    <list default="true" id="36f0215c-9187-4df1-9b0b-65f93ab433af" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20230127103126.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20230127135303.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20230127145824.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Client.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Commande.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Favoris.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Ingredient.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Ingredient.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Publication.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Publication.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Reservation.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Reservation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Sandwich.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Sandwich.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Table.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ClientRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/CommandeRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/FavorisRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/IngrediengtRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/IngredientRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/IngredientRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/IngredientsRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/PublicationRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/PublicationRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ReservationRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ReservationRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/SandwichRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/SandwichRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/TableRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/TableRepository.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,6 +39,11 @@
     <execution />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="page-de-connexion" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -188,6 +217,7 @@
       <updated>1674571830560</updated>
       <workItem from="1674571831700" duration="1506000" />
       <workItem from="1674809223139" duration="17096000" />
+      <workItem from="1674856913501" duration="11417000" />
     </task>
     <servers />
   </component>

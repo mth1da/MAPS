@@ -14,52 +14,68 @@ class Publication
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?bool $publi_likes = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $photo = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $publi_comm = null;
+    private ?string $commentaire = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\ManyToOne(inversedBy: 'publications')]
-    private ?client $poste = null;
+    #[ORM\JoinColumn(nullable: false)]
+    private ?user $publi_user = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function isPubliLikes(): ?bool
+    public function getPhoto(): ?string
     {
-        return $this->publi_likes;
+        return $this->photo;
     }
 
-    public function setPubliLikes(?bool $publi_likes): self
+    public function setPhoto(?string $photo): self
     {
-        $this->publi_likes = $publi_likes;
+        $this->photo = $photo;
 
         return $this;
     }
 
-    public function getPubliComm(): ?string
+    public function getCommentaire(): ?string
     {
-        return $this->publi_comm;
+        return $this->commentaire;
     }
 
-    public function setPubliComm(?string $publi_comm): self
+    public function setCommentaire(?string $commentaire): self
     {
-        $this->publi_comm = $publi_comm;
+        $this->commentaire = $commentaire;
 
         return $this;
     }
 
-    public function getPoste(): ?client
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->poste;
+        return $this->created_at;
     }
 
-    public function setPoste(?client $poste): self
+    public function setCreatedAt(\DateTimeImmutable $created_at): self
     {
-        $this->poste = $poste;
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getPubliUser(): ?user
+    {
+        return $this->publi_user;
+    }
+
+    public function setPubliUser(?user $publi_user): self
+    {
+        $this->publi_user = $publi_user;
 
         return $this;
     }

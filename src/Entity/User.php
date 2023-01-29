@@ -35,14 +35,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private string $password ;
 
-    #[ORM\Column(length: 255)]
-    private string $first_name;
 
-    #[ORM\Column(length: 255)]
-    private string $last_name;
 
-    #[ORM\Column(length: 255)]
-    private string $user_name;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private \DateTimeInterface $birth_date;
@@ -320,7 +314,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 }
-
 class Client extends User{
 
 }

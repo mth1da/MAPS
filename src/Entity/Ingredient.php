@@ -3,8 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\IngredientRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: IngredientRepository::class)]
@@ -13,107 +12,114 @@ class Ingredient
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private int $id;
 
-    #[ORM\Column(length: 200)]
-    private ?string $ingredient_name = null;
+    #[ORM\Column(length: 255)]
+    private string $name;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private string $description;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 6, scale: 2)]
+    private string $price;
+
+    #[ORM\Column(length: 255)]
+    private ?string $photo = null;
 
     #[ORM\Column]
-    private ?float $ingredient_price = null;
+    private \DateTimeImmutable $created_at;
 
-    #[ORM\Column]
-    private ?int $ingredient_quantity = null;
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updated_at = null;
 
-    #[ORM\Column(length: 500, nullable: true)]
-    private ?string $ingredient_photo = null;
-
-    #[ORM\ManyToMany(targetEntity: sandwich::class, mappedBy: 'ingredient')]
-    private Collection $compose;
-
-    public function __construct()
-    {
-        $this->compose = new ArrayCollection();
-    }
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $deleted_at = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getIngredientName(): ?string
+    public function getName(): ?string
     {
-        return $this->ingredient_name;
+        return $this->name;
     }
 
-    public function setIngredientName(string $ingredient_name): self
+    public function setName(string $name): self
     {
-        $this->ingredient_name = $ingredient_name;
+        $this->name = $name;
 
         return $this;
     }
 
-    public function getIngredientPrice(): ?float
+    public function getDescription(): ?string
     {
-        return $this->ingredient_price;
+        return $this->description;
     }
 
-    public function setIngredientPrice(float $ingredient_price): self
+    public function setDescription(string $description): self
     {
-        $this->ingredient_price = $ingredient_price;
+        $this->description = $description;
 
         return $this;
     }
 
-    public function getIngredientQuantity(): ?int
+    public function getPrice(): ?string
     {
-        return $this->ingredient_quantity;
+        return $this->price;
     }
 
-    public function setIngredientQuantity(int $ingredient_quantity): self
+    public function setPrice(string $price): self
     {
-        $this->ingredient_quantity = $ingredient_quantity;
+        $this->price = $price;
 
         return $this;
     }
 
-    public function getIngredientPhoto(): ?string
+    public function getPhoto(): ?string
     {
-        return $this->ingredient_photo;
+        return $this->photo;
     }
 
-    public function setIngredientPhoto(?string $ingredient_photo): self
+    public function setPhoto(string $photo): self
     {
-        $this->ingredient_photo = $ingredient_photo;
+        $this->photo = $photo;
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, sandwich>
-     */
-    public function getCompose(): Collection
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->compose;
+        return $this->created_at;
     }
 
-    public function addCompose(sandwich $compose): self
+    public function setCreatedAt(\DateTimeImmutable $created_at): self
     {
-        if (!$this->compose->contains($compose)) {
-            $this->compose->add($compose);
-            $compose->setIngredient($this);
-        }
+        $this->created_at = $created_at;
 
         return $this;
     }
 
-    public function removeCompose(sandwich $compose): self
+    public function getUpdatedAt(): ?\DateTimeImmutable
     {
-        if ($this->compose->removeElement($compose)) {
-            // set the owning side to null (unless already changed)
-            if ($compose->getIngredient() === $this) {
-                $compose->setIngredient(null);
-            }
-        }
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(?\DateTimeImmutable $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeImmutable
+    {
+        return $this->deleted_at;
+    }
+
+    public function setDeletedAt(?\DateTimeImmutable $deleted_at): self
+    {
+        $this->deleted_at = $deleted_at;
 
         return $this;
     }

@@ -7,6 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+#[Entity]
+#[InheritanceType('JOINED')]
+#[DiscriminatorColumn(name: 'discr', type: 'string')]
+#[DiscriminatorMap(['sandwich' => Sandwich::class, 'sandwich_moment' => SandwichMoment::class, 'original_sandwich' => OriginalSandwich::class])] //heritage
+
 #[ORM\Entity(repositoryClass: SandwichRepository::class)]
 class Sandwich
 {
@@ -15,18 +20,15 @@ class Sandwich
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 200)]
-    private ?string $sandwich_name = null;
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
 
-    #[ORM\ManyToMany(targetEntity: Ingredient::class, inversedBy: 'compose')]
-    private ?Ingredient $ingredient = null;
-
-    #[ORM\OneToMany(mappedBy: 'correspond', targetEntity: Favoris::class)]
-    private Collection $favoris;
+    #[ORM\ManyToMany(targetEntity: ingredient::class)]
+    private Collection $sandwich_ingredients;
 
     public function __construct()
     {
-        $this->favoris = new ArrayCollection();
+        $this->sandwich_ingredients = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -34,57 +36,49 @@ class Sandwich
         return $this->id;
     }
 
-    public function getSandwichName(): ?string
+    public function getName(): ?string
     {
-        return $this->sandwich_name;
+        return $this->name;
     }
 
-    public function setSandwichName(string $sandwich_name): self
+    public function setName(string $name): self
     {
-        $this->sandwich_name = $sandwich_name;
-
-        return $this;
-    }
-
-    public function getIngredient(): ?Ingredient
-    {
-        return $this->ingredient;
-    }
-
-    public function setIngredient(?Ingredient $ingredient): self
-    {
-        $this->ingredient = $ingredient;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, Favoris>
+     * @return Collection<int, ingredient>
      */
-    public function getFavoris(): Collection
+    public function getSandwichIngredients(): Collection
     {
-        return $this->favoris;
+        return $this->sandwich_ingredients;
     }
 
-    public function addFavori(Favoris $favori): self
+    public function addSandwichIngredient(ingredient $sandwichIngredient): self
     {
-        if (!$this->favoris->contains($favori)) {
-            $this->favoris->add($favori);
-            $favori->setCorrespond($this);
+        if (!$this->sandwich_ingredients->contains($sandwichIngredient)) {
+            $this->sandwich_ingredients->add($sandwichIngredient);
         }
 
         return $this;
     }
 
-    public function removeFavori(Favoris $favori): self
+    public function removeSandwichIngredient(ingredient $sandwichIngredient): self
     {
-        if ($this->favoris->removeElement($favori)) {
-            // set the owning side to null (unless already changed)
-            if ($favori->getCorrespond() === $this) {
-                $favori->setCorrespond(null);
-            }
-        }
+        $this->sandwich_ingredients->removeElement($sandwichIngredient);
 
         return $this;
     }
+}
+
+class SandwichMoment extends Sandwich{
+    #[ORM\Column(type: Types::TEXT)]
+    private string $description;
+}
+
+class OriginalSandwich extends Sandwich{
+    #[ORM\Column(type: Types::TEXT)]
+    private string $description;
 }

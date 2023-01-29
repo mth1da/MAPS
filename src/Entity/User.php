@@ -56,6 +56,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'bookmark_user', targetEntity: Bookmark::class)]
     private Collection $user_bookmarks;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $token = null;
+
     function __construct(){ //constructeur
         $this->created_at = new \DateTime(); //date du jour automatiquement
         $this->user_order = new ArrayCollection();
@@ -310,6 +313,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $userBookmark->setBookmarkUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(?string $token): self
+    {
+        $this->token = $token;
 
         return $this;
     }

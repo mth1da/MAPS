@@ -10,10 +10,10 @@ use Doctrine\ORM\Mapping as ORM;
 #[Entity]
 #[InheritanceType('JOINED')]
 #[DiscriminatorColumn(name: 'discr', type: 'string')]
-#[DiscriminatorMap(['sandwich' => Sandwich::class, 'sandwich_moment' => SandwichMoment::class, 'original_sandwich' => OriginalSandwich::class])] //heritage
+#[DiscriminatorMap(['sandwich' => sandwich::class, 'sandwich_moment' => SandwichMoment::class, 'original_sandwich' => OriginalSandwich::class])] //heritage
 
 #[ORM\Entity(repositoryClass: SandwichRepository::class)]
-class Sandwich
+class sandwich
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

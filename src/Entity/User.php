@@ -18,8 +18,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\Id] //clé parimaire
+    #[ORM\GeneratedValue] //auto incrément
     #[ORM\Column]
     private ?int $id = null;
 
@@ -35,7 +35,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private string $password ;
 
-
+    #[ORM\Column(length: 255)]
+    private string $first_name;
+    #[ORM\Column(length: 255)]
+    private string $last_name;
+    #[ORM\Column(length: 255, unique:true)]
+    private string $user_name;
 
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
@@ -44,7 +49,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private \DateTimeImmutable $created_at;
 
-    #[ORM\OneToMany(mappedBy: 'order_user', targetEntity: order::class)]
+    #[ORM\OneToMany(mappedBy: 'order_user', targetEntity: Order::class)]
     private Collection $user_order;
 
     #[ORM\OneToMany(mappedBy: 'publi_user', targetEntity: Publication::class)]
@@ -60,11 +65,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $token = null;
 
     function __construct(){ //constructeur
-        $this->created_at = new \DateTime(); //date du jour automatiquement
+        $this->created_at = new \DatetimeImmutable(); //date du jour automatiquement
         $this->user_order = new ArrayCollection();
         $this->publications = new ArrayCollection();
         $this->user_resa = new ArrayCollection();
         $this->user_bookmarks = new ArrayCollection();
+        $this->roles = ['ROLE_USER'];
     }
 
     public function getId(): ?int

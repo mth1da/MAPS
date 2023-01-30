@@ -4,6 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
+    <list default="true" id="36f0215c-9187-4df1-9b0b-65f93ab433af" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/templates/fragments/footer.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/fragments/header.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/phpunit.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/templates/fragments/menu.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/homepage/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/homepage/index.html.twig" afterDir="false" />
+=======
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
@@ -28,6 +40,7 @@
       <change beforePath="$PROJECT_DIR$/src/Repository/ReservationRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ReservationRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Repository/SandwichRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/SandwichRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Repository/TableRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/TableRepository.php" afterDir="false" />
+>>>>>>> 9eb94920a44c8ea6924cc761f185982ee06bb8fa
     </list>
     <list default="true" id="36f0215c-9187-4df1-9b0b-65f93ab433af" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,12 +50,25 @@
   </component>
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution />
+    <execution>
+      <executable path="composer" />
+    </execution>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
+<<<<<<< HEAD
+        <entry key="$PROJECT_DIR$" value="develop" />
+=======
         <entry key="$PROJECT_DIR$" value="page-de-connexion" />
+>>>>>>> 9eb94920a44c8ea6924cc761f185982ee06bb8fa
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -188,6 +214,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< HEAD
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/laragon/www/Projects/snowaddict-symfony",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\laragon\www\Projects\maps\templates\img" />
+    </key>
+  </component>
+=======
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
@@ -202,6 +250,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+>>>>>>> 9eb94920a44c8ea6924cc761f185982ee06bb8fa
   <component name="RunManager">
     <configuration name="phpunit.xml.dist" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner scope="XML" />
@@ -217,9 +266,17 @@
       <option name="presentableId" value="Default" />
       <updated>1674571830560</updated>
       <workItem from="1674571831700" duration="1506000" />
+<<<<<<< HEAD
+      <workItem from="1674809223139" duration="1518000" />
+      <workItem from="1674831466998" duration="314000" />
+      <workItem from="1674831815770" duration="5000" />
+      <workItem from="1674831859733" duration="3109000" />
+      <workItem from="1675011631479" duration="18097000" />
+=======
       <workItem from="1674809223139" duration="12589000" />
       <workItem from="1674809223139" duration="16496000" />
       <workItem from="1674809223139" duration="17096000" />
+>>>>>>> 9eb94920a44c8ea6924cc761f185982ee06bb8fa
     </task>
     <servers />
   </component>

@@ -9,6 +9,19 @@
 
     <img src="{{ asset('images/imgtest.webp')}}" alt="photo pour le test">
 
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col"> FEED </th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for publi in publications %}
+            {{ publi.photo }} <br>
+            {{ publi.commentaraire }}
+        {% endfor %}
+        </tbody>
+    </table>
 
 </div>
 {% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello FeedController!{% endblock %}
+
+
+{% block body %}
+<div class="example-wrapper">
+    <h1>feed</h1>
+
+    <img src="{{ asset('images/imgtest.webp')}}" alt="photo pour le test">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col"> FEED </th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for publi in publications %}
+            {{ publi.photo }} <br>
+            {{ publi.commentaraire }}
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

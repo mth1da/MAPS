@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[DiscriminatorMap(['sandwich' => sandwich::class, 'sandwich_moment' => SandwichMoment::class, 'original_sandwich' => OriginalSandwich::class])] //heritage
 
 #[ORM\Entity(repositoryClass: SandwichRepository::class)]
-class sandwich
+class Sandwich
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

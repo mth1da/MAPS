@@ -23,6 +23,7 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
 
     public function __construct(private UrlGeneratorInterface $urlGenerator)
     {
+        // $this->urlGenerator = $urlGenerator;
     }
 
     public function authenticate(Request $request): Passport
@@ -32,9 +33,12 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
         $request->getSession()->set(Security::LAST_USERNAME, $email);
 
         return new Passport(
+            //accéder à l'user par son email
             new UserBadge($email),
+            //récupère le mdp
             new PasswordCredentials($request->request->get('password', '')),
             [
+                //sécurisation
                 new CsrfTokenBadge('authenticate', $request->request->get('_csrf_token')),
             ]
         );
@@ -46,8 +50,7 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        // For example:
-        // return new RedirectResponse($this->urlGenerator->generate('some_route'));
+        //redirige l'user vers homepage
         return new RedirectResponse($this->urlGenerator->generate('app_homepage'));
     }
 

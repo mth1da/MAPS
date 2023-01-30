@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[Entity]
 #[InheritanceType('JOINED')]
@@ -23,6 +24,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Email(
+        message: 'L\'email {{ value }} n\'est pas valide.',
+    )]
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
@@ -32,17 +37,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      */
+    #[Assert\NotBlank]
     #[ORM\Column]
     private string $password ;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
     private string $first_name;
+
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
     private string $last_name;
+
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255, unique:true)]
     private string $user_name;
 
-
+    #[Assert\NotBlank]
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private \DateTimeInterface $birth_date;
 

@@ -15,35 +15,35 @@ class Bookmark
 
     #[ORM\ManyToOne(inversedBy: 'user_bookmarks')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?user $bookmark_user = null;
+    private ?User $bookmark_user = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?sandwich $bookmark_sandwich = null;
+    private ?Sandwich $bookmark_sandwich = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getBookmarkUser(): ?user
+    public function getBookmarkUser(): ?User
     {
         return $this->bookmark_user;
     }
 
-    public function setBookmarkUser(?user $bookmark_user): self
+    public function setBookmarkUser(?User $bookmark_user): self
     {
         $this->bookmark_user = $bookmark_user;
 
         return $this;
     }
 
-    public function getBookmarkSandwich(): ?sandwich
+    public function getBookmarkSandwich(): ?Sandwich
     {
         return $this->bookmark_sandwich;
     }
 
-    public function setBookmarkSandwich(?sandwich $bookmark_sandwich): self
+    public function setBookmarkSandwich(?Sandwich $bookmark_sandwich): self
     {
         $this->bookmark_sandwich = $bookmark_sandwich;
 

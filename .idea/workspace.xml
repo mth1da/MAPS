@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="36f0215c-9187-4df1-9b0b-65f93ab433af" name="Changes" comment="">
-<<<<<<< HEAD
-<<<<<<< HEAD
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-=======
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
->>>>>>> f5e01dac975f86426356a84ee5f6901fa03df1a4
-=======
->>>>>>> 32e82abb3cf5475604a1d6fc5a097f377ec26f24
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/migrations/Version20230127103126.php" beforeDir="false" />
@@ -37,6 +29,7 @@
       <change beforePath="$PROJECT_DIR$/src/Repository/SandwichRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/SandwichRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Repository/TableRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/TableRepository.php" afterDir="false" />
     </list>
+    <list default="true" id="36f0215c-9187-4df1-9b0b-65f93ab433af" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -224,21 +217,9 @@
       <option name="presentableId" value="Default" />
       <updated>1674571830560</updated>
       <workItem from="1674571831700" duration="1506000" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-      <workItem from="1674809223139" duration="1518000" />
-      <workItem from="1674811963237" duration="4388000" />
-=======
       <workItem from="1674809223139" duration="12589000" />
->>>>>>> ae8be8c89b2ff441db78796aaf134649c558e3f4
-=======
       <workItem from="1674809223139" duration="16496000" />
->>>>>>> f5e01dac975f86426356a84ee5f6901fa03df1a4
-=======
       <workItem from="1674809223139" duration="17096000" />
-      <workItem from="1674856913501" duration="11417000" />
->>>>>>> 32e82abb3cf5475604a1d6fc5a097f377ec26f24
     </task>
     <servers />
   </component>

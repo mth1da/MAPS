@@ -35,14 +35,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private string $password ;
 
-    #[ORM\Column(length: 255)]
-    private string $first_name;
 
-    #[ORM\Column(length: 255)]
-    private string $last_name;
 
-    #[ORM\Column(length: 255)]
-    private string $user_name;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private \DateTimeInterface $birth_date;
@@ -61,6 +55,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'bookmark_user', targetEntity: Bookmark::class)]
     private Collection $user_bookmarks;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $token = null;
 
     function __construct(){ //constructeur
         $this->created_at = new \DateTime(); //date du jour automatiquement
@@ -319,8 +316,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-}
 
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(?string $token): self
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+}
 class Client extends User{
 
 }

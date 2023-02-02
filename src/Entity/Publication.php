@@ -25,7 +25,7 @@ class Publication
 
     #[ORM\ManyToOne(inversedBy: 'publications')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?user $publi_user = null;
+    private ?User $publi_user = null;
 
     public function getId(): ?int
     {
@@ -68,12 +68,12 @@ class Publication
         return $this;
     }
 
-    public function getPubliUser(): ?user
+    public function getPubliUser(): ?User
     {
         return $this->publi_user;
     }
 
-    public function setPubliUser(?user $publi_user): self
+    public function setPubliUser(?User $publi_user): self
     {
         $this->publi_user = $publi_user;
 

@@ -19,7 +19,7 @@ class Bookmark
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?sandwich $bookmark_sandwich = null;
+    private ?Sandwich $bookmark_sandwich = null;
 
     public function getId(): ?int
     {
@@ -38,12 +38,12 @@ class Bookmark
         return $this;
     }
 
-    public function getBookmarkSandwich(): ?sandwich
+    public function getBookmarkSandwich(): ?Sandwich
     {
         return $this->bookmark_sandwich;
     }
 
-    public function setBookmarkSandwich(?sandwich $bookmark_sandwich): self
+    public function setBookmarkSandwich(?Sandwich $bookmark_sandwich): self
     {
         $this->bookmark_sandwich = $bookmark_sandwich;
 

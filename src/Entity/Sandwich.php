@@ -23,7 +23,7 @@ class Sandwich
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToMany(targetEntity: ingredient::class)]
+    #[ORM\ManyToMany(targetEntity: Ingredient::class)]
     private Collection $sandwich_ingredients;
 
     public function __construct()
@@ -49,14 +49,14 @@ class Sandwich
     }
 
     /**
-     * @return Collection<int, ingredient>
+     * @return Collection<int, Ingredient>
      */
     public function getSandwichIngredients(): Collection
     {
         return $this->sandwich_ingredients;
     }
 
-    public function addSandwichIngredient(ingredient $sandwichIngredient): self
+    public function addSandwichIngredient(Ingredient $sandwichIngredient): self
     {
         if (!$this->sandwich_ingredients->contains($sandwichIngredient)) {
             $this->sandwich_ingredients->add($sandwichIngredient);
@@ -65,7 +65,7 @@ class Sandwich
         return $this;
     }
 
-    public function removeSandwichIngredient(ingredient $sandwichIngredient): self
+    public function removeSandwichIngredient(Ingredient $sandwichIngredient): self
     {
         $this->sandwich_ingredients->removeElement($sandwichIngredient);
 

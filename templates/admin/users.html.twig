@@ -23,12 +23,15 @@
                                  {% elseif role ="ROLE_EDITOR"%}
                                      Editeur
                                  {% elseif role="ROLE_ADMIN"%}
+                                     Modérateur
+                                 {% elseif role="ROLE_MODO"%}
                                     Administrateur
                                 {% endif %}
                             {% endfor %}
                         </td>
                         <td>{{ user.ingredients|length }}</td>
-                        <td><a href=""class="btn_warning"> Modifier</a></td>
+                        <td><a href="{{ path('admin_modifier_utilisateur', {'id':user.id}) }} "
+                               class="btn_warning"> Modifier</a></td>
                     </tr>
 
                 {% else %}

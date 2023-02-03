@@ -10,10 +10,9 @@ use Doctrine\DBAL\Types\Types;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-#[Entity]
-#[InheritanceType('JOINED')]
-#[DiscriminatorColumn(name: 'discr', type: 'string')]
-#[DiscriminatorMap(['user' => User::class, 'client' => Client::class, 'admin' => Admin::class])] //heritage
+
+
+
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -321,11 +320,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 }
 
-class Client extends User{
 
-}
 
-class Admin extends User{
 
-}
 

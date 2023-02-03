@@ -33,9 +33,13 @@ class RegistrationController extends AbstractController
                 $this->passwordHasher->hashPassword($user, $form->get("password")->getData())
             );
 
-            $entityManager -> persist($user);
-            $entityManager ->flush();
-            $this->addFlash("success", message: "Inscription réussie !");
+            try {
+                $entityManager -> persist($user);
+                $entityManager ->flush();
+                $this->addFlash("success", message: "Inscription réussie !");
+            }catch (UniqueConstraintViolationException){
+                echo 'Nom d\'utilisateur ou email déjà utilisé, merci de réessayer.';
+            }
         }
 
         return $this->render('registration/index.html.twig', [

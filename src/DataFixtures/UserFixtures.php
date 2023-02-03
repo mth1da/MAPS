@@ -6,6 +6,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Entity\User;
+use Faker;
 
 class UserFixtures extends Fixture
 {
@@ -22,10 +23,28 @@ class UserFixtures extends Fixture
         $admin->setFirstName('Mathilde');
         $admin->setLastName('Turra');
         $admin->setUserName('admin');
-        $admin->setBirthDate('2002-11-15');
-        $admin->setCreatedAt();
+        $admin->setBirthDate(new \DateTime('15-11-2002'));
+        $admin->setCreatedAt(new \DateTimeImmutable());
 
         $manager->persist($admin);
+
+        //creation de 5 faux users
+        $faker = Faker\Factory::create('fr_FR');
+        for($usr=1; $usr<=5; $usr++){
+            $user = new User();
+            $user->setEmail($faker->email);
+            $user->setPassword(
+                $this->passwordHasher->hashPassword($user, 'password')
+            );
+            $user->setFirstName($faker->firstName);
+            $user->setLastName($faker->lastName);
+            $user->setUserName($faker->userName);
+            $user->setBirthDate($faker->dateTime);
+            $user->setCreatedAt(new \DateTimeImmutable());
+
+            $manager->persist($user);
+        }
+
         $manager->flush();
     }
 }

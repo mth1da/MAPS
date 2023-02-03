@@ -63,7 +63,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $user_bookmarks;
 
     function __construct(){ //constructeur
-        $this->created_at = new \DateTime(); //date du jour automatiquement
+        $this->created_at = new \DateTimeImmutable(); //date du jour automatiquement
         $this->user_order = new ArrayCollection();
         $this->publications = new ArrayCollection();
         $this->user_resa = new ArrayCollection();

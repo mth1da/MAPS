@@ -90,6 +90,7 @@ class RegistrationFormType extends AbstractType
             $this->entityManager -> persist($user);
             $this->entityManager ->flush();
             echo "Inscription réussie !";
+
         }catch (UniqueConstraintViolationException){
             echo 'Nom d\'utilisateur ou email déjà utilisé, merci de réessayer.';
         }

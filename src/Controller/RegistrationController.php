@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Services\RegistrationFormHandler;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
@@ -15,32 +16,25 @@ class RegistrationController extends AbstractController
 {
 
     private UserPasswordHasherInterface $passwordHasher;
+    private EntityManagerInterface $entityManager;
+    private RegistrationFormType $registrationForm;
 
-    public function __construct(UserPasswordHasherInterface $passwordHasher)
+    public function __construct(UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager, RegistrationFormType $registrationForm)
     {
         $this->passwordHasher = $passwordHasher;
+        $this->entityManager = $entityManager;
+        $this->registrationForm = $registrationForm;
     }
 
     #[Route('/registration', name: 'app_registration')]
-    public function index(\Symfony\Component\HttpFoundation\Request $request, EntityManagerInterface $entityManager): Response
+    public function index(\Symfony\Component\HttpFoundation\Request $request): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-
-            $user->setPassword(
-                $this->passwordHasher->hashPassword($user, $form->get("password")->getData())
-            );
-
-            try {
-                $entityManager -> persist($user);
-                $entityManager ->flush();
-                $this->addFlash("success", message: "Inscription réussie !");
-            }catch (UniqueConstraintViolationException){
-                echo 'Nom d\'utilisateur ou email déjà utilisé, merci de réessayer.';
-            }
+            $this->registrationForm->handleform($user, $form);
         }
 
         return $this->render('registration/index.html.twig', [

@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\User;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -10,10 +12,20 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Validator\Constraints\Length;
 
 class RegistrationFormType extends AbstractType
 {
+    private UserPasswordHasherInterface $passwordHasher;
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager)
+    {
+        $this->passwordHasher = $passwordHasher;
+        $this->entityManager = $entityManager;
+    }
+    
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -66,5 +78,21 @@ class RegistrationFormType extends AbstractType
         $resolver->setDefaults([
             'data_class' => User::class,
         ]);
+    }
+
+    public function handleForm(User $user, \Symfony\Component\Form\FormInterface $form): void
+    {
+        $user->setPassword(
+            $this->passwordHasher->hashPassword($user, $form->get("password")->getData())
+        );
+
+        try {
+            $this->entityManager -> persist($user);
+            $this->entityManager ->flush();
+            echo "Inscription réussie !";
+        }catch (UniqueConstraintViolationException){
+            echo 'Nom d\'utilisateur ou email déjà utilisé, merci de réessayer.';
+        }
+
     }
 }

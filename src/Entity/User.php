@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[Entity]
 #[InheritanceType('JOINED')]
@@ -18,11 +19,15 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    #[ORM\Id] //clé primaire
-    #[ORM\GeneratedValue] //auto increment
+    #[ORM\Id] //clé parimaire
+    #[ORM\GeneratedValue] //auto incrément
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Email(
+        message: 'L\'email {{ value }} n\'est pas valide.',
+    )]
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
@@ -32,25 +37,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      */
+    #[Assert\NotBlank]
     #[ORM\Column]
     private string $password ;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
     private string $first_name;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
     private string $last_name;
 
-    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[ORM\Column(length: 255, unique:true)]
     private string $user_name;
 
+    #[Assert\NotBlank]
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private \DateTimeInterface $birth_date;
 
     #[ORM\Column]
     private \DateTimeImmutable $created_at;
 
-    #[ORM\OneToMany(mappedBy: 'order_user', targetEntity: order::class)]
+    #[ORM\OneToMany(mappedBy: 'order_user', targetEntity: Order::class)]
     private Collection $user_order;
 
     #[ORM\OneToMany(mappedBy: 'publi_user', targetEntity: Publication::class)]
@@ -62,12 +72,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'bookmark_user', targetEntity: Bookmark::class)]
     private Collection $user_bookmarks;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $token = null;
+
     function __construct(){ //constructeur
-        $this->created_at = new \DateTime(); //date du jour automatiquement
+        $this->created_at = new \DatetimeImmutable(); //date du jour automatiquement
         $this->user_order = new ArrayCollection();
         $this->publications = new ArrayCollection();
         $this->user_resa = new ArrayCollection();
         $this->user_bookmarks = new ArrayCollection();
+        $this->roles = ['ROLE_USER'];
     }
 
     public function getId(): ?int
@@ -319,8 +333,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-}
 
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(?string $token): self
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+}
 class Client extends User{
 
 }
@@ -328,4 +353,6 @@ class Client extends User{
 class Admin extends User{
 
 }
+
+
 

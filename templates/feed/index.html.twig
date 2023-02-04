@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Actu{% endblock %}
+
+
+{% block body %}
+
+    {% for publi in publications %}
+        {{ publi.photo }} <br>
+        {{ publi.commentaire }}
+    {% endfor %}
+
+    <div class="container">
+    <h1>Feed</h1>
+    {% for usr in users %}
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ usr.firstname }}</h5>
+            <img src="{{ asset('images/imgtest.webp')}}" class="card-img-top" alt="photo pour le test">
+            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+    </div>
+    </div>
+
+    {% endfor %}
+
+{% endblock %}

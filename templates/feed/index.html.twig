@@ -11,7 +11,15 @@
     {% endfor %}
 
     <div class="container">
-    <h1>Feed</h1>
+
+    Partagez votre MAPS Sandwich !
+    {% if app.user %}
+        <button type="button" class="btn btn-secondary" onclick="location.href='{{ path('app_publication_add') }}'">Ajouter une publication</button>
+    {% else%}
+        <button type="button" class="btn btn-secondary" onclick="location.href='{{ path('app_login') }}'">Se connecter</button>
+    {% endif %}
+
+    <br><br>
     {% for usr in users %}
 
     <div class="card">

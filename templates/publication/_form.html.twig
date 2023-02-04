@@ -1,0 +1,10 @@
+{{ form_start(publiForm) }}
+    {{ form_row(publiForm.photo) }}
+    {{ form_row(publiForm.commentaire) }}
+<button class="btn btn-lg btn-primary my-3" type="submit">
+    {{ button_label|default('Publier') }}
+</button>
+<button class="btn btn-lg btn-primary my-3" type="reset">
+    Effacer
+</button>
+{{ form_end(publiForm) }}

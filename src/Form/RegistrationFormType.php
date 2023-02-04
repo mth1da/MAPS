@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
 
 class RegistrationFormType extends AbstractType
 {
@@ -17,22 +18,45 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('user_name', TextType::class, [
-                'label' => 'Nom d\'utilisateur : '
+                'label' => 'Nom d\'utilisateur',
+                'attr' => [
+                    'class' => 'form-control'
+                ]
             ])
             ->add('first_name', TextType::class, [
-                'label' => 'Prénom : '
+                'label' => 'Prénom',
+                'attr' => [
+                    'class' => 'form-control'
+                ]
             ])
             ->add('last_name', TextType::class, [
-                'label' => 'Nom de famille : '
+                'label' => 'Nom de famille',
+                'attr' => [
+                    'class' => 'form-control'
+                ]
             ])
             ->add('email', EmailType::class, [
-                'label' => 'Email : '
+                'label' => 'Email',
+                'attr' => [
+                    'class' => 'form-control'
+                ]
             ])
             ->add('password', PasswordType::class, [
-                'label' => 'Mot de passe : '
+                'label' => 'Mot de passe',
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'constraints' => [
+                    new Length([
+                        'min'=>6,
+                        'minMessage'=> 'Your password should at least be of 6 characters',
+                        //max length allowed by symf for security reasons
+                        'max'=>4096,
+                    ])
+                ]
             ])
             ->add('birth_date', BirthdayType::class, [
-                'label' => 'Date de naissance : '
+                'label' => 'Date de naissance',
             ])
         ;
     }

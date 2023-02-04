@@ -25,7 +25,10 @@
 
     </head>
     <body>
-        {% include 'fragments/header.html.twig' %}
+    {% block header %}
+    {% endblock %}
+
+        {% include 'fragments/menu.html.twig' %}
 
         {% block body %}
         {% endblock %}

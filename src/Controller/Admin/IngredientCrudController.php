@@ -9,9 +9,11 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
-
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 class IngredientCrudController extends AbstractCrudController
 {
+    public const INGREDIENTS_BASE_PATH ='upload/images/ingredients';
+    public const INGREDIENTS_UPLOAD_DIR ='public/upload/images/ingredients';
     public static function getEntityFqcn(): string
     {
         return Ingredient::class;
@@ -23,9 +25,13 @@ class IngredientCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm(),
             TextField::new('name'),
-            TextField::new('description'),
+            TextEditorField::new('description'),
             TextField::new('price'),
-            TextField::new('photo'),
+
+            ImageField::new('photo')
+                ->setBasePath(self::INGREDIENTS_BASE_PATH)
+                ->setUploadDir(self::INGREDIENTS_UPLOAD_DIR),
+
             DateTimeField::new('created_at')->hideOnForm(),
             DateTimeField::new('updated_at')->hideOnForm(),
             DateTimeField::new('deleted_at')->hideOnForm(),
@@ -38,14 +44,20 @@ class IngredientCrudController extends AbstractCrudController
         if(!$entityInstance instanceof Ingredient) return;
 
         $entityInstance->setCreatedAt(new \DateTimeImmutable);
-        $entityInstance->setUpdatedAt(new \DateTimeImmutable);
-        $entityInstance->setDeletedAt(new \DateTimeImmutable);
+
 
         parent::persistEntity($em, $entityInstance);
 
-
-
-
     }
+    public function updateEntity(EntityManagerInterface $em, $entityInstance): void
+    {
+        if(!$entityInstance instanceof Ingredient) return;
+
+        $entityInstance->setUpdatedAt(new \DateTimeImmutable);
+
+
+        parent::UpdateEntity($em, $entityInstance);
+    }
+
 
 }

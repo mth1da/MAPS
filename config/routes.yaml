@@ -9,9 +9,9 @@ controllers:
 admin:
     path: /admin
     controller: App\Controller\Admin\DashboardController::index
-    methods: [GET]
+    methods: [GET, POST]
 
 admin_users:
     path: /admin/users
     controller: App\Controller\Admin\UserController::index
-    methods: [GET]
+    methods: [GET, POST]

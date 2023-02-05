@@ -79,7 +79,7 @@ class UploadImageService
         $path = $this->params->get('app.images_upload_file_path');
 
         //on stocke l'image recadrée
-        imagewebp($resized_pic, $path . $width . 'x' . $height . '-' . $fichier);
+        imagewebp($resized_pic, $path . $fichier);
         //$pic->move($path . $fichier);
 
         return $fichier;

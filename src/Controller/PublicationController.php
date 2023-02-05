@@ -40,8 +40,11 @@ class PublicationController extends AbstractController
             //on récupère la photo
             $photo = $publiForm->get('photo')->getData();
 
+            //on appelle le service upload image
             $fichier = $uploadImgService->create($photo,300,300);
-            $die;
+
+            //on set le nom de fichier dans la bdd
+            $publi->setPhoto($fichier);
 
             $entityManager->persist($publi);
             $entityManager->flush();

@@ -15,7 +15,7 @@ class FeedController extends AbstractController
     {
         return $this->render('feed/index.html.twig', [
             'publications' => $publicationRepository->findAll(),
-            'users' => $usrRepo->findAll()
+            //'users' => $usrRepo->findAll()
         ]);
     }
 }

@@ -13,8 +13,7 @@
                 </p>
 
                 {% for message in app.flashes('success') %}
-                    <div class="flash-notice">
-                        {{ message }}
+                    <div class="p-3 text-success-emphasis bg-success-subtle  border border---bs-success-bg-subtle rounded-3">                        {{ message }}
                     </div>
                 {% endfor %}
 

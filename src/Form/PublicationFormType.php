@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Publication;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -12,12 +13,15 @@ class PublicationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('photo', options:[
-                'label' => 'Photo'
+            ->add('photo', FileType::class, [
+                'label' => 'Photo',
+                'multiple' => false,
+                'mapped' => false, //pas besoin d'etre de meme type que photo dans publication
             ])
             ->add('commentaire', options:[
                 'label' => 'Commentaire'
             ])
+
         ;
     }
 

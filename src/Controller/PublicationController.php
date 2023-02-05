@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Publication;
 use App\Form\PublicationFormType;
+use App\Service\UploadImageService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +20,7 @@ class PublicationController extends AbstractController
     }
 
     #[Route('/ajout', name: 'add')]
-    public function add(Request $request, EntityManagerInterface $entityManager): Response
+    public function add(Request $request, EntityManagerInterface $entityManager, UploadImageService $uploadImgService): Response //DI
     {
         //on crée une nouvelle publication
         $publi = new Publication();
@@ -32,12 +33,22 @@ class PublicationController extends AbstractController
 
         //on vérifie si le form est soumis et valide
         if($publiForm->isSubmitted() && $publiForm->isValid()){
+            //on récupère l'user
+            $user = $this->getUser();
+            $publi->setPubliUser($user);
+
+            //on récupère la photo
+            $photo = $publiForm->get('photo')->getData();
+
+            $fichier = $uploadImgService->create($photo,300,300);
+            $die;
+
             $entityManager->persist($publi);
             $entityManager->flush();
 
             $this->addFlash('success', 'Produit ajouté avec succès');
 
-            return $this->redirectToRoute('app_publication_index');
+            return $this->redirectToRoute('app_feed');
         }
 
         return $this->renderForm('publication/add.html.twig', [

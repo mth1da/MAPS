@@ -3,3 +3,15 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+
+
+admin:
+    path: /admin
+    controller: App\Controller\Admin\DashboardController::index
+    methods: [GET]
+
+admin_users:
+    path: /admin/users
+    controller: App\Controller\Admin\UserController::index
+    methods: [GET]

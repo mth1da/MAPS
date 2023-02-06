@@ -39,6 +39,15 @@ class PublicationRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllByDescendingOrder(): array
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.created_at', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+
 //    /**
 //     * @return Publication[] Returns an array of Publication objects
 //     */

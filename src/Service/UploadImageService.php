@@ -85,7 +85,7 @@ class UploadImageService
         return $fichier;
     }
 
-    public function delete(string $fichier, ?string $folder ='', ?int $width = 250, ?int $height = 250)
+    public function delete(string $fichier, ?int $width = 250, ?int $height = 250)
     {
 
     }

@@ -21,7 +21,29 @@
         <div class="card-body">
             <h5 class="card-title">{{ publi.getPubliUser().getUsername() }}</h5>
             <img src="{{ asset('uploads/')}}{{ publi.photo }}" class="card-img-top" alt="photo pour le test">
-            <h6 class="card-subtitle mb-2 text-muted">{{ publi.createdAt|date('d-m-Y')}}</h6>
+
+            {% set startDate = date(publi.createdAt) %}
+            {% set difference = date( 'now' | date() ).diff(date(startDate)) %}
+
+            {% set leftMinutes = difference.i %}
+            {% set leftHours = difference.h %}
+            {% set leftDays = difference.days %}
+            {% set leftYears = difference.y %}
+
+            {% if leftMinutes < 60 and leftHours < 1 %}
+                <p class="card-subtitle mb-2 text-muted">il y a {{ leftMinutes }} minutes.</p>
+            {% elseif leftHours == 1 %}
+                <p class="card-subtitle mb-2 text-muted">il y a 1 heure.</p>
+            {% elseif leftHours >= 1 and lefDays < 1 %}
+                <p class="card-subtitle mb-2 text-muted">il y a {{ leftHours }} heures.</p>
+            {% elseif leftDays == 1%}
+                <p class="card-subtitle mb-2 text-muted">il y a 1 jour.</p>
+            {% elseif  leftDays >= 1 and leftDays < 7  %}
+                <p class="card-subtitle mb-2 text-muted">il y a {{ leftDays }} jours. </p>
+            {% else %}
+                <p class="card-subtitle mb-2 text-muted">{{ publi.createdAt|date('d-m-Y')}}</p>
+            {% endif %}
+
             <p class="card-text">{{ publi.commentaire }}</p>
         </div>
     </div>

@@ -54,7 +54,7 @@ class PublicationController extends AbstractController
             return $this->redirectToRoute('app_feed');
         }
 
-        return $this->renderForm('publication/add.html.twig', [
+        return $this->render('publication/add.html.twig', [
             'publiForm' => $publiForm,
             ]);
         //<=>
@@ -85,7 +85,7 @@ class PublicationController extends AbstractController
             return $this->redirectToRoute('app_publication_index');
         }
 
-        return $this->renderForm('publication/update.html.twig', [
+        return $this->render('publication/update.html.twig', [
             'publiForm' => $publiForm,
         ]);
     }

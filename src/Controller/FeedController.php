@@ -14,8 +14,8 @@ class FeedController extends AbstractController
     public function index(PublicationRepository $publicationRepository, UserRepository $usrRepo): Response
     {
         return $this->render('feed/index.html.twig', [
-            'publications' => $publicationRepository->findAll(),
-            'users' => $usrRepo->findAll()
+            'publications' => $publicationRepository->findAllByDescendingOrder(),
+            //'users' => $usrRepo->findAll()
         ]);
     }
 }

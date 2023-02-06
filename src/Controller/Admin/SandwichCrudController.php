@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Ingredient;
 use App\Entity\Sandwich;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -23,7 +24,7 @@ class SandwichCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hiedOnForm(),
             TextField::new('name'),
-            AssociationField::new('ingredient'),
+            AssociationField::new('Ingredient'),
         ];
     }
 

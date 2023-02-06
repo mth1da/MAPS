@@ -3,7 +3,12 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Reservation;
+use App\Entity\User;
+use App\Entity\Table;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class ReservationCrudController extends AbstractCrudController
 {
@@ -12,14 +17,16 @@ class ReservationCrudController extends AbstractCrudController
         return Reservation::class;
     }
 
-    /*
+
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
+            IdField::new('id')->hideOnForm(),
+            TextField::new('date'),
+            TextField::new('time'),
+            TextField::new('resa_table'),
+            TextField::new('user'),
         ];
     }
-    */
+
 }

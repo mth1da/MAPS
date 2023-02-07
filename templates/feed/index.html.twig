@@ -30,7 +30,7 @@
             {% set leftDays = difference.days %}
             {% set leftYears = difference.y %}
 
-            {% if leftMinutes < 60 and leftHours < 1 %}
+            {% if leftHours < 1 %}
                 <p class="card-subtitle mb-2 text-muted">il y a {{ leftMinutes }} minutes.</p>
             {% elseif leftHours == 1 %}
                 <p class="card-subtitle mb-2 text-muted">il y a 1 heure.</p>

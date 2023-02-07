@@ -50,7 +50,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private \DateTimeImmutable $created_at;
 
-    #[ORM\OneToMany(mappedBy: 'order_user', targetEntity: order::class)]
+    #[ORM\OneToMany(mappedBy: 'order_user', targetEntity: Order::class)]
     private Collection $user_order;
 
     #[ORM\OneToMany(mappedBy: 'publi_user', targetEntity: Publication::class)]
@@ -61,6 +61,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'bookmark_user', targetEntity: Bookmark::class)]
     private Collection $user_bookmarks;
+
+
 
     function __construct(){ //constructeur
         $this->created_at = new \DateTimeImmutable(); //date du jour automatiquement
@@ -208,7 +210,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->user_order;
     }
 
-    public function addUserOrder(order $userOrder): self
+    public function addUserOrder(Order $userOrder): self
     {
         if (!$this->user_order->contains($userOrder)) {
             $this->user_order->add($userOrder);
@@ -218,7 +220,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeUserOrder(order $userOrder): self
+    public function removeUserOrder(Order $userOrder): self
     {
         if ($this->user_order->removeElement($userOrder)) {
             // set the owning side to null (unless already changed)
@@ -321,6 +323,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
+    public function __toString(){
+        return  $this->first_name . ' ' .  $this->last_name;
+    }
 }
 
 

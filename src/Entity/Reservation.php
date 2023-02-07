@@ -22,11 +22,11 @@ class Reservation
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?table $resa_table = null;
+    private ?Table $resa_table = null;
 
     #[ORM\ManyToOne(inversedBy: 'user_resa')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?user $resa_user = null;
+    private ?User $resa_user = null;
 
     public function getId(): ?int
     {
@@ -57,27 +57,30 @@ class Reservation
         return $this;
     }
 
-    public function getResaTable(): ?table
+    public function getResaTable(): ?Table
     {
         return $this->resa_table;
     }
 
-    public function setResaTable(?table $resa_table): self
+    public function setResaTable(?Table $resa_table): self
     {
         $this->resa_table = $resa_table;
 
         return $this;
     }
 
-    public function getResaUser(): ?user
+    public function getResaUser(): ?User
     {
         return $this->resa_user;
     }
 
-    public function setResaUser(?user $resa_user): self
+    public function setResaUser(?User $resa_user): self
     {
         $this->resa_user = $resa_user;
 
         return $this;
+    }
+    public function __toString(){
+        return  $this->id;
     }
 }

@@ -34,7 +34,9 @@ class Ingredient
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $deleted_at = null;
-
+    function __construct(){ //constructeur
+        $this->created_at = new \DateTimeImmutable(); //date du jour automatiquement
+    }
     public function getId(): ?int
     {
         return $this->id;

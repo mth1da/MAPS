@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Publication;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
@@ -31,7 +32,7 @@ class PublicationCrudController extends AbstractCrudController
 
             TextEditorField::new('commentaire'),
             DateTimeField::new('created_at')->hideOnForm(),
-            TextField::new('$publi_user'),
+            AssociationField::new('publi_user'),
 
         ];
     }

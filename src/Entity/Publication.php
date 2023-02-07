@@ -25,8 +25,10 @@ class Publication
 
     #[ORM\ManyToOne(inversedBy: 'publications')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?user $publi_user = null;
-
+    private ?User $publi_user = null;
+    function __construct(){ //constructeur
+        $this->created_at = new \DateTimeImmutable(); //date du jour automatiquement
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -68,15 +70,18 @@ class Publication
         return $this;
     }
 
-    public function getPubliUser(): ?user
+    public function getPubliUser(): ?User
     {
         return $this->publi_user;
     }
 
-    public function setPubliUser(?user $publi_user): self
+    public function setPubliUser(?User $publi_user): self
     {
         $this->publi_user = $publi_user;
 
         return $this;
+    }
+    public function __toString(){
+        return $this->id;
     }
 }

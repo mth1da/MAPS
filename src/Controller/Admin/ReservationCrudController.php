@@ -6,6 +6,8 @@ use App\Entity\Reservation;
 use App\Entity\User;
 use App\Entity\Table;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -22,10 +24,10 @@ class ReservationCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            TextField::new('date'),
-            TextField::new('time'),
-            TextField::new('resa_table'),
-            TextField::new('user'),
+            DateTimeField::new('date'),
+            DateTimeField::new('time'),
+            AssociationField::new('resa_table'),
+            AssociationField::new('resa_user'),
         ];
     }
 

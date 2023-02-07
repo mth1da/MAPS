@@ -1,26 +1,52 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Sandwichs traditionnels{% endblock %}
+{% block stylesheets %}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+{%  endblock %}
+{% block javascripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+{% endblock %}
 
 {% block body %}
-
-    <div class="container">
     <h1>Sandwichs traditionnels</h1>
+    <div class="container">
         <div class="row">
             {% for originalSandwich in orginalsSandwichs %}
                 <div class="col">
                     <div class="card" style="width: 18rem;">
                         <img src="{{ asset('images/imgtest.webp')}}" class="card-img-top" alt="photo pour le test">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ originalSandwich.Name }}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <div class="container">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ originalSandwich.Name }}</h5>
+                                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Voir</button>
+                                <div class="modal fade" id="myModal" role="dialog">
+                                    <div class="modal-dialog">
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">{{ originalSandwich.Name }}</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                {% for ingredient in originalSandwich.getSandwichIngredients() %}
+                                                    <p class="card-text">ingrédient</p>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-    {% endfor %}
+             {% endfor %}
         </div>
     </div>
-
+    
 {% endblock %}

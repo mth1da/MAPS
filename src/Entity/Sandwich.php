@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\SandwichRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[Entity]
@@ -18,13 +19,16 @@ class Sandwich
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    protected ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    protected ?string $name = null;
 
     #[ORM\ManyToMany(targetEntity: Ingredient::class)]
-    private Collection $sandwich_ingredients;
+    protected Collection $sandwich_ingredients;
+
+    #[ORM\Column]
+    private ?float $price = null;
 
     public function __construct()
     {
@@ -71,6 +75,18 @@ class Sandwich
 
         return $this;
     }
+
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(float $price): self
+    {
+        $this->price = $price;
+
+        return $this;
+    }
 }
 
 class SandwichMoment extends Sandwich{
@@ -78,7 +94,3 @@ class SandwichMoment extends Sandwich{
     private string $description;
 }
 
-class OriginalSandwich extends Sandwich{
-    #[ORM\Column(type: Types::TEXT)]
-    private string $description;
-}

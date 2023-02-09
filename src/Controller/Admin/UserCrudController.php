@@ -38,14 +38,11 @@ class UserCrudController extends AbstractCrudController
             TextField::new('user_name'),
             DateTimeField::new('birth_date'),
             DateTimeField::new('created_at')->hideOnForm(),
-            AssociationField::new('user_order'),
-            AssociationField::new('publications'),
-            AssociationField::new('user_resa'),
-            AssociationField::new('user_bookmarks'),
+            //AssociationField::new('user_bookmarks'),
 
         ];
     }
-    public function persistEntity(EntityManagerInterface $em, $entityInstance): void
+/*    public function persistEntity(EntityManagerInterface $em, $entityInstance): void
     {
         if(!$entityInstance instanceof Ingredient) return;
 
@@ -54,6 +51,6 @@ class UserCrudController extends AbstractCrudController
 
         parent::persistEntity($em, $entityInstance);
 
-    }
+    }*/
 
 }

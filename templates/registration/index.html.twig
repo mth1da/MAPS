@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+
+    <section class="container">
+        <div class="row">
+            <div class="col">
+                <h1 class="h3 mb-3 font-weight-normal">Inscription au service MAPS</h1>
+                <p> Already have an account ?
+                    <button type="button" class="btn btn-secondary" onclick="location.href='{{ path('app_login') }}'">Log in</button>
+                </p>
+
+                {% for message in app.flashes('success') %}
+                    <div class="p-3 text-success-emphasis bg-success-subtle  border border---bs-success-bg-subtle rounded-3">                        {{ message }}
+                    </div>
+                {% endfor %}
+
+                {{ form_start(form) }}
+                {{ form_row(form) }}
+                <button class="btn btn-lg btn-primary my-3" type="submit">
+                    M'inscrire
+                </button>
+                <button class="btn btn-lg btn-primary my-3" type="reset">
+                    Effacer
+                </button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

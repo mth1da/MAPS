@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Actu{% endblock %}
+
+
+{% block body %}
+
+    <div class="container">
+
+    Partagez votre MAPS Sandwich !
+    {% if app.user %}
+        <button type="button" class="btn btn-secondary" onclick="location.href='{{ path('app_publication_add') }}'">Ajouter une publication</button>
+    {% else%}
+        <button type="button" class="btn btn-secondary" onclick="location.href='{{ path('app_login') }}'">Se connecter</button>
+    {% endif %}
+
+    <br><br>
+    {% for publi in publications %}
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ publi.getPubliUser().getUsername() }}</h5>
+            <img src="{{ asset('uploads/')}}{{ publi.photo }}" class="card-img-top" alt="photo pour le test">
+
+            {% set startDate = date(publi.createdAt) %}
+            {% set difference = date( 'now' | date() ).diff(date(startDate)) %}
+
+            {% set leftMinutes = difference.i %}
+            {% set leftHours = difference.h %}
+            {% set leftDays = difference.days %}
+            {% set leftYears = difference.y %}
+
+            {% if leftHours < 1 %}
+                <p class="card-subtitle mb-2 text-muted">il y a {{ leftMinutes }} minutes.</p>
+            {% elseif leftHours == 1 %}
+                <p class="card-subtitle mb-2 text-muted">il y a 1 heure.</p>
+            {% elseif leftHours >= 1 and leftDays < 1 %}
+                <p class="card-subtitle mb-2 text-muted">il y a {{ leftHours }} heures.</p>
+            {% elseif leftDays == 1%}
+                <p class="card-subtitle mb-2 text-muted">il y a 1 jour.</p>
+            {% elseif  leftDays >= 1 and leftDays < 7  %}
+                <p class="card-subtitle mb-2 text-muted">il y a {{ leftDays }} jours. </p>
+            {% else %}
+                <p class="card-subtitle mb-2 text-muted">{{ publi.createdAt|date('d-m-Y')}}</p>
+            {% endif %}
+
+            <p class="card-text">{{ publi.commentaire }}</p>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+
+{% endblock %}

@@ -21,12 +21,16 @@ class Publication
     private ?string $commentaire = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $created_at = null;
+    private \DateTimeImmutable $created_at;
 
     #[ORM\ManyToOne(inversedBy: 'publications')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $publi_user = null;
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")] //si on supp un user => toutes ses publi sup
+    private User $publi_user;
 
+    function __construct(){ //constructeur
+        $this->created_at = new \DatetimeImmutable(); //date du jour automatiquement
+        //$this->publi_user = new User();
+    }
     public function getId(): ?int
     {
         return $this->id;

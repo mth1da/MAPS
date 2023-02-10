@@ -9,27 +9,30 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active" aria-current="page" href="#">Mapping</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Mapping</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">A Propos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_feed') }}">Feed</a>
+                        <a class="nav-link" href="#">Le Concept</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Favoris
+                            Nos Sandwichs
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Sandwich traditionnel</a></li>
-                            <li><a class="dropdown-item" href="#">Sandwich du moment</a></li>
+                            <li><a class="dropdown-item" href="{{ path('app_original_sandwich') }}">Sandwichs traditionnels</a></li>
+                            <li><a class="dropdown-item" href="#">Sandwichs du moment</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Mon Compte</a></li>
+                            <li><a class="dropdown-item" href="#">smtg else</a></li>
                         </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_feed') }}">Vos Sandwichs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Réservation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">A Propos de nous</a>
                     </li>
                 </ul>
                 <!-- Button -->
@@ -44,7 +47,7 @@
                             <button type="button" class="navbar-btn btn btn-sm ms-auto btn-outline-secondary" onclick="location.href='{{ path('app_logout') }}'">Log out</button>
                         </li>
 
-                        {# si l'user n'est pas connecté #}
+                    {# si l'user n'est pas connecté #}
                     {% else %}
                         <li class="nav-item">
                             <button type="button" class="navbar-btn btn btn-sm ms-auto btn-outline-secondary" onclick="location.href='{{ path('app_login') }}'">Log in</button>

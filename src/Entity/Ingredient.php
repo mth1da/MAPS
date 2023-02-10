@@ -34,11 +34,9 @@ class Ingredient
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $deleted_at = null;
-
-    #[ORM\ManyToOne(inversedBy: 'ingredients')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Type $types = null;
-
+    function __construct(){ //constructeur
+        $this->created_at = new \DateTimeImmutable(); //date du jour automatiquement
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -138,5 +136,8 @@ class Ingredient
         $this->types = $types;
 
         return $this;
+    public function __toString()
+    {
+        return $this->name;
     }
 }

@@ -11,16 +11,16 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[Entity]
-#[InheritanceType('JOINED')]
-#[DiscriminatorColumn(name: 'discr', type: 'string')]
-#[DiscriminatorMap(['user' => User::class, 'client' => Client::class, 'admin' => Admin::class])] //heritage
+
+
+
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    #[ORM\Id] //clé parimaire
-    #[ORM\GeneratedValue] //auto incrément
+
+    #[ORM\Id] //clé primaire
+    #[ORM\GeneratedValue] //auto increment
     #[ORM\Column]
     private ?int $id = null;
 
@@ -72,11 +72,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'bookmark_user', targetEntity: Bookmark::class)]
     private Collection $user_bookmarks;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $token = null;
+
 
     function __construct(){ //constructeur
-        $this->created_at = new \DatetimeImmutable(); //date du jour automatiquement
+        $this->created_at = new \DateTimeImmutable(); //date du jour automatiquement
         $this->user_order = new ArrayCollection();
         $this->publications = new ArrayCollection();
         $this->user_resa = new ArrayCollection();
@@ -222,7 +221,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->user_order;
     }
 
-    public function addUserOrder(order $userOrder): self
+    public function addUserOrder(Order $userOrder): self
     {
         if (!$this->user_order->contains($userOrder)) {
             $this->user_order->add($userOrder);
@@ -232,7 +231,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeUserOrder(order $userOrder): self
+    public function removeUserOrder(Order $userOrder): self
     {
         if ($this->user_order->removeElement($userOrder)) {
             // set the owning side to null (unless already changed)
@@ -348,11 +347,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 }
 class Client extends User{
 
+
+    public function __toString(){
+        return  $this->first_name . ' ' .  $this->last_name;
+    }
 }
 
-class Admin extends User{
 
-}
+
+
 
 
 

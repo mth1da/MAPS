@@ -8,11 +8,18 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class IngredientsController extends AbstractController
 {
-    #[Route('/ingredients', name: 'app_ingredient')]
+
+    #[Route('/article/nouveau', name: 'ajout_ingredient')]
     public function index(): Response
     {
         return $this->render('ingredients/index.html.twig', [
             'controller_name' => 'IngredientsController',
         ]);
+    }
+
+    #[Route('/ingredient/modifier/id', name: 'modif_ingredient')]
+    public function modifIngredient(){
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        //ici il faut être admin
     }
 }

@@ -11,14 +11,14 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[Entity]
-#[InheritanceType('JOINED')]
-#[DiscriminatorColumn(name: 'discr', type: 'string')]
-#[DiscriminatorMap(['user' => User::class, 'client' => Client::class, 'admin' => Admin::class])] //heritage
+
+
+
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+
     #[ORM\Id] //clé parimaire
     #[ORM\GeneratedValue] //auto incrément
     #[ORM\Column]
@@ -222,7 +222,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->user_order;
     }
 
-    public function addUserOrder(order $userOrder): self
+    public function addUserOrder(Order $userOrder): self
     {
         if (!$this->user_order->contains($userOrder)) {
             $this->user_order->add($userOrder);
@@ -232,7 +232,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeUserOrder(order $userOrder): self
+    public function removeUserOrder(Order $userOrder): self
     {
         if ($this->user_order->removeElement($userOrder)) {
             // set the owning side to null (unless already changed)
@@ -346,13 +346,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 }
+
 class Client extends User{
 
+    public function __toString(){
+        return  $this->first_name . ' ' .  $this->last_name;
+    }
 }
 
-class Admin extends User{
 
-}
+
+
 
 
 

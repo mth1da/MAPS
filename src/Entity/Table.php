@@ -6,7 +6,7 @@ use App\Repository\TableRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TableRepository::class)]
-#[ORM\Table(name: '`table`')]
+#[ORM\Table(name: '`Table`')]
 class Table
 {
     #[ORM\Id]
@@ -47,5 +47,8 @@ class Table
         $this->location = $location;
 
         return $this;
+    }
+    public function __toString(){
+        return  $this->id;
     }
 }

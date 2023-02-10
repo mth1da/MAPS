@@ -26,6 +26,7 @@ class Sandwich
     #[ORM\ManyToMany(targetEntity: Ingredient::class)]
     private Collection $sandwich_ingredients;
 
+
     public function __construct()
     {
         $this->sandwich_ingredients = new ArrayCollection();
@@ -71,6 +72,7 @@ class Sandwich
 
         return $this;
     }
+
 }
 
 class SandwichMoment extends Sandwich{

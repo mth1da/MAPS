@@ -30,6 +30,7 @@ class Publication
     function __construct(){ //constructeur
         $this->created_at = new \DatetimeImmutable(); //date du jour automatiquement
         //$this->publi_user = new User();
+
     }
     public function getId(): ?int
     {
@@ -82,5 +83,8 @@ class Publication
         $this->publi_user = $publi_user;
 
         return $this;
+    }
+    public function __toString(){
+        return $this->id;
     }
 }

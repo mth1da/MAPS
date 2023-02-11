@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\PublicationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\User;
 
 #[ORM\Entity(repositoryClass: PublicationRepository::class)]
 class Publication
@@ -24,10 +25,12 @@ class Publication
     private \DateTimeImmutable $created_at;
 
     #[ORM\ManyToOne(inversedBy: 'publications')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $publi_user = null;
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")] //si on supp un user => toutes ses publi sup
+    private User $publi_user;
+
     function __construct(){ //constructeur
-        $this->created_at = new \DateTimeImmutable(); //date du jour automatiquement
+        $this->created_at = new \DatetimeImmutable(); //date du jour automatiquement
+        //$this->publi_user = new User();
     }
     public function getId(): ?int
     {

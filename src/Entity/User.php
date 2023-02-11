@@ -12,9 +12,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
-
-
-
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -43,11 +40,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
-    private string $first_name;
+    protected string $first_name;
 
     #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
-    private string $last_name;
+    protected string $last_name;
 
     #[Assert\NotBlank]
     #[ORM\Column(length: 255, unique:true)]
@@ -72,10 +69,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'bookmark_user', targetEntity: Bookmark::class)]
     private Collection $user_bookmarks;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $token = null;
 
+    #[ORM\Column(type: 'boolean')]
+    private bool $is_verified = false;
 
     function __construct(){ //constructeur
-        $this->created_at = new \DateTimeImmutable(); //date du jour automatiquement
+        $this->created_at = new \DatetimeImmutable(); //date du jour automatiquement
         $this->user_order = new ArrayCollection();
         $this->publications = new ArrayCollection();
         $this->user_resa = new ArrayCollection();
@@ -344,14 +345,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-}
-class Client extends User{
 
+    public function getIsVerified(): ?bool
+    {
+        return $this->is_verified;
+    }
+
+    public function setIsVerified(?bool $is_verified): self
+    {
+        $this->is_verified = $is_verified;
+        return $this;
+    }
+}
+
+class Client extends User{
 
     public function __toString(){
         return  $this->first_name . ' ' .  $this->last_name;
     }
 }
+
 
 
 

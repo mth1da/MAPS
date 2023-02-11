@@ -11,22 +11,26 @@ security:
                 users:
                     john_admin: { password: 'admin', roles: [ 'ROLE_ADMIN' ] }
                     jane_admin: { password: 'admin', roles: [ 'ROLE_ADMIN', 'ROLE_SUPER_ADMIN' ] }
+                    
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
 
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        # backendfirewall:
-
-
-        main:
-            lazy: true
             provider: backend_users
             #form_login:
             #    login_path: app_login
             #    check_path: app_login
             #    enable_csrf: true
-            custom_authenticator: App\Security\AppAuthenticator
+        
+        main:
+            lazy: true  
+            provider: app_user_provider
+            custom_authenticator: App\Security\LoginAuthenticator
             logout:
                 path: app_logout
 
@@ -36,9 +40,6 @@ security:
                 #path: app_logout
                 # where to redirect after logout
                 # target: app_any_route
-
-
-
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall

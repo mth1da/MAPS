@@ -75,6 +75,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $token = null;
 
+    #[ORM\Column(type: 'boolean')]
+    private bool $is_verified = false;
+
     function __construct(){ //constructeur
         $this->created_at = new \DatetimeImmutable(); //date du jour automatiquement
         $this->user_order = new ArrayCollection();
@@ -343,6 +346,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->token = $token;
 
+        return $this;
+    }
+
+    public function getIsVerified(): ?bool
+    {
+        return $this->is_verified;
+    }
+
+    public function setIsVerified(?bool $is_verified): self
+    {
+        $this->is_verified = $is_verified;
         return $this;
     }
 }

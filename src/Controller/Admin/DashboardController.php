@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Ingredient;
+use App\Entity\Type;
 use App\Entity\Reservation;
 use App\Entity\Sandwich;
 use App\Entity\User;
@@ -71,6 +72,10 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::subMenu('Action Reservation', 'fas fa-bars')->setSubItems([
             MenuItem::linkToCrud('Create Reservation', 'fas fa-plus', Reservation::class)->setAction(Crud::PAGE_NEW),
             MenuItem::linkToCrud('Show Reservation', 'fas fa-eye', Reservation::class)
+        ]);
+        yield MenuItem::subMenu('Action Type ', 'fas fa-bars')->setSubItems([
+            MenuItem::linkToCrud('Create Type', 'fas fa-plus', Type::class)->setAction(Crud::PAGE_NEW),
+            MenuItem::linkToCrud('Show Type', 'fas fa-eye', Type::class)
         ]);
 
 

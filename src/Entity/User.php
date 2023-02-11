@@ -36,7 +36,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[Assert\NotBlank]
     #[ORM\Column]
-    private string $password ;
+    private string $password;
 
     #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
@@ -47,7 +47,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     protected string $last_name;
 
     #[Assert\NotBlank]
-    #[ORM\Column(length: 255, unique:true)]
+    #[ORM\Column(length: 255, unique: true)]
     private string $user_name;
 
     #[Assert\NotBlank]
@@ -75,7 +75,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private bool $is_verified = false;
 
-    function __construct(){ //constructeur
+    function __construct()
+    { //constructeur
         $this->created_at = new \DatetimeImmutable(); //date du jour automatiquement
         $this->user_order = new ArrayCollection();
         $this->publications = new ArrayCollection();
@@ -108,7 +109,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -356,16 +357,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->is_verified = $is_verified;
         return $this;
     }
-}
 
-class Client extends User{
 
-    public function __toString(){
-        return  $this->first_name . ' ' .  $this->last_name;
+    public function __toString()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+
     }
+
 }
-
-
 
 
 

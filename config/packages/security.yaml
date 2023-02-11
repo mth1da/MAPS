@@ -16,14 +16,11 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        # backendfirewall:
+
+
         main:
             lazy: true
-            provider: app_user_provider
-            custom_authenticator: App\Security\LoginAuthenticator
-            logout:
-                path: app_logout
-                # where to redirect after logout
-                # target: app_any_route
             provider: backend_users
             #form_login:
             #    login_path: app_login
@@ -32,6 +29,14 @@ security:
             custom_authenticator: App\Security\AppAuthenticator
             logout:
                 path: app_logout
+
+            #provider: app_user_provider
+            #custom_authenticator: App\Security\LoginAuthenticator
+            #logout:
+                #path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
+
 
 
 

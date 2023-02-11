@@ -136,6 +136,7 @@ class Ingredient
         $this->types = $types;
 
         return $this;
+    }
     public function __toString()
     {
         return $this->name;

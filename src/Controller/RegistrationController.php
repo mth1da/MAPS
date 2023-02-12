@@ -123,9 +123,9 @@ class RegistrationController extends AbstractController
 
         // On envoie un mail
         $mail->send(
-            'no-reply@monsite.net',
+            'no-reply@maps.com',
             $user->getEmail(),
-            'Activation de votre compte sur le site e-commerce',
+            'Activation de votre compte MAPS',
             'register',
             compact('user', 'token')
         );

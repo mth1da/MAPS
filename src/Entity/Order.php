@@ -7,7 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
-#[ORM\Table(name: '`order`')]
+#[ORM\Table(name: '`Order`')]
 class Order
 {
     #[ORM\Id]
@@ -24,9 +24,12 @@ class Order
     #[ORM\Column]
     private \DateTimeImmutable $created_at;
 
-    #[ORM\ManyToOne(inversedBy: 'user_order')]
+    #[ORM\ManyToOne(inversedBy: 'User')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $order_user = null;
+    function __construct(){ //constructeur
+        $this->created_at = new \DateTimeImmutable(); //date du jour automatiquement
+    }
 
     public function getId(): ?int
     {
@@ -79,5 +82,9 @@ class Order
         $this->order_user = $order_user;
 
         return $this;
+    }
+
+    public function __toString(){
+        return  $this->id;
     }
 }

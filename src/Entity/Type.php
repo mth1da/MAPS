@@ -6,6 +6,7 @@ use App\Repository\TypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Types\Types;
 
 #[ORM\Entity(repositoryClass: TypeRepository::class)]
 class Type
@@ -18,7 +19,7 @@ class Type
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'types', targetEntity: Ingredient::class)]
+    #[ORM\OneToMany(mappedBy: 'types_id', targetEntity: Ingredient::class)]
     private Collection $ingredients;
 
     //pour un référencement efficace
@@ -87,5 +88,10 @@ class Type
         $this->slug = $slug;
 
         return $this;
+    }
+    public function __toString()
+    {
+        return $this->name;
+
     }
 }

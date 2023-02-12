@@ -11,13 +11,16 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
+#[Entity]
+#[InheritanceType('JOINED')]
+#[DiscriminatorColumn(name: 'discr', type: 'string')]
+#[DiscriminatorMap(['user' => User::class, 'client' => Client::class, 'admin' => Admin::class])] //heritage
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-
-    #[ORM\Id] //clé primaire
-    #[ORM\GeneratedValue] //auto increment
+    #[ORM\Id] //clé parimaire
+    #[ORM\GeneratedValue] //auto incrément
     #[ORM\Column]
     private ?int $id = null;
 
@@ -36,18 +39,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[Assert\NotBlank]
     #[ORM\Column]
-    private string $password;
+    private string $password ;
 
     #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
-    protected string $first_name;
+    private string $first_name;
 
     #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
-    protected string $last_name;
+    private string $last_name;
 
     #[Assert\NotBlank]
-    #[ORM\Column(length: 255, unique: true)]
+    #[ORM\Column(length: 255, unique:true)]
     private string $user_name;
 
     #[Assert\NotBlank]
@@ -72,11 +75,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $token = null;
 
-    #[ORM\Column(type: 'boolean')]
-    private bool $is_verified = false;
-
-    function __construct()
-    { //constructeur
+    function __construct(){ //constructeur
         $this->created_at = new \DatetimeImmutable(); //date du jour automatiquement
         $this->user_order = new ArrayCollection();
         $this->publications = new ArrayCollection();
@@ -109,7 +108,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string)$this->email;
+        return (string) $this->email;
     }
 
     /**
@@ -223,7 +222,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->user_order;
     }
 
-    public function addUserOrder(Order $userOrder): self
+    public function addUserOrder(order $userOrder): self
     {
         if (!$this->user_order->contains($userOrder)) {
             $this->user_order->add($userOrder);
@@ -233,7 +232,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeUserOrder(Order $userOrder): self
+    public function removeUserOrder(order $userOrder): self
     {
         if ($this->user_order->removeElement($userOrder)) {
             // set the owning side to null (unless already changed)
@@ -346,29 +345,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-    public function getIsVerified(): ?bool
-    {
-        return $this->is_verified;
-    }
-
-    public function setIsVerified(?bool $is_verified): self
-    {
-        $this->is_verified = $is_verified;
-        return $this;
-    }
-
-
-    public function __toString()
-    {
-        return $this->first_name . ' ' . $this->last_name;
-
-    }
+}
+class Client extends User{
 
 }
 
+class Admin extends User{
 
-
+}
 
 
 

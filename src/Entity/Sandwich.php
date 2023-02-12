@@ -30,9 +30,11 @@ class Sandwich
     #[ORM\Column]
     private ?float $price = null;
 
-    public function __construct()
+    public function __construct($name, $price)
     {
+        $this->name = $name;
         $this->sandwich_ingredients = new ArrayCollection();
+        $this->price = $price;
     }
 
     public function getId(): ?int

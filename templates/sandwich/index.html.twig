@@ -9,12 +9,24 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    {% if ingredients %}
+        <ul>
+            {% for ingredient in ingredients %}
+                <form action={{ path('app_sandwich_add_basket', {id: ingredient.id}) }}>
+                    <li>nom: {{ ingredient.name }}</li>
+                    <li>description: {{ ingredient.description | raw }}</li>
+                    <li>prix: {{ ingredient.price }}</li>
+                    <li><button>Sélectionner</button></li>
+                </form>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/laragon/www/projects/maps-symfony/src/Controller/SandwichController.php'|file_link(0) }}">src/Controller/SandwichController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/laragon/www/projects/maps-symfony/templates/sandwich/index.html.twig'|file_link(0) }}">templates/sandwich/index.html.twig</a></code></li>
-    </ul>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Pas d'ingrédients ici.</p>
+    {% endif %}
+
+    <button>Commander</button>
+
+    {{ dump(dataPanier) }}
 </div>
 {% endblock %}

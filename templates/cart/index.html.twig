@@ -18,6 +18,33 @@
         </tr>
         </thead>
         <tbody>
-
+        {% for element in dataPanier %}
+        <tr>
+            {% if element.sandwich is not null %}
+                <td>{{ element.sandwich.Name }}</td>
+                <td>{{ element.sandwich.price }} €</td>
+                <td>{{ element.quantite }}</td>
+                <td>{{ element.quantite * element.sandwich.price }} €</td>
+            <td>
+                <a href="{{path("add", {id: element.sandwich.id})}}" class="btn btn-success">Ajouter</a>
+                <a href="{{path("remove", {id: element.sandwich.id})}}" class="btn btn-danger">Supprimer</a>
+            </td>
+            {% endif %}
+        </tr>
+        {% else %}
+            <tr>
+                <td colspan="5" class="text-center">Votre panier est vide</td>
+            </tr>
+        {% endfor %}
         </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="3">Total</td>
+            <td class="text-end">{{ total }} €</td>
+            <td>
+                <a href="{{path("delete")}}" class="btn btn-danger">Vider le panier</a>
+            </td>
+        </tr>
+        </tfoot>
+
 {% endblock %}

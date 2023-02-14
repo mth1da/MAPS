@@ -1,38 +1,13 @@
 <?php
 
-namespace App\Controller;
+namespace App\Service;
 
-use App\Repository\SandwichRepository;
 use JetBrains\PhpStorm\NoReturn;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-class CartController extends AbstractController
+class CartServices
 {
-
-    #[Route('/cart', name: 'app_cart')]
-    public function index(SessionInterface $session, SandwichRepository $sandwichRepository): Response
-    {
-        $panier = $session->get("panier",[]);
-        $dataPanier = [];
-        $total = 0;
-
-        foreach($panier as $id => $quantite){
-            $sandwich = $sandwichRepository->find($id);
-            $dataPanier[] = [
-                "sandwich" => $sandwich,
-                "quantite" => $quantite
-            ];
-            if (isset($sandwich)) {
-                $total += $sandwich->getPrice() * $quantite;
-            }
-        }
-
-        return $this->render('cart/index.html.twig', compact("dataPanier", "total"));
-    }
-
     #[NoReturn] #[Route('/add/{id}', name: 'add')]
     public function add(int $id, SessionInterface $session)
     {

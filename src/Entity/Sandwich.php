@@ -26,6 +26,12 @@ class Sandwich
     #[ORM\ManyToMany(targetEntity: Ingredient::class)]
     private Collection $sandwich_ingredients;
 
+    #[ORM\Column]
+    private ?float $price = null;
+
+    #[ORM\Column]
+    private ?bool $isOriginal = null;
+
 
     public function __construct()
     {
@@ -69,6 +75,38 @@ class Sandwich
     public function removeSandwichIngredient(Ingredient $sandwichIngredient): self
     {
         $this->sandwich_ingredients->removeElement($sandwichIngredient);
+
+        return $this;
+    }
+
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(float $price): self
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    public function calculatePrice():float
+    {
+        foreach ($this->sandwich_ingredients as $ingredient){
+            $this->price += $ingredient->getPrice();
+        }
+        return $this->price;
+    }
+
+    public function isOriginal(): ?bool
+    {
+        return $this->isOriginal;
+    }
+
+    public function setIsOriginal(bool $isOriginal): self
+    {
+        $this->isOriginal = $isOriginal;
 
         return $this;
     }

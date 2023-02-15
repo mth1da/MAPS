@@ -3,30 +3,57 @@
 {% block title %}Hello SandwichController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    {% if ingredients %}
-        <ul>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Ingrédient</th>
+            <th scope="col">Description</th>
+            <th scope="col">Prix</th>
+            <th scope="col">Total</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if ingredients %}
             {% for ingredient in ingredients %}
-                <form action={{ path('app_sandwich_add_basket', {id: ingredient.id}) }}>
-                    <li>nom: {{ ingredient.name }}</li>
-                    <li>description: {{ ingredient.description | raw }}</li>
-                    <li>prix: {{ ingredient.price }}</li>
-                    <li><button>Sélectionner</button></li>
-                </form>
+                <tr>
 
+                    <td>{{ ingredient.name }}</td>
+                    <td> {{ ingredient.description | raw }}</td>
+                    <td> {{ ingredient.price }}</td>
+                    <td> </td>
+                    {#<td class="text-end"> {{ ingredient.quantite *ingredient.price }}</td>#}
+                    <td>
+                        <a href="{{ path("app_sandwich_add_basket", {id:ingredient.id})}}"
+                           class="btn-success" style="margin-right: 32px">
+                            <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                        </a>
+                        <a href="{{ path("app_sandwich_remove_basket", {id:ingredient.id})}}"
+                           class="btn-warning" style="margin-right: 32px">
+                            <i class="fa fa-minus"></i>
+                        </a>
+                        <a href="{{ path("app_sandwich_delete", {id: ingredient.id})}}"
+                           class="btn-warning" style="margin-right: 32px">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
             {% endfor %}
-        </ul>
-    {% else %}
-        <p>Pas d'ingrédients ici.</p>
-    {% endif %}
-
+        {% else %}
+            <td colspan="5" class="text-center">Votre sandwich est vide.</td>
+        {% endif %}
+        </tbody>
+    </table>
+    <a href="{{ path("app_sandwich_delete_all") }}"
+       class="btn-warning">
+        Vider le sandwich
+        <i class="fa fa-trash"></i>
+    </a>
     <button>Commander</button>
+    <div>
+        <p > Total</p>
+        <p> {{ total }}</p>
+    </div>
 
-    {{ dump(dataPanier) }}
-</div>
+    {{ dump(dataContenuSandwich) }}
 {% endblock %}

@@ -101,6 +101,8 @@ class UserFixtures extends Fixture
             $user->setCreatedAt(new \DateTimeImmutable());
 
             $manager->persist($user);
+            $this->addReference('user'.$count, $user);
+            $count++;
         }
 
         $manager->flush();

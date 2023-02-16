@@ -24,6 +24,17 @@ class PublicationFixtures extends Fixture implements DependentFixtureInterface
         //enregistre les modifs
         $manager->persist($publi1);
 
+        $publi2 = new Publication();
+        $publi2->setPubliUser(
+            $this->getReference('user6')
+        );
+        $publi2->setPhoto("publication2.jpg");
+        $publi2->setCommentaire('j\'adore');
+        $date = new \DateTimeImmutable('2023-02-16');
+        $newDate = $date->setTime(19, 20, 55);
+        $publi2->setCreatedAt($newDate);
+        $manager->persist($publi2);
+
 
         $manager->flush();
     }

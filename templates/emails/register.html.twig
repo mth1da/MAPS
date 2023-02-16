@@ -1,0 +1,4 @@
+<h1>Activation de votre compte MAPS Ton Sandwich</h1>
+<p> Bonjour {{ user.firstname }},</p>
+<p> Validez votre inscription au service MAPS en cliquant sur le lien suivant :</p>
+<a href="{{ absolute_url(path('app_verify_user', {token: token})) }}">Lien</a>

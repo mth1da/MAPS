@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\PublicationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\User;
 
 #[ORM\Entity(repositoryClass: PublicationRepository::class)]
 class Publication
@@ -17,8 +18,8 @@ class Publication
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $commentaire = null;
+    #[ORM\Column(type: Types::TEXT)]
+    private string $commentaire;
 
     #[ORM\Column]
     private \DateTimeImmutable $created_at;
@@ -82,5 +83,8 @@ class Publication
         $this->publi_user = $publi_user;
 
         return $this;
+    }
+    public function __toString(){
+        return $this->id;
     }
 }

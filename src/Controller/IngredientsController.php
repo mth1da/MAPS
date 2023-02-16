@@ -2,17 +2,32 @@
 
 namespace App\Controller;
 
+use App\Repository\IngredientRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class IngredientsController extends AbstractController
 {
-    #[Route('/ingredients', name: 'app_ingredient')]
-    public function index(): Response
+
+    #[Route('/ingredient', name: 'app_ingredient')]
+    public function index(IngredientRepository $ingredientRepository): Response
     {
-        return $this->render('ingredients/index.html.twig', [
-            'controller_name' => 'IngredientsController',
+        return $this->render('ingredients/index.html.twig',[
+            'pains' => $ingredientRepository->findBySlug('pain'),
+            'viandes' => $ingredientRepository->findBySlug('viande'),
+            'poissons' => $ingredientRepository->findBySlug('poisson'),
+            'fromages' => $ingredientRepository->findBySlug('fromage'),
+            'crudites' => $ingredientRepository->findBySlug('crudites'),
+            'plantes' => $ingredientRepository->findBySlug('plante'),
+            'epices' => $ingredientRepository->findBySlug('epice'),
+            'sauces' => $ingredientRepository->findBySlug('sauce'),
         ]);
+    }
+
+    #[Route('/ingredient/modifier/id', name: 'modif_ingredient')]
+    public function modifIngredient(){
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        //ici il faut être admin
     }
 }

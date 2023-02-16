@@ -14,7 +14,7 @@ class Bookmark
     private int $id;
 
     #[ORM\ManyToOne(inversedBy: 'user_bookmarks')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?user $bookmark_user = null;
 
     #[ORM\ManyToOne]
@@ -26,12 +26,12 @@ class Bookmark
         return $this->id;
     }
 
-    public function getBookmarkUser(): ?user
+    public function getBookmarkUser(): ?User
     {
         return $this->bookmark_user;
     }
 
-    public function setBookmarkUser(?user $bookmark_user): self
+    public function setBookmarkUser(?User $bookmark_user): self
     {
         $this->bookmark_user = $bookmark_user;
 

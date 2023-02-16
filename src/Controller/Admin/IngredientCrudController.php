@@ -25,8 +25,9 @@ class IngredientCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->hideOnForm(),
+            IdField::new('id')->hideOnForm()->hideOnIndex(),
             TextField::new('name'),
+            AssociationField::new('types'),
             TextEditorField::new('description'),
             TextField::new('price'),
 
@@ -37,7 +38,6 @@ class IngredientCrudController extends AbstractCrudController
             DateTimeField::new('created_at')->hideOnForm(),
             DateTimeField::new('updated_at')->hideOnForm(),
             DateTimeField::new('deleted_at')->hideOnForm(),
-            AssociationField::new('types'),
 
         ];
     }

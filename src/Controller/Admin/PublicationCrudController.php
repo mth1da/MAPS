@@ -13,8 +13,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class PublicationCrudController extends AbstractCrudController
 {
-    public const Publication_BASE_PATH ='upload/images/publication';
-    public const Publication_UPLOAD_DIR ='public/upload/images/publication';
+    public const PUBLICATION_BASE_PATH ='upload/images/publications';
+    public const PUBLICATION_UPLOAD_DIR ='public/upload/images/publications';
     public static function getEntityFqcn(): string
     {
         return Publication::class;
@@ -27,8 +27,8 @@ class PublicationCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
 
             ImageField::new('photo')
-                ->setBasePath(self::Publication_BASE_PATH)
-                ->setUploadDir(self::Publication_UPLOAD_DIR),
+                ->setBasePath(self::PUBLICATION_BASE_PATH)
+                ->setUploadDir(self::PUBLICATION_UPLOAD_DIR),
 
             TextEditorField::new('commentaire'),
             DateTimeField::new('created_at')->hideOnForm(),

@@ -13,34 +13,60 @@ class UserFixtures extends Fixture
 
     const USER = [
         [
-            "email" => "admin@admin.com",
+            "email" => "mathilde@admin.com",
             "password" => "admin",
             "roles" => "ROLE_ADMIN",
-            "lastName" => "Doe",
-            "firstName" => "John",
-            "userName" => "admin",
-            "birthday" => '02/04/1995',
+            "lastName" => "Turra",
+            "firstName" => "Mathilde",
+            "userName" => "mathilde",
+            "birthday" => '15-11-2002',
+        ],
+        [
+            "email" => "pauline@admin.com",
+            "password" => "admin",
+            "roles" => "ROLE_ADMIN",
+            "lastName" => "Auda",
+            "firstName" => "Pauline",
+            "userName" => "pauline",
+            "birthday" => '09-02-2001',
+        ],
+        [
+            "email" => "samra@admin.com",
+            "password" => "admin",
+            "roles" => "ROLE_ADMIN",
+            "lastName" => "Abdul",
+            "firstName" => "Samra",
+            "userName" => "samra",
+            "birthday" => '13-09-2001',
+        ],
+        [
+            "email" => "amandine@admin.com",
+            "password" => "admin",
+            "roles" => "ROLE_ADMIN",
+            "lastName" => "Bremont",
+            "firstName" => "Amandine",
+            "userName" => "amandine",
+            "birthday" => '30-03-2000',
         ],
         [
             "email" => "user@user.com",
-            "password" => "user",
+            "password" => "user5",
             "roles" => "ROLE_USER",
-            "lastName" => "Izu",
-            "firstName" => "Maki",
+            "lastName" => "Donne",
+            "firstName" => "John",
             "userName" => "user",
-            "birthday" => '23/01/1998',
+            "birthday" => '23-01-1998',
         ]
     ];
-    
-    public UserPasswordHasherInterface $passwordHasher;
 
-    public function __construct(UserPasswordHasherInterface $passwordHasher)
-    {
-        $this->passwordHasher = $passwordHasher;
-    }
+
+    public function __construct(
+        private UserPasswordHasherInterface $passwordHasher
+    ){}
 
     public function load(ObjectManager $manager): void
     {
+        $count=1;
         foreach (self::USER as $key => $user) {
             $newUser = new User();
             $newUser
@@ -53,26 +79,13 @@ class UserFixtures extends Fixture
                 ->setUserName($user['userName'])
                 ->setLastName($user['lastName'])
                 ->setFirstName($user['firstName'])
-                ->setBirthDate((new \DateTimeImmutable()));
+                ->setBirthDate((new \DateTime($user['birthday'])));
             $manager->persist($newUser);
+            $this->addReference('user'.$count, $newUser);
+            $count++;
         }
 
 
-        /*
-        $admin = new User();
-        $admin->setEmail('admin@gmail.com');
-        $admin->setRoles(['ROLE_ADMIN']);
-        $admin->setPassword(
-            $this->passwordHasher->hashPassword($admin, 'admin')
-        );
-        $admin->setFirstName('Mathilde');
-        $admin->setLastName('Turra');
-        $admin->setUserName('admin');
-        $admin->setBirthDate(new \DateTime('15-11-2002'));
-        $admin->setCreatedAt(new \DateTimeImmutable());
-
-        $manager->persist($admin);
-    */
         //creation de 5 faux users
         $faker = Faker\Factory::create('fr_FR');
         for($usr=1; $usr<=5; $usr++){
@@ -88,6 +101,8 @@ class UserFixtures extends Fixture
             $user->setCreatedAt(new \DateTimeImmutable());
 
             $manager->persist($user);
+            $this->addReference('user'.$count, $user);
+            $count++;
         }
 
         $manager->flush();

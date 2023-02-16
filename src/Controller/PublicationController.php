@@ -49,7 +49,7 @@ class PublicationController extends AbstractController
             $entityManager->persist($publi);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Produit ajouté avec succès');
+            $this->addFlash('success', 'Publication partagée avec succès.');
 
             return $this->redirectToRoute('app_feed');
         }
@@ -80,7 +80,7 @@ class PublicationController extends AbstractController
             $entityManager->persist($publi);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Produit modifié avec succès');
+            $this->addFlash('success', 'Publication partagée avec succès');
 
             return $this->redirectToRoute('app_publication_index');
         }

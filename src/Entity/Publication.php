@@ -18,8 +18,8 @@ class Publication
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $commentaire = null;
+    #[ORM\Column(type: Types::TEXT)]
+    private string $commentaire;
 
     #[ORM\Column]
     private \DateTimeImmutable $created_at;

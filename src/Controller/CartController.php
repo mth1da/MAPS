@@ -8,19 +8,28 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\CartServices;
 
 class CartController extends AbstractController
 {
+    private CartServices $services;
+    private $sandwichRepository;
+
+    public function __construct(CartServices $services, SandwichRepository $sandwichRepository)
+    {
+        $this->services = $services;
+        $this->sandwichRepository = $sandwichRepository;
+    }
 
     #[Route('/cart', name: 'app_cart')]
-    public function index(SessionInterface $session, SandwichRepository $sandwichRepository): Response
+    public function index(SessionInterface $session): Response
     {
-        $panier = $session->get("panier",[]);
         $dataPanier = [];
         $total = 0;
 
-        foreach($panier as $id => $quantite){
-            $sandwich = $sandwichRepository->find($id);
+        $panier = $session->get("panier", []);
+        foreach ($panier as $id => $quantite) {
+            $sandwich = $this->sandwichRepository->find($id);
             $dataPanier[] = [
                 "sandwich" => $sandwich,
                 "quantite" => $quantite
@@ -36,34 +45,14 @@ class CartController extends AbstractController
     #[NoReturn] #[Route('/add/{id}', name: 'add')]
     public function add(int $id, SessionInterface $session)
     {
-        // On récupère le panier actuel
-        $panier = $session->get("panier", []);
-
-        if(!empty($panier[$id])){
-            $panier[$id]++;
-        }else{
-            $panier[$id] = 1;
-        }
-
-        // On sauvegarde dans la session
-        $session->set("panier", $panier);
-
+        $this->services->addOneSandwich($id, $session);
         //on redirige l'utilisateur vers le panier
         return $this->redirectToRoute("app_cart");
     }
     #[NoReturn] #[Route('/remove/{id}', name: 'remove')]
     public function remove(int $id, SessionInterface $session)
     {
-        $panier = $session->get("panier", []);
-
-        if(!empty($panier[$id])){
-            if($panier[$id] > 1){
-                $panier[$id]--;
-            }else{
-                unset($panier[$id]);
-            }
-        }
-        $session->set("panier", $panier);
+        $this->services->removeOneSandwich($id, $session);
 
         return $this->redirectToRoute("app_cart");
     }

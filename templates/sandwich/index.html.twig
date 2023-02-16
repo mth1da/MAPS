@@ -8,6 +8,7 @@
         <tr>
             <th scope="col">Ingrédient</th>
             <th scope="col">Description</th>
+            <th scope="col">Photo</th>
             <th scope="col">Prix</th>
             <th scope="col">Total</th>
             <th scope="col">Action</th>
@@ -20,6 +21,7 @@
 
                     <td>{{ ingredient.name }}</td>
                     <td> {{ ingredient.description | raw }}</td>
+                    <td><img src="{{ asset('upload/image/ingredients/' ~ ingredient.photo) }}" alt="Ingredient Photo"></td>
                     <td> {{ ingredient.price }}</td>
                     <td> </td>
                     {#<td class="text-end"> {{ ingredient.quantite *ingredient.price }}</td>#}

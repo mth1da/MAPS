@@ -53,6 +53,7 @@ class IngredientRepository extends ServiceEntityRepository
             ->join('i.types', 't')
             ->where('t.slug = :slug')
             ->setParameter('slug', $slug)
+            ->orderBy('i.name', 'ASC')
             ->getQuery()
             ->getResult()
             ;

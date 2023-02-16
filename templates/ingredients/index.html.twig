@@ -26,15 +26,15 @@
                                     <img src="{{ element.photo }}" class="card-img-top" alt="illustration de {{ element.name }}">
                                     <div class="card-body">
                                         <h5 class="card-title">{{ element.name() }}</h5>
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#{{ element.id }}">
                                             Voir Plus
                                         </button>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal fade" id="{{ element.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h1 class="modal-title fs-5" id="exampleModalLabel">{{ element.name() }}</h1>
@@ -73,15 +73,15 @@
                                     <img src="{{ element.photo }}" class="card-img-top" alt="illustration de {{ element.name }}">
                                     <div class="card-body">
                                         <h5 class="card-title">{{ element.name() }}</h5>
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#{{ element.id }}">
                                             Voir Plus
                                         </button>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal fade" id="{{ element.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h1 class="modal-title fs-5" id="exampleModalLabel">{{ element.name() }}</h1>
@@ -120,15 +120,15 @@
                                     <img src="{{ element.photo }}" class="card-img-top" alt="illustration de {{ element.name }}">
                                     <div class="card-body">
                                         <h5 class="card-title">{{ element.name() }}</h5>
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#{{ element.id }}">
                                             Voir Plus
                                         </button>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal fade" id="{{ element.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h1 class="modal-title fs-5" id="exampleModalLabel">{{ element.name() }}</h1>
@@ -167,15 +167,15 @@
                                     <img src="{{ element.photo }}" class="card-img-top" alt="illustration de {{ element.name }}">
                                     <div class="card-body">
                                         <h5 class="card-title">{{ element.name() }}</h5>
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#{{ element.id }}">
                                             Voir Plus
                                         </button>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal fade" id="{{ element.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h1 class="modal-title fs-5" id="exampleModalLabel">{{ element.name() }}</h1>
@@ -192,6 +192,7 @@
                         {% endfor %}
 
                     </div>
+                </div>
             </div>
         </div>
 
@@ -207,33 +208,33 @@
 
                         {% for element in fromages %}
 
-                        <div class="col">
-                            <div class="card h-90 w-100">
-                                <img src="{{ element.photo }}" class="card-img-top" alt="illustration de {{ element.name }}">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ element.name() }}</h5>
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                        Voir Plus
-                                    </button>
+                            <div class="col">
+                                <div class="card h-90 w-100">
+                                    <img src="{{ element.photo }}" class="card-img-top" alt="illustration de {{ element.name }}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ element.name() }}</h5>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#{{ element.id }}">
+                                            Voir Plus
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">{{ element.name() }}</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <img src="{{ element.photo }}" class="card-img-top" alt="{{ element.name }}">
-                                        <p>{{ element.description }}</p>
-                                        <p>{{ element.price }}€ par portion</p>
+                            <div class="modal fade" id="{{ element.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">{{ element.name() }}</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <img src="{{ element.photo }}" class="card-img-top" alt="{{ element.name }}">
+                                            <p>{{ element.description }}</p>
+                                            <p>{{ element.price }}€ par portion</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         {% endfor %}
 
                     </div>
@@ -258,15 +259,15 @@
                                     <img src="{{ element.photo }}" class="card-img-top" alt="illustration de {{ element.name }}">
                                     <div class="card-body">
                                         <h5 class="card-title">{{ element.name() }}</h5>
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#{{ element.id }}">
                                             Voir Plus
                                         </button>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal fade" id="{{ element.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h1 class="modal-title fs-5" id="exampleModalLabel">{{ element.name() }}</h1>
@@ -304,15 +305,15 @@
                                     <img src="{{ element.photo }}" class="card-img-top" alt="illustration de {{ element.name }}">
                                     <div class="card-body">
                                         <h5 class="card-title">{{ element.name() }}</h5>
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#{{ element.id }}">
                                             Voir Plus
                                         </button>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal fade" id="{{ element.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h1 class="modal-title fs-5" id="exampleModalLabel">{{ element.name() }}</h1>
@@ -351,15 +352,15 @@
                                     <img src="{{ element.photo }}" class="card-img-top" alt="illustration de {{ element.name }}">
                                     <div class="card-body">
                                         <h5 class="card-title">{{ element.name() }}</h5>
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#{{ element.id }}">
                                             Voir Plus
                                         </button>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal fade" id="{{ element.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h1 class="modal-title fs-5" id="exampleModalLabel">{{ element.name() }}</h1>
@@ -380,6 +381,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
     </section>
 </main>

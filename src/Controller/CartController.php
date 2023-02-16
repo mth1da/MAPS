@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\IngredientRepository;
 use App\Repository\SandwichRepository;
 use JetBrains\PhpStorm\NoReturn;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,7 +16,7 @@ class CartController extends AbstractController
     private CartServices $services;
     private $sandwichRepository;
 
-    public function __construct(CartServices $services, SandwichRepository $sandwichRepository)
+    public function __construct(CartServices $services, SandwichRepository $sandwichRepository, IngredientRepository $ingredientRepository)
     {
         $this->services = $services;
         $this->sandwichRepository = $sandwichRepository;
@@ -28,6 +29,7 @@ class CartController extends AbstractController
         $total = 0;
 
         $panier = $session->get("panier", []);
+        dd($panier);
         foreach ($panier as $id => $quantite) {
             $sandwich = $this->sandwichRepository->find($id);
             $dataPanier[] = [
@@ -42,10 +44,11 @@ class CartController extends AbstractController
         return $this->render('cart/index.html.twig', compact("dataPanier", "total"));
     }
 
-    #[NoReturn] #[Route('/add/{id}', name: 'add')]
-    public function add(int $id, SessionInterface $session)
+
+    #[NoReturn] #[Route('/add', name: 'add')]
+    public function add( SessionInterface $session)
     {
-        $this->services->addOneSandwich($id, $session);
+        $this->services->addOneSandwich($session);
         //on redirige l'utilisateur vers le panier
         return $this->redirectToRoute("app_cart");
     }

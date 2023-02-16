@@ -7,19 +7,22 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping\DiscriminatorColumn;
+use Doctrine\ORM\Mapping\DiscriminatorMap;
+use Doctrine\ORM\Mapping\InheritanceType;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[Entity]
-#[InheritanceType('JOINED')]
-#[DiscriminatorColumn(name: 'discr', type: 'string')]
-#[DiscriminatorMap(['user' => User::class, 'client' => Client::class, 'admin' => Admin::class])] //heritage
+//#[Entity]
+//#[InheritanceType('JOINED')]
+//#[DiscriminatorColumn(name: 'discr', type: 'string')]
+//#[DiscriminatorMap(['user' => User::class])] //heritage
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    #[ORM\Id] //clé parimaire
+    #[ORM\Id] //clé primaire
     #[ORM\GeneratedValue] //auto incrément
     #[ORM\Column]
     private ?int $id = null;
@@ -74,6 +77,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $token = null;
+
+    #[ORM\Column(type: 'boolean')]
+    private bool $is_verified = false;
+
+    #[ORM\Column(type: 'string', length: 100, nullable: true)]
+    private $resetToken;
 
     function __construct(){ //constructeur
         $this->created_at = new \DatetimeImmutable(); //date du jour automatiquement
@@ -345,14 +354,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-}
-class Client extends User{
 
-}
+    public function getIsVerified(): ?bool
+    {
+        return $this->is_verified;
+    }
 
-class Admin extends User{
+    public function setIsVerified(?bool $is_verified): self
+    {
+        $this->is_verified = $is_verified;
+        return $this;
+    }
 
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
+    }
+
+    public function setResetToken(?string $resetToken): self
+    {
+        $this->resetToken = $resetToken;
+
+        return $this;
+    }
 }
+/*class Client extends User{
+
+}*/
 
 
 

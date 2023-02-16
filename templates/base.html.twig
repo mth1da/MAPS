@@ -33,6 +33,17 @@
 
         {% include 'fragments/menu.html.twig' %}
 
+    {% if app.user and app.user.isVerified == false %}
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <div class="alert-message">
+                <strong>Votre compte n'est pas activé</strong>, <a href="{{ path('app_re_verify_user') }}">renvoyer le lien d'activation</a>
+            </div>
+        </div>
+    {% endif %}
+
+    {% include "fragments/flash.html.twig" %}
+
         {% block body %}
         {% endblock %}
 

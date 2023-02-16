@@ -27,6 +27,7 @@ class IngredientCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm(),
             TextField::new('name'),
+            AssociationField::new('types'),
             TextEditorField::new('description'),
             TextField::new('price'),
 
@@ -37,7 +38,6 @@ class IngredientCrudController extends AbstractCrudController
             DateTimeField::new('created_at')->hideOnForm(),
             DateTimeField::new('updated_at')->hideOnForm(),
             DateTimeField::new('deleted_at')->hideOnForm(),
-            AssociationField::new('types'),
 
         ];
     }

@@ -23,7 +23,7 @@ Features :
 
 1. Clone or fork the MAPS repository on your local machine.
 2. In the .env file, comment line 32 and uncomment line 31 : fill the app with your database name user, !ChangeMe! with your database password and app with your database name.
-3. mail system
+3. Install Mailhog : https://github.com/mailhog/MailHog/releases, run the .exe file and go to http://localhost:8025/ to access your inbox.
 4. In your project directory terminal, run the following commands : 
 ```console
 symfony console doctrine:database:create

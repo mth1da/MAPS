@@ -29,11 +29,17 @@ class CartController extends AbstractController
         $total = 0;
 
         $panier = $session->get("panier");
-        foreach ($panier as $id => $elems) {
-            foreach ($elems as $id => $ingr) {
+
+        foreach ($panier as $id => $ingr) {
+            if (isset($ingr['ingredient'])) {
+                $dataPanier[] = $ingr;
                 $total += $ingr['ingredient']->getPrice() * $ingr['quantite'];
+            } else {
+                // handle the case where the 'ingredient' key is missing
             }
         }
+
+
 
         return $this->render('cart/index.html.twig', compact("dataPanier", "total", "panier"));
     }
@@ -42,7 +48,7 @@ class CartController extends AbstractController
     #[NoReturn] #[Route('/add', name: 'add')]
     public function add( SessionInterface $session)
     {
-       // $this->services->addOneSandwich($session);
+        // $this->services->addOneSandwich($session);
 
         $panier = $session->get("panier", []);
         $sandwich = $session->get('sandwich');

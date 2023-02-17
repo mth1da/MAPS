@@ -7,6 +7,7 @@ An innovative website to create and share the sandwiches with the toppings you l
 Features : 
 - Registration and authentication system
 - Mailer and reset password system
+- Mapping system — ie. creating your own sandwich
 - Cart system
 - Payment system
 - Publications feed 

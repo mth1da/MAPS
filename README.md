@@ -1,2 +1,43 @@
-# maps
-an innovative website to create and share the sandwich with the toppings you like!
+# Maps Ton Sandwich
+An innovative website to create and share the sandwiches with the toppings you like!
+
+> created by Samra Abdul, Pauline Auda, Amandine Brémont and Mathilde Turra
+
+
+Features : 
+- Registration and authentication system
+- Mailer and reset password system
+- Cart system
+- Payment system
+- Publications feed 
+- Bookmark system
+- Reservation system
+- Admin back-end interface
+
+## Class Diagram
+
+## Languages
+
+## Settings
+
+1. Clone or fork the MAPS repository on your local machine.
+2. In the .env file, comment line 32 and uncomment line 31 : fill the app with your database name user, !ChangeMe! with your database password and app with your database name.
+3. mail system
+4. In your project directory terminal, run the following commands : 
+```console
+symfony console doctrine:database:create
+```
+```console
+symfony console doctrine:migrations:migrate
+```
+```console
+symfony console doctrine:fixtures:load
+```
+```console
+npm install
+```
+```console
+npm run build
+```
+
+You're now free to enjoy our MAPS website!

@@ -28,27 +28,35 @@ class CartController extends AbstractController
         $dataPanier = [];
         $total = 0;
 
-        $panier = $session->get("panier", []);
-        dd($panier);
-        foreach ($panier as $id => $quantite) {
-            $sandwich = $this->sandwichRepository->find($id);
-            $dataPanier[] = [
-                "sandwich" => $sandwich,
-                "quantite" => $quantite
-            ];
-            if (isset($sandwich)) {
-                $total += $sandwich->getPrice() * $quantite;
+        $panier = $session->get("panier");
+        foreach ($panier as $id => $elems) {
+            foreach ($elems as $id => $ingr) {
+                $total += $ingr['ingredient']->getPrice() * $ingr['quantite'];
             }
         }
 
-        return $this->render('cart/index.html.twig', compact("dataPanier", "total"));
+        return $this->render('cart/index.html.twig', compact("dataPanier", "total", "panier"));
     }
 
 
     #[NoReturn] #[Route('/add', name: 'add')]
     public function add( SessionInterface $session)
     {
-        $this->services->addOneSandwich($session);
+       // $this->services->addOneSandwich($session);
+
+        $panier = $session->get("panier", []);
+        $sandwich = $session->get('sandwich');
+
+        $dataContenuSandwich = [];
+
+        if(!empty($panier)){
+            $dataContenuSandwich[] = [$sandwich];
+        }else{
+            $dataContenuSandwich = [$sandwich];
+
+        }
+        $session->set("panier", $dataContenuSandwich);
+
         //on redirige l'utilisateur vers le panier
         return $this->redirectToRoute("app_cart");
     }

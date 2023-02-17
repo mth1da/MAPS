@@ -7,7 +7,6 @@
         <thead>
         <tr>
             <th scope="col">Ingrédient</th>
-            <th scope="col">Description</th>
             <th scope="col">Photo</th>
             <th scope="col">Prix</th>
             <th scope="col">Total</th>
@@ -18,12 +17,14 @@
         {% if ingredients %}
             {% for ingredient in ingredients %}
                 <tr>
-
                     <td>{{ ingredient.name }}</td>
-                    <td> {{ ingredient.description | raw }}</td>
                     <td><img src="{{ asset('upload/image/ingredients/' ~ ingredient.photo) }}" alt="Ingredient Photo"></td>
                     <td> {{ ingredient.price }}</td>
-                    <td> </td>
+                    {% if contenu[ingredient.id] is defined %}
+                    <td> {{ contenu[ingredient.id] * ingredient.price }} </td>
+                    {% else %}
+                    <td> 0 </td>
+                    {% endif %}
                     {#<td class="text-end"> {{ ingredient.quantite *ingredient.price }}</td>#}
                     <td>
                         <a href="{{ path("app_sandwich_add_basket", {id:ingredient.id})}}"
@@ -51,12 +52,8 @@
         Vider le sandwich
         <i class="fa fa-trash"></i>
     </a>
-    <button>Commander</button>
     <a href="{{path("add")}}">ajouter au panier</a>
-    <div>
-        <p > Total</p>
-        <p> {{ total }}</p>
-    </div>
+
 
     {{ dump(dataContenuSandwich) }}
 {% endblock %}

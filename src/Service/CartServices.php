@@ -23,7 +23,7 @@ class CartServices
     }
     public function addOneSandwich(SessionInterface $ingredientRepository) : void
     {
-        $panier = $session->get("panier", []);
+      /*  $panier = $session->get("panier", []);
         $ingredients = $session->get('ingredients');
         dd($ingredients);
         $dataContenuSandwich = [];
@@ -45,7 +45,7 @@ class CartServices
         }
 
 
-        $session->set("panier", $panier);
+        $session->set("panier", $panier);*/
     }
 
     public function removeOneSandwich(int $id, SessionInterface $session) : void

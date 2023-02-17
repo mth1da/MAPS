@@ -14,24 +14,26 @@ class SandwichController extends AbstractController
     #[Route('/sandwich', name: 'app_sandwich')]
     public function index(SessionInterface $session, IngredientRepository $ingredientRepository): Response
     {
-        $contenu= $session->get('ingredients', []);
-
+        $contenu= $session->get('ingredients');
         //$id = $ingredient->getId();
-
         $dataContenuSandwich = [];
         $total = 0;
-         foreach ($contenu as $id => $quantite){
-             $ingredient = $ingredientRepository->find($id);
-             $dataContenuSandwich[] = [
-                 "ingredient" => $ingredient,
-                 "quantité" => $quantite
-             ];
-             //$total+=$ingredient->getPtrice() * $quantite;
-         }
+        if(!empty($contenu)){
+            foreach ($contenu as $id => $quantite){
+                $ingredient = $ingredientRepository->find($id);
+                $dataContenuSandwich[] = [
+                    "ingredient" => $ingredient,
+                    "quantite" => $quantite
+                ];
+                //$total+=$ingredient->getPtrice() * $quantite;
+            }
+        }
+        $session->set('sandwich', $dataContenuSandwich);
         return $this->render('sandwich/index.html.twig', [
             'controller_name' => 'SandwichController',
             'ingredients' => $ingredientRepository->findAll(),
             "total" => $total,
+            "contenu" => $contenu,
             "dataContenuSandwich" => $dataContenuSandwich
         ]);
     }
@@ -45,7 +47,9 @@ class SandwichController extends AbstractController
         }else{
             $contenu[$id]=1;
         }
+
         $session->set('ingredients', $contenu);
+
         return $this->redirectToRoute('app_sandwich');
     }
 

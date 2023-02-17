@@ -26,12 +26,11 @@ class Sandwich
     #[ORM\ManyToMany(targetEntity: Ingredient::class)]
     private Collection $sandwich_ingredients;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?float $price = null;
 
-    #[ORM\Column]
-    private ?bool $isOriginal = null;
-
+    #[ORM\Column(nullable: true)]
+    private ?bool $is_original = null;
 
     public function __construct()
     {
@@ -99,17 +98,20 @@ class Sandwich
         return $this->price;
     }
 
-    public function isOriginal(): ?bool
+    public function isIsOriginal(): ?bool
     {
-        return $this->isOriginal;
+        return $this->is_original;
     }
 
-    public function setIsOriginal(bool $isOriginal): self
+    public function setIsOriginal(?bool $is_original): self
     {
-        $this->isOriginal = $isOriginal;
+        $this->is_original = $is_original;
 
         return $this;
     }
+
+
+
 
 }
 

@@ -18,24 +18,30 @@
         </tr>
         </thead>
         <tbody>
-        {% for element in dataPanier %}
-        <tr>
-            {% if element.sandwich is not null %}
-                <td>{{ element.sandwich.Name }}</td>
-                <td>{{ element.sandwich.price }} €</td>
-                <td>{{ element.quantite }}</td>
-                <td>{{ element.quantite * element.sandwich.price }} €</td>
-            <td>
-                <a href="{{path("add", {id: element.sandwich.id})}}" class="btn btn-success">Ajouter</a>
-                <a href="{{path("remove", {id: element.sandwich.id})}}" class="btn btn-danger">Supprimer</a>
-            </td>
-            {% endif %}
-        </tr>
-        {% else %}
+        {% if panier %}
+
+        {% for key, element  in panier %}
             <tr>
-                <td colspan="5" class="text-center">Votre panier est vide</td>
+                Sandwich {{ key + 1}}
             </tr>
+        {% for ingredient in element %}
+        <tr>
+                <td>{{ ingredient.ingredient.name }}</td>
+                <td>{{ ingredient.ingredient.price }}</td>
+                <td>{{ ingredient.quantite }}</td>
+                <td>{{ ingredient.ingredient.price * ingredient.quantite }}</td>
+            <td>
+                <a href="{{path("add", {id: key})}}" class="btn btn-success">Ajouter</a>
+                <a href="{{path("remove", {id: key})}}" class="btn btn-danger">Supprimer</a>
+            </td>
+        </tr>
         {% endfor %}
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="5" class="text-center">Votre panier est vide</td>
+        </tr>
+        {% endif %}
         </tbody>
         <tfoot>
         <tr>
@@ -47,6 +53,8 @@
         </tr>
         </tfoot>
     </table>
-    {{ dump(dataPanier) }}
+    <button class="btn btn-primary">Commander</button>
+
+    {{ dump(panier) }}
 
 {% endblock %}

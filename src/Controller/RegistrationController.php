@@ -58,8 +58,11 @@ class RegistrationController extends AbstractController
                 'register',
                 ['user'=>$user, 'token'=>$token]
             );
+            $this->addFlash('success', 'Inscription réussie ! ');
         }
-
+        else {
+            $this->addFlash('danger', 'Nom d\'utilisateur ou email déjà utilisé, merci de réessayer. ');
+        }
 
         return $this->render('registration/index.html.twig', [
             'form' => $form->createView()

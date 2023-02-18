@@ -37,7 +37,7 @@ class AccountController extends AbstractController
             $em->persist($user);
             $em->flush();
 
-            $this->addFlash('maj', 'Profil mis à jour');
+            $this->addFlash('success', 'Votre profil a bien été mis à jour');
 
             return $this->redirectToRoute('app_account');
         }

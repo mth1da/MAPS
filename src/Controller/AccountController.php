@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use App\Form\EditProfileType;
 use Doctrine\ORM\EntityManagerInterface;
-use http\Client\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+
+
 
 class AccountController extends AbstractController
 {
@@ -32,7 +34,6 @@ class AccountController extends AbstractController
         $editForm->handleRequest($request);
 
         if($editForm->isSubmitted() && $editForm->isValid()){
-            $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
 

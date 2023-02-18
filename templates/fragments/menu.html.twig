@@ -35,26 +35,26 @@
                         {# si l'user est un admin #}
                         {% if 'ROLE_ADMIN' in app.user.getroles() %}
                             <li class="nav-item">
-                                <button type="button" class="navbar-btn btn btn-sm ms-auto btn-outline-secondary" onclick="location.href='{{ path('app_admin') }}'">Gérer</button>
+                                <button type="button" class="navbar-btn btn btn-sm ms-auto btn-outline-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Gérer" onclick="location.href='{{ path('app_admin') }}'"><i class="fa-solid fa-screwdriver-wrench"></i></button>
                             </li>
                         {% endif %}
                         <li class="nav-item">
-                            <button type="button" class="navbar-btn btn btn-sm ms-auto btn-outline-secondary onclick="location.href='{{ path('app_cart') }}">Panier</button>
+                            <button type="button" class="navbar-btn btn btn-sm ms-auto btn-outline-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Mon Panier" onclick="location.href='{{ path('app_cart') }}'"><i class="fa-solid fa-cart-shopping"></i></button>
                         </li>
                         <li class="nav-item">
-                            <button type="button" class="navbar-btn btn btn-sm ms-auto btn-outline-secondary">Mon Compte</button>
+                            <button type="button" class="navbar-btn btn btn-sm ms-auto btn-outline-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Mon Compte"><i class="fa-solid fa-user"></i></button>
                         </li>
                         <li class="nav-item">
-                            <button type="button" class="navbar-btn btn btn-sm ms-auto btn-outline-secondary" onclick="location.href='{{ path('app_logout') }}'">Log out</button>
+                            <button type="button" class="navbar-btn btn btn-sm ms-auto btn-outline-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Me déconnecter" onclick="location.href='{{ path('app_logout') }}'"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
                         </li>
 
                     {# si l'user n'est pas connecté #}
                     {% else %}
                         <li class="nav-item">
-                            <button type="button" class="navbar-btn btn btn-sm ms-auto btn-outline-secondary" onclick="location.href='{{ path('app_login') }}'">Log in</button>
+                            <button type="button" class="navbar-btn btn btn-sm ms-auto btn-outline-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="M'inscrire" onclick="location.href='{{ path('app_registration') }}'"><i class="fa-solid fa-user-plus"></i></button>
                         </li>
                         <li class="nav-item">
-                            <button type="button" class="navbar-btn btn btn-sm ms-auto btn-outline-secondary" onclick="location.href='{{ path('app_registration') }}'">Sign up</button>
+                            <button type="button" class="navbar-btn btn btn-sm ms-auto btn-outline-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Me Connecter" onclick="location.href='{{ path('app_login') }}'"><i class="fa-solid fa-arrow-right-to-bracket"></i></button>
                         </li>
                     {% endif %}
                 </ul>

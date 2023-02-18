@@ -50,7 +50,7 @@ class UserFixtures extends Fixture
         ],
         [
             "email" => "user@user.com",
-            "password" => "user5",
+            "password" => "password",
             "roles" => "ROLE_USER",
             "lastName" => "Donne",
             "firstName" => "John",

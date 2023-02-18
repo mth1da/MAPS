@@ -48,11 +48,10 @@
         </tbody>
     </table>
     <a href="{{ path("app_sandwich_delete_all") }}"
-       class="btn-warning">
+       class="btn btn-danger">
         Vider le sandwich
-        <i class="fa fa-trash"></i>
     </a>
-    <a href="{{path("add")}}">ajouter au panier</a>
+    <a href="{{path("add")}}"class="btn btn-success">ajouter au panier</a>
 
 
     {{ dump(dataContenuSandwich) }}

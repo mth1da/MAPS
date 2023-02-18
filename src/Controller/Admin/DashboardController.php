@@ -44,6 +44,7 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
 
+        yield MenuItem::linktoRoute('Back to the website', 'fas fa-home', 'app_homepage');
 
         yield MenuItem::subMenu('Action Ingredient', 'fas fa-bars')->setSubItems([
             MenuItem::linkToCrud('Create Ingredient', 'fas fa-plus', Ingredient::class)->setAction(Crud::PAGE_NEW),

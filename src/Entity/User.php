@@ -383,6 +383,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->first_name;
 
     }
+
+    public function isIsVerified(): ?bool
+    {
+        return $this->is_verified;
+    }
 }
 /*class Client extends User{
 

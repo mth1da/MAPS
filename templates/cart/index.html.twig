@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre panier{% endblock %}
+
+{% block body %}
+    <section class="bg-light p-3">
+        <h1>Votre panier</h1>
+    </section>
+    <p>Mmmmh, il est bien vide ce panier <a href="{{ path('app_original_sandwich') }}" class="btn btn-info">Continuer mes achats</a></p>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Produit</th>
+            <th>Prix</th>
+            <th>Quantité</th>
+            <th>Total</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if panier %}
+
+            {% for key, element  in panier %}
+                <tr>
+                    <td>Sandwich {{ key + 1 }}</td>
+                </tr>
+                {% for ingredient in element %}
+                    <tr>
+                        <td>{{ ingredient.ingredient.name }}</td>
+                        <td>{{ ingredient.ingredient.price }}</td>
+                        <td>{{ ingredient.quantite }}</td>
+                        <td>{{ ingredient.ingredient.price * ingredient.quantite }}</td>
+                        <td>
+                            <a href="{{ path('add', {id: key}) }}" class="btn btn-success">Ajouter</a>
+                            <a href="{{ path('remove', {id: key}) }}" class="btn btn-danger">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="5" class="text-center">Votre panier est vide</td>
+        </tr>
+        {% endif %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="3">Total</td>
+            <td class="text-end">{{ total }} €</td>
+            <td>
+                <a href="{{path("delete")}}" class="btn btn-danger">Vider le panier</a>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+    <button class="btn btn-primary">Commander</button>
+
+    {{ dump(panier) }}
+
+{% endblock %}

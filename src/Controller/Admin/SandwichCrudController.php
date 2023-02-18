@@ -2,15 +2,13 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Ingredient;
+
 use App\Entity\Sandwich;
-use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+
 
 class SandwichCrudController extends AbstractCrudController
 {
@@ -25,7 +23,9 @@ class SandwichCrudController extends AbstractCrudController
         return [
             Field::new('id')->hideOnForm(),
             Field::new('name'),
-            //Field::new('sandwich_ingredients'),
+            AssociationField::new('sandwich_ingredients'),
+            Field::new('price'),
+            BooleanField::new('isOriginal'),
         ];
     }
 

@@ -30,12 +30,13 @@ class CartController extends AbstractController
 
         $panier = $session->get("panier");
 
-        foreach ($panier as $id => $ingr) {
-            if (isset($ingr['ingredient'])) {
-                $dataPanier[] = $ingr;
+        foreach ($panier as $id => $elems) {
+            foreach ($elems as $id => $ingr) {
+                if (isset($ingr['ingredient'])) {
                 $total += $ingr['ingredient']->getPrice() * $ingr['quantite'];
-            } else {
-                // handle the case where the 'ingredient' key is missing
+            }else{
+
+                }
             }
         }
 

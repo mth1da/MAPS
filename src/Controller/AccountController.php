@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Form\EditProfileType;
+use Doctrine\ORM\EntityManagerInterface;
 use http\Client\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,22 +18,33 @@ class AccountController extends AbstractController
     }
 
 
+
     #[Route('/account/edit', name: 'app_account_edit')]
-    public function editProfile(Request $request): Response
+    public function editProfile(EntityManagerInterface $em, Request $request): Response
     {
+        //on récupère le user connecté
         $user = $this->getUser();
-        $form = $this->createForm(EditProfileType::class, $user );
 
-        $form->handleRequest($request);
+        //on crée le formulaire
+        $editForm = $this->createForm(EditProfileType::class, $user );
 
-        if($form->isSubmitted() && $form->isValid()){
+        //on traite la requête du form
+        $editForm->handleRequest($request);
+
+        if($editForm->isSubmitted() && $editForm->isValid()){
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
 
-            $this->addFlash('message', 'Profil mis à jour');
-            return $this->redirectToRoute('account');
+            $this->addFlash('maj', 'Profil mis à jour');
+
+            return $this->redirectToRoute('app_account');
         }
-        return $this->render('account/editprofile.html.twig');
+        return $this->render('account/editprofile.html.twig', [
+            'editForm' => $editForm->createView(),
+        ]);
     }
+
+
+
 }

@@ -57,7 +57,8 @@ class RegistrationController extends AbstractController
                 'Activation de votre compte MAPS',
                 'register',
                 ['user'=>$user, 'token'=>$token]
-            );
+            ); //$this->addFlash('authentified', 'Inscription réussie !');
+
         }
 
 

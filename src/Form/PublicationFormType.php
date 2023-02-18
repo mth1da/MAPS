@@ -19,15 +19,6 @@ class PublicationFormType extends AbstractType
                 'label' => 'Photo',
                 'multiple' => false,
                 'mapped' => false, //pas besoin d'etre de meme type que photo dans publication
-                'constraints'=>[
-                    new All( //permet d'avoir du récursif si on a pls images
-                        new Image([
-                                'maxWidth'=>1620,
-                                'maxWidthMessage'=>'L\'image doit faire {{max_width}} pixels de large au maximum.'
-                            ]
-                        )
-                    )
-                ]
             ])
             ->add('commentaire', options:[
                 'label' => 'Commentaire'

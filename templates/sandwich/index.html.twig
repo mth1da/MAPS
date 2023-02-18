@@ -18,7 +18,7 @@
             {% for ingredient in ingredients %}
                 <tr>
                     <td>{{ ingredient.name }}</td>
-                    <td><img src="{{ asset('upload/image/ingredients/' ~ ingredient.photo) }}" alt="Ingredient Photo"></td>
+                    <td><img src="{{ asset('upload/images/ingredients/')}}{{ ingredient.photo }}" width="5%"></td>
                     <td> {{ ingredient.price }}</td>
                     {% if contenu[ingredient.id] is defined %}
                     <td> {{ contenu[ingredient.id] * ingredient.price }} </td>

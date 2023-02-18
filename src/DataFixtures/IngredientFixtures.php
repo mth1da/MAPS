@@ -15,7 +15,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $mie = new Ingredient();
         $mie->setName('Pain de mie');
         $mie->setDescription('Des tranches de pain de mie savoureuses !');
-        $mie->setPrice(1);
+        $mie->setPrice(100);
         $mie->setPhoto("painmie.jpg");
         $mie->setTypes(
             $this->getReference('pain')
@@ -25,7 +25,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $burger = new Ingredient();
         $burger->setName('Pain Burger');
         $burger->setDescription('Un pain Burger de qualité !');
-        $burger->setPrice(1);
+        $burger->setPrice(100);
         $burger->setPhoto("burger.jpg");
         $burger->setTypes(
             $this->getReference('pain')
@@ -37,7 +37,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $jambon = new Ingredient();
         $jambon->setName('Jambon');
         $jambon->setDescription('Des tranches de jambon savoureuses !');
-        $jambon->setPrice(1);
+        $jambon->setPrice(100);
         $jambon->setPhoto("jambon.jpg");
         $jambon->setTypes(
             $this->getReference('viande')
@@ -47,7 +47,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $steak = new Ingredient();
         $steak->setName('Steak');
         $steak->setDescription('Du steak !');
-        $steak->setPrice(1.5);
+        $steak->setPrice(150);
         $steak->setPhoto("steak.webp");
         $steak->setTypes(
             $this->getReference('viande')
@@ -58,18 +58,28 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $saumon = new Ingredient();
         $saumon->setName('Saumon');
         $saumon->setDescription('Du saumon !');
-        $saumon->setPrice(1.5);
+        $saumon->setPrice(150);
         $saumon->setPhoto("saumon.webp");
         $saumon->setTypes(
             $this->getReference('poisson')
         );
         $manager->persist($saumon);
 
+        $crevette = new Ingredient();
+        $crevette->setName('Crevettes');
+        $crevette->setDescription('Des crevettes !');
+        $crevette->setPrice(150);
+        $crevette->setPhoto("crevette.jpg");
+        $crevette->setTypes(
+            $this->getReference('poisson')
+        );
+        $manager->persist($crevette);
+
         //crudités
         $salade = new Ingredient();
         $salade->setName('Salade');
         $salade->setDescription('Des feuilles de salade fraîches récoltées le jour même !');
-        $salade->setPrice(0.2);
+        $salade->setPrice(20);
         $salade->setPhoto("salade.jpg");
         $salade->setTypes(
             $this->getReference('crudite')
@@ -79,7 +89,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $olive = new Ingredient();
         $olive->setName('Olives');
         $olive->setDescription('De bonnes olives venues tout droit de Sicile !');
-        $olive->setPrice(0.2);
+        $olive->setPrice(20);
         $olive->setPhoto("olive.jpg");
         $olive->setTypes(
             $this->getReference('crudite')
@@ -89,7 +99,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $tomate = new Ingredient();
         $tomate->setName('Tomates');
         $tomate->setDescription('Des tranches de tomates bien fraîches récoltées le jour même !');
-        $tomate->setPrice(0.2);
+        $tomate->setPrice(20);
         $tomate->setPhoto("tomate.jpg");
         $tomate->setTypes(
             $this->getReference('crudite')
@@ -99,7 +109,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $carotte = new Ingredient();
         $carotte->setName('Carottes');
         $carotte->setDescription('Des carottes rapées bien fraîches récoltées localement !');
-        $carotte->setPrice(0.2);
+        $carotte->setPrice(20);
         $carotte->setPhoto("carotte.jpg");
         $carotte->setTypes(
             $this->getReference('crudite')
@@ -109,7 +119,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $concombre = new Ingredient();
         $concombre->setName('Concombre');
         $concombre->setDescription('Des rondelles de concombres récoltés le jour même !');
-        $concombre->setPrice(0.2);
+        $concombre->setPrice(20);
         $concombre->setPhoto("concombre.jpg");
         $concombre->setTypes(
             $this->getReference('crudite')
@@ -119,7 +129,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $mais = new Ingredient();
         $mais->setName('Maïs');
         $mais->setDescription('Des graines de maïs issus de production locale !');
-        $mais->setPrice(0.2);
+        $mais->setPrice(20);
         $mais->setPhoto("mais.jpg");
         $mais->setTypes(
             $this->getReference('crudite')
@@ -129,7 +139,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $oeuf = new Ingredient();
         $oeuf->setName('Oeufs');
         $oeuf->setDescription('Des oeufs durs issus d\'élevages certifiés en plein air !');
-        $oeuf->setPrice(0.2);
+        $oeuf->setPrice(20);
         $oeuf->setPhoto("oeuf.jpg");
         $oeuf->setTypes(
             $this->getReference('crudite')
@@ -139,7 +149,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $radi = new Ingredient();
         $radi->setName('Radis');
         $radi->setDescription('Des morceaux de radis récoltées localement !');
-        $radi->setPrice(0.2);
+        $radi->setPrice(20);
         $radi->setPhoto("radis.jpg");
         $radi->setTypes(
             $this->getReference('crudite')
@@ -152,7 +162,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $parmesan = new Ingredient();
         $parmesan->setName('Parmesan');
         $parmesan->setDescription('De bons morceaux de parmesan venus tout droit d\'Italie !');
-        $parmesan->setPrice(0.4);
+        $parmesan->setPrice(40);
         $parmesan->setPhoto("parmesan.jpg");
         $parmesan->setTypes(
             $this->getReference('fromage')
@@ -162,7 +172,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $roquefort = new Ingredient();
         $roquefort->setName('Roquefort');
         $roquefort->setDescription('De bons morceaux de roquefort venus tout droit d\'Italie !');
-        $roquefort->setPrice(0.2);
+        $roquefort->setPrice(20);
         $roquefort->setPhoto("roquefort.jpg");
         $roquefort->setTypes(
             $this->getReference('fromage')
@@ -172,7 +182,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $feta = new Ingredient();
         $feta->setName('Feta');
         $feta->setDescription('De bons morceaux de feta venus tout droit de Grèce !');
-        $feta->setPrice(0.2);
+        $feta->setPrice(20);
         $feta->setPhoto("feta.jpg");
         $feta->setTypes(
             $this->getReference('fromage')
@@ -182,7 +192,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $mozza = new Ingredient();
         $mozza->setName('Mozzarella');
         $mozza->setDescription('De bonnes tranches de mozzarella venues tout droit d\'Italie !');
-        $mozza->setPrice(0.3);
+        $mozza->setPrice(30);
         $mozza->setPhoto("mozza.jpg");
         $mozza->setTypes(
             $this->getReference('fromage')
@@ -192,7 +202,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $chevre = new Ingredient();
         $chevre->setName('Chèvre');
         $chevre->setDescription('De bonnes tranches de fromage de chèvres élevées en France !');
-        $chevre->setPrice(0.3);
+        $chevre->setPrice(30);
         $chevre->setPhoto("chevre.jpg");
         $chevre->setTypes(
             $this->getReference('fromage')
@@ -202,7 +212,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $brie = new Ingredient();
         $brie->setName('Brie de Meaux');
         $brie->setDescription('De bonnes tranches de Brie venu tout droit de Meaux !');
-        $brie->setPrice(0.4);
+        $brie->setPrice(40);
         $brie->setPhoto("brie.jpg");
         $brie->setTypes(
             $this->getReference('fromage')
@@ -212,7 +222,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $cheddar = new Ingredient();
         $cheddar->setName('Cheddar');
         $cheddar->setDescription('De bonnes tranches de Cheddar venu tout droit de Somerset au Royaume-Uni !');
-        $cheddar->setPrice(0.3);
+        $cheddar->setPrice(30);
         $cheddar->setPhoto("cheddar.jpg");
         $cheddar->setTypes(
             $this->getReference('fromage')
@@ -222,7 +232,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $emmental = new Ingredient();
         $emmental->setName('Emmental');
         $emmental->setDescription('De bonnes tranches d\'Emmental venu tout droit de Suisse !');
-        $emmental->setPrice(0.2);
+        $emmental->setPrice(20);
         $emmental->setPhoto("emmental.jpg");
         $emmental->setTypes(
             $this->getReference('fromage')
@@ -233,7 +243,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $basilic = new Ingredient();
         $basilic->setName('Basilic');
         $basilic->setDescription('De bonnes feuilles de Basilic gorgé de soleil !');
-        $basilic->setPrice(0.1);
+        $basilic->setPrice(10);
         $basilic->setPhoto("basilic.jpg");
         $basilic->setTypes(
             $this->getReference('plante')
@@ -243,7 +253,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $cor = new Ingredient();
         $cor->setName('Coriandre');
         $cor->setDescription('De bonnes feuilles de Coriandre gorgée de soleil !');
-        $cor->setPrice(0.1);
+        $cor->setPrice(10);
         $cor->setPhoto("coriandre.jpg");
         $cor->setTypes(
             $this->getReference('plante')
@@ -253,7 +263,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $menthe = new Ingredient();
         $menthe->setName('Menthe');
         $menthe->setDescription('De bonnes feuilles de Menthe gorgée de soleil !');
-        $menthe->setPrice(0.1);
+        $menthe->setPrice(10);
         $menthe->setPhoto("menthe.jpg");
         $menthe->setTypes(
             $this->getReference('plante')
@@ -263,7 +273,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $oignon = new Ingredient();
         $oignon->setName('Oignon');
         $oignon->setDescription('De bonnes rondelles d\'Oignon !');
-        $oignon->setPrice(0.1);
+        $oignon->setPrice(10);
         $oignon->setPhoto("oignon.jpg");
         $oignon->setTypes(
             $this->getReference('plante')
@@ -274,7 +284,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $curry= new Ingredient();
         $curry->setName('Curry');
         $curry->setDescription('Du Curry savoureux !');
-        $curry->setPrice(0.1);
+        $curry->setPrice(10);
         $curry->setPhoto("curry.jpg");
         $curry->setTypes(
             $this->getReference('epice')
@@ -284,7 +294,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $poivre= new Ingredient();
         $poivre->setName('Poivre');
         $poivre->setDescription('Du Poivre savoureux !');
-        $poivre->setPrice(0.05);
+        $poivre->setPrice(5);
         $poivre->setPhoto("poivre.webp");
         $poivre->setTypes(
             $this->getReference('epice')
@@ -294,7 +304,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $papri= new Ingredient();
         $papri->setName('Paprika');
         $papri->setDescription('Du Paprika savoureux !');
-        $papri->setPrice(0.1);
+        $papri->setPrice(10);
         $papri->setPhoto("paprika.webp");
         $papri->setTypes(
             $this->getReference('epice')
@@ -304,7 +314,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $curcuma= new Ingredient();
         $curcuma->setName('Curcuma');
         $curcuma->setDescription('Du Curcuma savoureux !');
-        $curcuma->setPrice(0.1);
+        $curcuma->setPrice(10);
         $curcuma->setPhoto("curcuma.jpg");
         $curcuma->setTypes(
             $this->getReference('epice')
@@ -315,7 +325,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $soja= new Ingredient();
         $soja->setName('Sauce Soja');
         $soja->setDescription('De la Sauce Soja !');
-        $soja->setPrice(0.1);
+        $soja->setPrice(10);
         $soja->setPhoto("soja.jpg");
         $soja->setTypes(
             $this->getReference('sauce')
@@ -325,7 +335,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $bbq= new Ingredient();
         $bbq->setName('Sauce BBQ');
         $bbq->setDescription('De la bonne sauce BBQ !');
-        $bbq->setPrice(0.1);
+        $bbq->setPrice(10);
         $bbq->setPhoto("bbq.jpg");
         $bbq->setTypes(
             $this->getReference('sauce')
@@ -335,7 +345,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $wasabi= new Ingredient();
         $wasabi->setName('Sauce Wasabi');
         $wasabi->setDescription('Du Wasabi pour enflammer vos hivers les plus rudes !');
-        $wasabi->setPrice(0.1);
+        $wasabi->setPrice(10);
         $wasabi->setPhoto("wasabi.jpg");
         $wasabi->setTypes(
             $this->getReference('sauce')
@@ -345,7 +355,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $moutarde= new Ingredient();
         $moutarde->setName('Moutarde');
         $moutarde->setDescription('De la Moutarde !');
-        $moutarde->setPrice(0.1);
+        $moutarde->setPrice(10);
         $moutarde->setPhoto("moutarde.jpg");
         $moutarde->setTypes(
             $this->getReference('sauce')
@@ -355,7 +365,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $mayo= new Ingredient();
         $mayo->setName('Mayonnaise');
         $mayo->setDescription('De la Mayonnaise, simple et efficace.');
-        $mayo->setPrice(0.1);
+        $mayo->setPrice(10);
         $mayo->setPhoto("mayo.jpg");
         $mayo->setTypes(
             $this->getReference('sauce')
@@ -365,7 +375,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $ketchup= new Ingredient();
         $ketchup->setName('Ketchup');
         $ketchup->setDescription('Du Ketchup, simple et efficace.');
-        $ketchup->setPrice(0.1);
+        $ketchup->setPrice(10);
         $ketchup->setPhoto("ketchup.jpg");
         $ketchup->setTypes(
             $this->getReference('sauce')

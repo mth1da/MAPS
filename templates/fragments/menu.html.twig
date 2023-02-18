@@ -9,7 +9,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Mapping</a>
+                        <a class="nav-link active" aria-current="page" href="{{ path('app_sandwich') }}">Mapping</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Le Concept</a>
@@ -18,22 +18,8 @@
                         <a class="nav-link" href="{{ path('app_ingredient') }}">Nos Ingrédients</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_sandwich') }}">Crée ton sandwich</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_cart') }}">Mon panier</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Nos Sandwichs
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ path('app_original_sandwich') }}">Sandwichs traditionnels</a></li>
-                            <li><a class="dropdown-item" href="#">Sandwichs du moment</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">smtg else</a></li>
-                        </ul>
-                    </li>
+                        <a class="nav-link" href="{{ path('app_original_sandwich') }}">Nos Sandwichs</a>
+                    </li> 
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_feed') }}">Vos Sandwichs</a>
                     </li>
@@ -52,6 +38,9 @@
                                 <button type="button" class="navbar-btn btn btn-sm ms-auto btn-outline-secondary" onclick="location.href='{{ path('app_admin') }}'">Gérer</button>
                             </li>
                         {% endif %}
+                        <li class="nav-item">
+                            <button type="button" class="navbar-btn btn btn-sm ms-auto btn-outline-secondary onclick="location.href='{{ path('app_cart') }}">Panier</button>
+                        </li>
                         <li class="nav-item">
                             <button type="button" class="navbar-btn btn btn-sm ms-auto btn-outline-secondary">Mon Compte</button>
                         </li>

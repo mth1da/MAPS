@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\EditPassType;
 use App\Form\EditProfileType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -51,13 +52,12 @@ class AccountController extends AbstractController
         public function editPass(EntityManagerInterface $em, Request $request, UserPasswordHasherInterface $passwordHasher): Response
         {
 
-
             if($request->isMethod('GET')){
 
                 $user = $this->getUser();
 
                 //on crée le formulaire
-                $editPass = $this->createForm(EditProfileType::class, $user );
+                $editPass = $this->createForm(EditPassType::class, $user );
 
                 //on traite la requête du form
                 $editPass->handleRequest($request);

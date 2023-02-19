@@ -16,14 +16,10 @@
 
 
                 <fieldset class="mb-3">
-                    <legend>Mes Informations :</h4>
-                    </legend>
+                    <legend>Mes Informations</legend>
 
 
                     <table width="600px" height="240px" bgcolor="#f5f5dc" cellpadding="10px" border-style="dotted">
-                        <caption>
-                            Mettez à jour vos informations.
-                        </caption>
                         <tr>
                             <td>Nom :</td>
                             <th>{{ app.user.getLastName() }}</th>
@@ -31,6 +27,10 @@
                         <tr>
                             <td>Prénom :</td>
                             <th>{{ app.user.getFirstName() }} </th>
+                        </tr>
+                        <tr>
+                            <td>Nom d'utilisateur :</td>
+                            <th>{{ app.user.getUserName() }} </th>
                         </tr>
                         <tr>
                             <td>E-mail :</td>
@@ -90,7 +90,6 @@
                         </svg>
                     </button>
                 </fieldset>
-                </fieldset>
 
                 <fieldset class="mb-3">
                     <legend>Mes Publications</legend>
@@ -106,7 +105,6 @@
                             <path d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828l6.879-6.879zm.66 11.34L3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293l.16-.16z"/>
                         </svg>
                     </button>
-                </fieldset>
                 </fieldset>
 
             </div>

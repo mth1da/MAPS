@@ -80,7 +80,7 @@ class PublicationController extends AbstractController
             $entityManager->persist($publi);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Publication partagée avec succès');
+            $this->addFlash('success', 'Publication mise à jour avec succès');
 
             return $this->redirectToRoute('app_publication_index');
         }

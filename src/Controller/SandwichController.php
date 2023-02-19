@@ -14,9 +14,11 @@ class SandwichController extends AbstractController
     #[Route('/sandwich', name: 'app_sandwich')]
     public function index(SessionInterface $session, IngredientRepository $ingredientRepository): Response
     {
+        $panier=$session->get('panier');
         $contenu= $session->get('ingredients');
         //$id = $ingredient->getId();
         $dataContenuSandwich = [];
+
         $total = 0;
         if(!empty($contenu)){
             foreach ($contenu as $id => $quantite){

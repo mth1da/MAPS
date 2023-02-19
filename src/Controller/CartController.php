@@ -30,13 +30,12 @@ class CartController extends AbstractController
 
         $panier = $session->get("panier");
 
-        foreach ($panier as $id => $elems) {
-            foreach ($elems as $id => $ingr) {
-                if (isset($ingr['ingredient'])) {
+        foreach ($panier as $id => $ingr) {
+            if (isset($ingr['ingredient'])) {
+                $dataPanier[] = $ingr;
                 $total += $ingr['ingredient']->getPrice() * $ingr['quantite'];
-            }else{
-
-                }
+            } else {
+                // handle the case where the 'ingredient' key is missing
             }
         }
 
@@ -62,7 +61,14 @@ class CartController extends AbstractController
             $dataContenuSandwich = [$sandwich];
 
         }
-        $session->set("panier", $dataContenuSandwich);
+        $panier=$session->get('panier');
+        dump($panier);
+        $panier[]=$sandwich;
+        $session->set("panier", $panier );
+        dump($panier);
+        $session->set('sandwich', null);
+        $session->set('ingredients', null);
+
 
         //on redirige l'utilisateur vers le panier
         return $this->redirectToRoute("app_cart");

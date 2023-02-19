@@ -31,13 +31,15 @@
                             <td>{{ ingredient.ingredient.price }}</td>
                             <td>{{ ingredient.quantite }}</td>
                             <td>{{ ingredient.ingredient.price * ingredient.quantite }}</td>
+                    {% endif %}
+                {% endfor %}
                             <td>
                                 <a href="{{ path('add', {id: key}) }}" class="btn btn-success">Ajouter</a>
                                 <a href="{{ path('remove', {id: key}) }}" class="btn btn-danger">Supprimer</a>
                             </td>
                         </tr>
-                    {% endif %}
-                {% endfor %}
+
+
             {% endfor %}
 
         {% else %}

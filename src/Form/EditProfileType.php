@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -16,9 +17,21 @@ class EditProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('first_name',TextType::class)
-            ->add('last_name',TextType::class)
-            ->add('email', TextType::class, array ('attr' => array ('readonly' => true)))
+            ->add('first_name',TextType::class, [
+                'label'=> 'Prénom'
+            ])
+            ->add('last_name',TextType::class, [
+                'label'=> 'Nom'
+            ])
+            ->add('user_name',TextType::class,[
+                'label'=>'Nom d\'utilisateur'
+            ])
+            ->add('email', TextType::class, [
+                'label'=>'E-mail',
+                'attr' => array (
+                    'readonly' => true
+                    )
+            ])
             ->add('Valider', SubmitType::class)
         ;
     }

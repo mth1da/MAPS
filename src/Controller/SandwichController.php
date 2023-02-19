@@ -38,6 +38,7 @@ class SandwichController extends AbstractController
             "contenu" => $contenu,
             "dataContenuSandwich" => $dataContenuSandwich
         ]);
+
     }
     #[Route('/sandwich/add/{id}', name: 'app_sandwich_add_basket')]
     public function addIngredient($id, Ingredient $ingredient, SessionInterface $session, IngredientRepository $ingredientRepository){

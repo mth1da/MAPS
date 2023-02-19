@@ -9,6 +9,7 @@
             <th scope="col">Ingrédient</th>
             <th scope="col">Photo</th>
             <th scope="col">Prix</th>
+            <th scope="col">Quantité</th>
             <th scope="col">Total</th>
             <th scope="col">Action</th>
         </tr>
@@ -21,6 +22,7 @@
                     <td><img src="{{ asset('upload/images/ingredients/')}}{{ ingredient.photo }}" width="5%"></td>
                     <td> {{ ingredient.price }}</td>
                     {% if contenu[ingredient.id] is defined %}
+                        <td> {{ contenu[ingredient.id] }} </td>
                     <td> {{ contenu[ingredient.id] * ingredient.price }} </td>
                     {% else %}
                     <td> 0 </td>

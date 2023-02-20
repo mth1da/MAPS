@@ -50,7 +50,7 @@ class CartController extends AbstractController
     }
 
 
-    #[NoReturn] #[Route('/add', name: 'add')]
+    #[NoReturn] #[Route('/add', name: 'app_cart_add')]
     public function add( SessionInterface $session)
     {
         // $this->services->addOneSandwich($session);
@@ -78,7 +78,7 @@ class CartController extends AbstractController
         //on redirige l'utilisateur vers le panier
         return $this->redirectToRoute("app_cart");
     }
-    #[NoReturn] #[Route('/remove/{id}', name: 'remove')]
+    #[NoReturn] #[Route('/remove/{id}', name: 'app_cart_remove')]
     public function remove(int $id, SessionInterface $session)
     {
         $this->services->removeOneSandwich($id, $session);
@@ -86,7 +86,7 @@ class CartController extends AbstractController
         return $this->redirectToRoute("app_cart");
     }
 
-    #[NoReturn] #[Route('/delete', name: 'delete')]
+    #[NoReturn] #[Route('/delete', name: 'app_cart_delete')]
     public function deleteAll(SessionInterface $session)
     {
         $session->remove("panier");

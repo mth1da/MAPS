@@ -22,18 +22,17 @@
                 <tr>
                     <td>{{ ingredient.name }}</td>
                     <td><img src="{{ asset('upload/images/ingredients/')}}{{ ingredient.photo }}" width="5%" alt="illustration de l'ingrédient {{ ingredient.name }}"></td>
-                    <td> {{ ingredient.price }}</td>
+                    <td> {{ ingredient.price /100 }}</td>
                     {% if contenu[ingredient.id] is defined %}
-                        <td> {{ contenu[ingredient.id] }} </td>
+                        <td> {{ contenu[ingredient.id]}} </td>
                     {% else %}
                         <td> 0 </td>
                     {% endif %}
                     {#<td class="text-end"> {{ ingredient.quantite *ingredient.price }}</td>#}
-                    <td>
-                        {% if contenu[ingredient.id] is defined %}
-                    <td> {{ contenu[ingredient.id] * ingredient.price }} </td>
+                    {% if contenu[ingredient.id] is defined %}
+                        <td> {{ contenu[ingredient.id] * ingredient.price /100}} </td>
                     {% else %}
-                    <td> 0 </td>
+                        <td> 0 </td>
                     {% endif %}
                     {#<td class="text-end"> {{ ingredient.quantite *ingredient.price }}</td>#}
                     <td>
@@ -57,8 +56,13 @@
         {% endif %}
         </tbody>
     </table>
-    <a href="{{ path("app_sandwich_delete_all") }}" class="btn btn-danger">Vider le sandwich</a>
-    <a href="{{path("app_cart_add")}}"class="btn btn-success">Ajouter au panier</a>
-    <a href="{{path("app_cart")}}"class="btn btn-primary">Voir le panier</a>
+    {% if app.user %}
+        <a href="{{ path("app_sandwich_delete_all") }}" class="btn btn-danger">Vider le sandwich</a>
+        <a href="{{path("app_cart_add")}}"class="btn btn-success">Ajouter au panier</a>
+        <a href="{{path("app_cart")}}"class="btn btn-primary">Voir le panier</a>
+    {% else %}
+        <p>Connectez-vous pour mapper votre sandwich !</p>
+        <a href="{{ path("app_login") }}" class="btn btn-secondary">Me connecter</a>
+    {% endif %}
 </main>
 {% endblock %}

@@ -16,7 +16,9 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ originalSandwich.Name }}</h5>
                             <button type="button" class="btn btn-info btn-lg" data-bs-toggle="modal" data-bs-target="#{{ originalSandwich.id }}">Voir</button>
-                            <a href="{{ path('app_cart_add', {'id' : originalSandwich.id}) }}" class="btn btn-info btn-lg">+</a>
+                            {% if app.user %}
+                                <a href="{{ path('app_cart_add', {'id' : originalSandwich.id}) }}" class="btn btn-info btn-lg">+</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

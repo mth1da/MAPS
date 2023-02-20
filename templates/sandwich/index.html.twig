@@ -3,18 +3,66 @@
 {% block title %}Hello SandwichController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<main class="container">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/laragon/www/projects/maps-symfony/src/Controller/SandwichController.php'|file_link(0) }}">src/Controller/SandwichController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/laragon/www/projects/maps-symfony/templates/sandwich/index.html.twig'|file_link(0) }}">templates/sandwich/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Ingrédient</th>
+            <th scope="col">Photo</th>
+            <th scope="col">Prix</th>
+            <th scope="col">Quantité</th>
+            <th scope="col">Total</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if ingredients %}
+            {% for ingredient in ingredients %}
+                <tr>
+                    <td>{{ ingredient.name }}</td>
+                    <td><img src="{{ asset('upload/images/ingredients/')}}{{ ingredient.photo }}" width="5%" alt="illustration de l'ingrédient {{ ingredient.name }}"></td>
+                    <td> {{ ingredient.price /100 }}</td>
+                    {% if contenu[ingredient.id] is defined %}
+                        <td> {{ contenu[ingredient.id]}} </td>
+                    {% else %}
+                        <td> 0 </td>
+                    {% endif %}
+                    {#<td class="text-end"> {{ ingredient.quantite *ingredient.price }}</td>#}
+                    {% if contenu[ingredient.id] is defined %}
+                        <td> {{ contenu[ingredient.id] * ingredient.price /100}} </td>
+                    {% else %}
+                        <td> 0 </td>
+                    {% endif %}
+                    {#<td class="text-end"> {{ ingredient.quantite *ingredient.price }}</td>#}
+                    <td>
+                        <a href="{{ path("app_sandwich_add_basket", {id:ingredient.id})}}"
+                           class="btn-success" style="margin-right: 32px">
+                            <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                        </a>
+                        <a href="{{ path("app_sandwich_remove_basket", {id:ingredient.id})}}"
+                           class="btn-warning" style="margin-right: 32px">
+                            <i class="fa fa-minus"></i>
+                        </a>
+                        <a href="{{ path("app_sandwich_delete", {id: ingredient.id})}}"
+                           class="btn-warning" style="margin-right: 32px">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <td colspan="5" class="text-center">Votre sandwich est vide.</td>
+        {% endif %}
+        </tbody>
+    </table>
+    {% if app.user %}
+        <a href="{{ path("app_sandwich_delete_all") }}" class="btn btn-danger">Vider le sandwich</a>
+        <a href="{{path("app_cart_add")}}"class="btn btn-success">Ajouter au panier</a>
+        <a href="{{path("app_cart")}}"class="btn btn-primary">Voir le panier</a>
+    {% else %}
+        <p>Connectez-vous pour mapper votre sandwich !</p>
+        <a href="{{ path("app_login") }}" class="btn btn-secondary">Me connecter</a>
+    {% endif %}
+</main>
 {% endblock %}

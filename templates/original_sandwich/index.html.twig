@@ -3,23 +3,46 @@
 {% block title %}Sandwichs traditionnels{% endblock %}
 
 {% block body %}
-
+    <section class="bg-light p-3">
+        <h1>Sandwichs traditionnels</h1>
+    </section>
     <div class="container">
-    <h1>Sandwichs traditionnels</h1>
         <div class="row">
             {% for originalSandwich in orginalsSandwichs %}
+
                 <div class="col">
                     <div class="card" style="width: 18rem;">
                         <img src="{{ asset('upload/images/sandwichs/imgtest.webp')}}" class="card-img-top" alt="photo pour le test">
                         <div class="card-body">
                             <h5 class="card-title">{{ originalSandwich.Name }}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <button type="button" class="btn btn-info btn-lg" data-bs-toggle="modal" data-bs-target="#{{ originalSandwich.id }}">Voir</button>
+                            {% if app.user %}
+                                <a href="{{ path('app_cart_add', {'id' : originalSandwich.id}) }}" class="btn btn-info btn-lg">+</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
-    {% endfor %}
+
+                <div class="modal fade" id="{{ originalSandwich.id }}" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">{{ originalSandwich.Name }}</h4>
+                            </div>
+                            <div class="modal-body">
+                                {% for ingredient in originalSandwich.getSandwichIngredients() %}
+                                    <p class="card-text">ingrédient</p>
+                                {% endfor %}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-bs-dismiss="modal">Fermer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
         </div>
     </div>
 

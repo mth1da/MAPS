@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230131215525 extends AbstractMigration
+final class Version20230218152845 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,18 +20,16 @@ final class Version20230131215525 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE type (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('ALTER TABLE ingredient ADD types_id INT NOT NULL');
         $this->addSql('ALTER TABLE ingredient ADD CONSTRAINT FK_6BAF78708EB23357 FOREIGN KEY (types_id) REFERENCES type (id)');
-        $this->addSql('CREATE INDEX IDX_6BAF78708EB23357 ON ingredient (types_id)');
+        $this->addSql('ALTER TABLE publication CHANGE commentaire commentaire LONGTEXT NOT NULL');
+        $this->addSql('ALTER TABLE sandwich ADD price DOUBLE PRECISION DEFAULT NULL, ADD is_original TINYINT(1) DEFAULT NULL, DROP client');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
+        $this->addSql('ALTER TABLE sandwich ADD client INT DEFAULT NULL, DROP price, DROP is_original');
         $this->addSql('ALTER TABLE ingredient DROP FOREIGN KEY FK_6BAF78708EB23357');
-        $this->addSql('DROP TABLE type');
-        $this->addSql('DROP INDEX IDX_6BAF78708EB23357 ON ingredient');
-        $this->addSql('ALTER TABLE ingredient DROP types_id');
+        $this->addSql('ALTER TABLE publication CHANGE commentaire commentaire LONGTEXT DEFAULT NULL');
     }
 }

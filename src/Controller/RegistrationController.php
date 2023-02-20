@@ -57,10 +57,12 @@ class RegistrationController extends AbstractController
                 'Activation de votre compte MAPS',
                 'register',
                 ['user'=>$user, 'token'=>$token]
-            ); //$this->addFlash('authentified', 'Inscription réussie !');
-
+            );
+            $this->addFlash('success', 'Inscription réussie ! ');
         }
-
+        else {
+            $this->addFlash('danger', 'Nom d\'utilisateur ou email déjà utilisé, merci de réessayer. ');
+        }
 
         return $this->render('registration/index.html.twig', [
             'form' => $form->createView()

@@ -3,7 +3,6 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Ingredient;
-use App\Entity\Type;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -12,6 +11,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
+
 class IngredientCrudController extends AbstractCrudController
 {
     public const INGREDIENTS_BASE_PATH ='upload/images/ingredients';
@@ -29,7 +30,8 @@ class IngredientCrudController extends AbstractCrudController
             TextField::new('name'),
             AssociationField::new('types'),
             TextEditorField::new('description'),
-            TextField::new('price'),
+            MoneyField::new('price')
+                ->setCurrency('EUR'),
 
             ImageField::new('photo')
                 ->setBasePath(self::INGREDIENTS_BASE_PATH)

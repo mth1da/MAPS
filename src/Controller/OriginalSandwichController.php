@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class OriginalSandwichController extends AbstractController
 {
-    #[Route('/original/sandwich', name: 'app_original_sandwich')]
+    #[Route('/sandwich/original', name: 'app_original_sandwich')]
     public function index(SandwichRepository $sandwichRepository): Response
     {
         return $this->render('original_sandwich/index.html.twig', [

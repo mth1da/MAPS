@@ -9,7 +9,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Mapping</a>
+                        <a class="nav-link active" aria-current="page" href="{{ path('app_sandwich') }}">Mapping</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Le Concept</a>
@@ -17,17 +17,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_ingredient') }}">Nos Ingrédients</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Nos Sandwichs
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ path('app_original_sandwich') }}">Sandwichs traditionnels</a></li>
-                            <li><a class="dropdown-item" href="#">Sandwichs du moment</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">smtg else</a></li>
-                        </ul>
-                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_original_sandwich') }}">Nos Sandwichs</a>
+                    </li> 
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_feed') }}">Vos Sandwichs</a>
                     </li>
@@ -43,23 +35,26 @@
                         {# si l'user est un admin #}
                         {% if 'ROLE_ADMIN' in app.user.getroles() %}
                             <li class="nav-item">
-                                <button type="button" class="navbar-btn btn btn-sm ms-auto btn-outline-secondary" onclick="location.href='{{ path('app_admin') }}'">Gérer</button>
+                                <button type="button" class="navbar-btn btn btn-sm ms-auto btn-outline-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Gérer" onclick="location.href='{{ path('app_admin') }}'"><i class="fa-solid fa-screwdriver-wrench"></i></button>
                             </li>
                         {% endif %}
                         <li class="nav-item">
-                            <button type="button" class="navbar-btn btn btn-sm ms-auto btn-outline-secondary" onclick="location.href='{{ path('app_account') }}'">Mon Compte</button>
+                            <button type="button" class="navbar-btn btn btn-sm ms-auto btn-outline-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Mon Panier" onclick="location.href='{{ path('app_cart') }}'"><i class="fa-solid fa-cart-shopping"></i></button>
                         </li>
                         <li class="nav-item">
-                            <button type="button" class="navbar-btn btn btn-sm ms-auto btn-outline-secondary" onclick="location.href='{{ path('app_logout') }}'">Log out</button>
+                            <button type="button" class="navbar-btn btn btn-sm ms-auto btn-outline-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Mon Compte"><i class="fa-solid fa-user"></i></button>
+                        </li>
+                        <li class="nav-item">
+                            <button type="button" class="navbar-btn btn btn-sm ms-auto btn-outline-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Me déconnecter" onclick="location.href='{{ path('app_logout') }}'"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
                         </li>
 
                     {# si l'user n'est pas connecté #}
                     {% else %}
                         <li class="nav-item">
-                            <button type="button" class="navbar-btn btn btn-sm ms-auto btn-outline-secondary" onclick="location.href='{{ path('app_login') }}'">Log in</button>
+                            <button type="button" class="navbar-btn btn btn-sm ms-auto btn-outline-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="M'inscrire" onclick="location.href='{{ path('app_registration') }}'"><i class="fa-solid fa-user-plus"></i></button>
                         </li>
                         <li class="nav-item">
-                            <button type="button" class="navbar-btn btn btn-sm ms-auto btn-outline-secondary" onclick="location.href='{{ path('app_registration') }}'">Sign up</button>
+                            <button type="button" class="navbar-btn btn btn-sm ms-auto btn-outline-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Me Connecter" onclick="location.href='{{ path('app_login') }}'"><i class="fa-solid fa-arrow-right-to-bracket"></i></button>
                         </li>
                     {% endif %}
                 </ul>

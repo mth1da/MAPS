@@ -20,8 +20,7 @@ class Comments
     private ?string $content = null;
 
     #[ORM\Column]
-    private ?bool $active = false;
-
+z
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 

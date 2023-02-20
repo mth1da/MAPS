@@ -52,10 +52,11 @@ class CartServices
     {
         $panier = $session->get("panier", []);
 
+
         if(!empty($panier[$id])){
             if($panier[$id] > 1){
-                $panier[$id]--;
-            }else{
+                //$panier[$id]--;
+           // }else{
                 unset($panier[$id]);
             }
         }

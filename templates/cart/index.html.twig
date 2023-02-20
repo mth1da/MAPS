@@ -34,8 +34,8 @@
                     {% endif %}
                 {% endfor %}
                             <td>
-                                <a href="{{ path('add', {id: key}) }}" class="btn btn-success">Ajouter</a>
-                                <a href="{{ path('delete', {id: key}) }}" class="btn btn-danger">Supprimer</a>
+                                <a href="{{ path('app_cart_add', {id: key}) }}" class="btn btn-success">Ajouter</a>
+                                <a href="{{ path('app_cart_remove', {id: key}) }}" class="btn btn-danger">Supprimer</a>
                             </td>
                         </tr>
 
@@ -47,7 +47,7 @@
                 <td colspan="3">Total</td>
                 <td class="text-end">{{ total }} €</td>
                 <td>
-                    <a href="{{path("delete")}}" class="btn btn-danger">Vider le panier</a>
+                    <a href="{{path("app_cart_delete")}}" class="btn btn-danger">Vider le panier</a>
                 </td>
             </tr>
             </tfoot>

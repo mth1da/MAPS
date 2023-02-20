@@ -1,15 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Sandwichs traditionnels{% endblock %}
-{% block stylesheets %}
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-{%  endblock %}
-{% block javascripts %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-{% endblock %}
 
 {% block body %}
     <section class="bg-light p-3">
@@ -18,36 +9,37 @@
     <div class="container">
         <div class="row">
             {% for originalSandwich in orginalsSandwichs %}
+
                 <div class="col">
                     <div class="card" style="width: 18rem;">
                         <img src="{{ asset('upload/images/sandwichs/imgtest.webp')}}" class="card-img-top" alt="photo pour le test">
-                        <div class="container">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ originalSandwich.Name }}</h5>
-                                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Voir</button>
-                                <a href="{{ path('add', {'id' : originalSandwich.id}) }}" class="btn btn-info btn-lg">+</a>
-                                <div class="modal fade" id="myModal" role="dialog">
-                                    <div class="modal-dialog">
-                                        <!-- Modal content-->
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title">{{ originalSandwich.Name }}</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                {% for ingredient in originalSandwich.getSandwichIngredients() %}
-                                                    <p class="card-text">ingrédient</p>
-                                                {% endfor %}
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ originalSandwich.Name }}</h5>
+                            <button type="button" class="btn btn-info btn-lg" data-bs-toggle="modal" data-bs-target="#{{ originalSandwich.id }}">Voir</button>
+                            <a href="{{ path('app_cart_add', {'id' : originalSandwich.id}) }}" class="btn btn-info btn-lg">+</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="{{ originalSandwich.id }}" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">{{ originalSandwich.Name }}</h4>
+                            </div>
+                            <div class="modal-body">
+                                {% for ingredient in originalSandwich.getSandwichIngredients() %}
+                                    <p class="card-text">ingrédient</p>
+                                {% endfor %}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-bs-dismiss="modal">Fermer</button>
                             </div>
                         </div>
                     </div>
                 </div>
+
             {% endfor %}
         </div>
     </div>

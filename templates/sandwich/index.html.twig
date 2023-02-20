@@ -3,6 +3,8 @@
 {% block title %}Hello SandwichController!{% endblock %}
 
 {% block body %}
+<main class="container">
+
     <table class="table">
         <thead>
         <tr>
@@ -19,7 +21,7 @@
             {% for ingredient in ingredients %}
                 <tr>
                     <td>{{ ingredient.name }}</td>
-                    <td><img src="{{ asset('upload/images/ingredients/')}}{{ ingredient.photo }}" width="5%"></td>
+                    <td><img src="{{ asset('upload/images/ingredients/')}}{{ ingredient.photo }}" width="5%" alt="illustration de l'ingrédient {{ ingredient.name }}"></td>
                     <td> {{ ingredient.price }}</td>
                     {% if contenu[ingredient.id] is defined %}
                         <td> {{ contenu[ingredient.id] }} </td>
@@ -58,5 +60,5 @@
     <a href="{{ path("app_sandwich_delete_all") }}" class="btn btn-danger">Vider le sandwich</a>
     <a href="{{path("app_cart_add")}}"class="btn btn-success">Ajouter au panier</a>
     <a href="{{path("app_cart")}}"class="btn btn-primary">Voir le panier</a>
-
+</main>
 {% endblock %}

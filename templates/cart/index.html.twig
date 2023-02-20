@@ -41,24 +41,25 @@
 
 
             {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="3">Total</td>
+                <td class="text-end">{{ total }} €</td>
+                <td>
+                    <a href="{{path("delete")}}" class="btn btn-danger">Vider le panier</a>
+                </td>
+            </tr>
+            </tfoot>
+            </table>
+            <button class="btn btn-primary">Commander</button>
 
         {% else %}
         <tr>
             <td colspan="5" class="text-center">Votre panier est vide</td>
         </tr>
         {% endif %}
-        </tbody>
-        <tfoot>
-        <tr>
-            <td colspan="3">Total</td>
-            <td class="text-end">{{ total }} €</td>
-            <td>
-                <a href="{{path("delete")}}" class="btn btn-danger">Vider le panier</a>
-            </td>
-        </tr>
-        </tfoot>
-    </table>
-    <button class="btn btn-primary">Commander</button>
+
 
     {{ dump(panier) }}
 

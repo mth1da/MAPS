@@ -25,11 +25,16 @@ class CartController extends AbstractController
     #[Route('/cart', name: 'app_cart')]
     public function index(SessionInterface $session): Response
     {
+
+
         $dataPanier = [];
         $total = 0;
 
         $panier = $session->get("panier");
 
+        if (is_null($panier)){
+            return $this->render('cart/index.html.twig', compact("panier"));
+        }
         foreach ($panier as $id => $ingr) {
             if (isset($ingr['ingredient'])) {
                 $dataPanier[] = $ingr;

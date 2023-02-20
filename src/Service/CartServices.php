@@ -2,11 +2,10 @@
 
 namespace App\Service;
 
+use App\Entity\Sandwich;
 use App\Repository\SandwichRepository;
-use App\Repository\IngredientRepository;
-use JetBrains\PhpStorm\NoReturn;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Routing\Annotation\Route;
+use function PHPUnit\Framework\isInstanceOf;
 
 class CartServices
 {
@@ -58,5 +57,13 @@ class CartServices
         }
     }
 
+    public function isOriginal(object $sandwich){
+        if($sandwich.isInstanceOf(Sandwich::class)){
+            return true;
+            }
+        else{
+            return false;
+        }
+    }
 
 }

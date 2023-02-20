@@ -9,7 +9,7 @@
     <main class="container">
         {% if app.user %}
             {% if panier %}
-                <p>Mmmmh, il est bien vide ce panier <a href="{{ path('app_sandwich') }}" class="btn btn-info">Continuer mes achats</a></p>
+                <a href="{{ path('app_sandwich') }}" class="btn btn-info">Continuer mes achats</a></p>
                 <table class="table">
                     <thead>
                     <tr>
@@ -21,45 +21,34 @@
                     </tr>
                     </thead>
                     <tbody>
-
-
-                    {% for key, element in panier %}
+                    {% for element in panier  %}
                         <tr>
-                            <td>Sandwich {{ key + 1 }}</td>
-                        </tr>
-                        {% for ingredient in element %}
-                            {% if ingredient.ingredient is defined %}
-                                <tr>
-                                    <td>{{ ingredient.ingredient.name }}</td>
-                                    <td>{{ ingredient.ingredient.price/100 }}</td>
-                                    <td>{{ ingredient.quantite }}</td>
-                                    <td>{{ ingredient.ingredient.price * ingredient.quantite /100}}</td>
+                            {% if element.sandwich is not null %}
+                                <td>{{ element.sandwich.Name }}</td>
+                                <td>{{ element.sandwich.price }} €</td>
+                                <td>{{ element.quantite }}</td>
+                                <td>{{ element.quantite * element.sandwich.price }} €</td>
+                                <td>
+                                    <a href="{{path("add", {id: element.sandwich.id})}}" class="btn btn-success">Ajouter</a>
+                                    <a href="{{path("remove", {id: element.sandwich.id})}}" class="btn btn-danger">Supprimer</a>
+                                </td>
                             {% endif %}
-                        {% endfor %}
-                                    <td>
-                                        <a href="{{ path('app_cart_add', {id: key}) }}" class="btn btn-success">Ajouter</a>
-                                        <a href="{{ path('app_cart_remove', {id: key}) }}" class="btn btn-danger">Supprimer</a>
-                                    </td>
-                                </tr>
-
-
-                    {% endfor %}
-                        </tbody>
-                        <tfoot>
-                        <tr>
-                            <td colspan="3">Total</td>
-                            <td class="text-end">{{ total }} €</td>
                         </tr>
-                        </tfoot>
-                        </table>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="3">Total</td>
+                        <td class="text-end">{{ total }} €</td>
+                    </tr>
+                    </tfoot>
+                </table>
                 <button class="btn btn-danger" onclick="location.href='{{ path('app_cart_delete') }}'">Vider le panier</button>
                 <button class="btn btn-primary ">Commander</button>
-
             {% else %}
-            <p>Votre panier est vide
-                <a href="{{ path('app_sandwich') }}" class="btn btn-info">Commencer mes achats</a>
-            </p>
-
+                <p>Votre panier est vide
+                    <a href="{{ path('app_sandwich') }}" class="btn btn-info">Commencer mes achats</a>
+                </p>
             {% endif %}
         {% else %}
             <p>Connectez-vous pour accéder à votre panier !</p>

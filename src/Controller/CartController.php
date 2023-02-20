@@ -51,8 +51,8 @@ class CartController extends AbstractController
     }
 
 
-    #[NoReturn] #[Route('/add', name: 'app_cart_add')]
-    public function add( SessionInterface $session)
+    #[NoReturn] #[Route('/addMapsSandwich', name: 'app_cart_addMapsSandwich')]
+    public function addMapsSandwich( SessionInterface $session)
     {
         // $this->services->addOneSandwich($session);
 
@@ -75,6 +75,25 @@ class CartController extends AbstractController
         $session->set('sandwich', null);
         $session->set('ingredients', null);
 
+
+        //on redirige l'utilisateur vers le panier
+        return $this->redirectToRoute("app_cart");
+    }
+
+    #[NoReturn] #[Route('/addOriginalSandwich/{id}', name: 'addOriginalSandwich')]
+    public function addOriginalSandwich(int $id, SessionInterface $session)
+    {
+        // On récupère le panier actuel
+        $panier = $session->get("panier", []);
+
+        if(!empty($panier[$id])){
+            $panier[$id]++;
+        }else{
+            $panier[$id] = 1;
+        }
+
+        // On sauvegarde dans la session
+        $session->set("panier", $panier);
 
         //on redirige l'utilisateur vers le panier
         return $this->redirectToRoute("app_cart");

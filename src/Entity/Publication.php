@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PublicationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\User;
@@ -28,9 +30,13 @@ class Publication
     #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")] //si on supp un user => toutes ses publi sup
     private User $publi_user;
 
+    #[ORM\OneToMany(mappedBy: 'publications', targetEntity: Comments::class, orphanRemoval: true)]
+    private Collection $comments;
+
     function __construct(){ //constructeur
         $this->created_at = new \DatetimeImmutable(); //date du jour automatiquement
         //$this->publi_user = new User();
+        $this->comments = new ArrayCollection();
     }
     public function getId(): ?int
     {
@@ -86,5 +92,35 @@ class Publication
     }
     public function __toString(){
         return $this->id;
+    }
+
+    /**
+     * @return Collection<int, Comments>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comments $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setPublications($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comments $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getPublications() === $this) {
+                $comment->setPublications(null);
+            }
+        }
+
+        return $this;
     }
 }

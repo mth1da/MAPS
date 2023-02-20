@@ -34,7 +34,7 @@ class CartServices
                 "ingredient" => $ingredient,
                 "quantité" => $quantite
             ];
-            //$total+=$ingredient->getPtrice() * $quantite;
+            //$total+=$ingredient->getPrice() * $quantite;
         }
 
         if(!empty($panier)){
@@ -52,15 +52,10 @@ class CartServices
     {
         $panier = $session->get("panier", []);
 
-
-        if(!empty($panier[$id])){
-            if($panier[$id] > 1){
-                //$panier[$id]--;
-           // }else{
-                unset($panier[$id]);
-            }
+        if (!empty($panier[$id])) {
+            unset($panier[$id]);
+            $session->set("panier", $panier);
         }
-        $session->set("panier", $panier);
     }
 
 

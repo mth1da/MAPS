@@ -49,13 +49,11 @@
                         <tr>
                             <td colspan="3">Total</td>
                             <td class="text-end">{{ total }} €</td>
-                            <td>
-                                <a href="{{path("app_cart_delete")}}" class="btn btn-danger">Vider le panier</a>
-                            </td>
                         </tr>
                         </tfoot>
                         </table>
-                <button class="btn btn-primary">Commander</button>
+                <button class="btn btn-danger" onclick="location.href='{{ path('app_cart_delete') }}'">Vider le panier</button>
+                <button class="btn btn-primary ">Commander</button>
 
             {% else %}
             <p>Votre panier est vide

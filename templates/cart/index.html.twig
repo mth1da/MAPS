@@ -25,9 +25,13 @@
                         {% if element is iterable%}
                             <tr>
                                 <td>Sandwich {{ key + 1 }}</td>
-                                <td> {{ element['totalIngBySandwich'] }}</td>
+                                <td> {{ element['totalIngBySandwich'] /100}}</td>
                                 <td> {{ element['totalQte'] }}</td>
-                                <td> {{ element['totalIngBySandwichByQte'] }}</td>
+                                <td> {{ element['totalIngBySandwichByQte'] /100}}</td>
+                                <td>
+                                    <a href="{{ path('app_cart_duplicate_maps', {index: key}) }}" class="btn btn-success">Ajouter</a>
+                                    <a href="{{ path('app_cart_remove_maps', {index: key}) }}" class="btn btn-danger">Supprimer</a>
+                                </td>
                             </tr>
                             {% for ingredient in element %}
                                 {% if ingredient.ingredient is defined %}
@@ -38,10 +42,6 @@
                                     <td>{{ ingredient.ingredient.price * ingredient.quantite /100}}</td>
                                 {% endif %}
                             {% endfor %}
-                            <td>
-                                <a href="{{ path('app_cart_duplicate_maps', {index: key}) }}" class="btn btn-success">Ajouter</a>
-                                <a href="{{ path('app_cart_remove_maps', {index: key}) }}" class="btn btn-danger">Supprimer</a>
-                            </td>
                             </tr>
                         {% endif %}
                     {% endfor %}
@@ -50,9 +50,9 @@
                         {% if element.sandwich is defined %}
                         {% if element.sandwich is not null %}
                             <td>{{ element.sandwich.Name }}</td>
-                            <td>{{ element.sandwich.price }} €</td>
+                            <td>{{ element.sandwich.price /100}} €</td>
                             <td>{{ element.quantite }}</td>
-                            <td>{{ element.quantite * element.sandwich.price }} €</td>
+                            <td>{{ element.quantite * element.sandwich.price /100}} €</td>
                             <td>
                                 <a href="{{path("addOriginal", {id: element.sandwich.id})}}" class="btn btn-success">Ajouter</a>
                                 <a href="{{path("removeOriginal", {id: element.sandwich.id})}}" class="btn btn-danger">Supprimer</a>
@@ -65,7 +65,7 @@
                     <tfoot>
                     <tr>
                         <td colspan="3">Total</td>
-                        <td class="text-end">{{ total }} €</td>
+                        <td class="text-end">{{ total /100}} €</td>
                     </tr>
                     </tfoot>
                 </table>

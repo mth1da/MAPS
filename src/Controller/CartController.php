@@ -9,21 +9,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Service\CartServices;
+//use App\Service\CartServices;
 
 class CartController extends AbstractController
 {
-    private CartServices $services;
+    //private CartServices $services;
     private SandwichRepository $sandwichRepository;
+    private IngredientRepository $ingredientRepository;
 
-    public function __construct(CartServices $services, SandwichRepository $sandwichRepository, IngredientRepository $ingredientRepository)
+    public function __construct(SandwichRepository $sandwichRepository, IngredientRepository $ingredientRepository)
     {
-        $this->services = $services;
+        //$this->services = $services;
         $this->sandwichRepository = $sandwichRepository;
+        $this->ingredientRepository = $ingredientRepository;
     }
 
     #[Route('/cart', name: 'app_cart')]
-    public function index(SessionInterface $session, $sandwichRepository): Response
+    public function index(SessionInterface $session): Response
     {
 
         $dataPanier = [];
@@ -34,7 +36,7 @@ class CartController extends AbstractController
             return $this->render('cart/index.html.twig', compact("panier"));
         }
         foreach ($panier as $id => $quantiteOrIngr) {
-            if($quantiteOrIngr->isArray()){
+            if (is_array($quantiteOrIngr)){
                 if (isset($quantiteOrIngringr['ingredient'])) {
                     $dataPanier[] = $quantiteOrIngr;
                     $total += $quantiteOrIngr['ingredient']->getPrice() * $quantiteOrIngr['quantite'];
@@ -100,15 +102,24 @@ class CartController extends AbstractController
         return $this->redirectToRoute("app_cart");
     }
 
-    #[NoReturn] #[Route('/remove/{id}', name: 'app_cart_remove')]
-    public function remove(int $id, SessionInterface $session)
+    #[NoReturn] #[Route('/removeOriginal/{id}', name: 'removeOriginal')]
+    public function removeOriginal(int $id, SessionInterface $session)
     {
-        $this->services->removeOneSandwich($id, $session);
+        $panier = $session->get("panier", []);
+
+        if(!empty($panier[$id])){
+            if($panier[$id] > 1){
+                $panier[$id]--;
+            }else{
+                unset($panier[$id]);
+            }
+        }
+        $session->set("panier", $panier);
 
         return $this->redirectToRoute("app_cart");
     }
 
-    #[NoReturn] #[Route('/delete', name: 'app_cart_delete')]
+    #[NoReturn] #[Route('/delete', name: 'delete')]
     public function deleteAll(SessionInterface $session)
     {
         $session->remove("panier");

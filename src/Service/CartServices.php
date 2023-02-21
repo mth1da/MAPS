@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Service;
-
+/*
 use App\Repository\SandwichRepository;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class CartServices
 {
-    public SandwichRepository $sandwichRepository;
+    private SandwichRepository $sandwichRepository;
 
     public function __construct(SandwichRepository $sandwichRepository)
     {
@@ -40,3 +40,5 @@ class CartServices
     }
 
 }
+*\
+ */

@@ -21,8 +21,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for element in panier  %}
-                        {% dd(element) %}
+                    {% for key, element in dataPanier  %}
+                        {% dump(element) %}
+                        {{ loop.index }}
+                        {% if element is iterable %}
+
+                        {% endif %}
                     {% endfor %}
                     </tbody>
                     <tfoot>
@@ -32,7 +36,7 @@
                     </tr>
                     </tfoot>
                 </table>
-                <button class="btn btn-danger" onclick="location.href='{{ path('app_cart_delete') }}'">Vider le panier</button>
+                <button class="btn btn-danger" onclick="location.href='{{ path('delete') }}'">Vider le panier</button>
                 <button class="btn btn-primary ">Commander</button>
             {% else %}
                 <p>Votre panier est vide

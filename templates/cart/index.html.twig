@@ -22,18 +22,7 @@
                     </thead>
                     <tbody>
                     {% for element in panier  %}
-                        <tr>
-                            {% if element.sandwich is not null %}
-                                <td>{{ element.sandwich.Name }}</td>
-                                <td>{{ element.sandwich.price }} €</td>
-                                <td>{{ element.quantite }}</td>
-                                <td>{{ element.quantite * element.sandwich.price }} €</td>
-                                <td>
-                                    <a href="{{path("add", {id: element.sandwich.id})}}" class="btn btn-success">Ajouter</a>
-                                    <a href="{{path("remove", {id: element.sandwich.id})}}" class="btn btn-danger">Supprimer</a>
-                                </td>
-                            {% endif %}
-                        </tr>
+                        {% dd(element) %}
                     {% endfor %}
                     </tbody>
                     <tfoot>

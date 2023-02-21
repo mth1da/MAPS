@@ -20,9 +20,9 @@ final class Version20230218152845 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE ingredient ADD CONSTRAINT FK_6BAF78708EB23357 FOREIGN KEY (types_id) REFERENCES type (id)');
-        $this->addSql('ALTER TABLE publication CHANGE commentaire commentaire LONGTEXT NOT NULL');
-        $this->addSql('ALTER TABLE sandwich ADD price DOUBLE PRECISION DEFAULT NULL, ADD is_original TINYINT(1) DEFAULT NULL, DROP client');
+        //$this->addSql('ALTER TABLE ingredient ADD CONSTRAINT FK_6BAF78708EB23357 FOREIGN KEY (types_id) REFERENCES type (id)');
+        //$this->addSql('ALTER TABLE publication CHANGE commentaire commentaire LONGTEXT NOT NULL');
+        $this->addSql('ALTER TABLE sandwich ADD price DOUBLE PRECISION DEFAULT NULL, ADD is_original TINYINT(1) DEFAULT NULL');
     }
 
     public function down(Schema $schema): void

@@ -21,12 +21,40 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for key, element in dataPanier  %}
-                        {% dump(element) %}
-                        {{ loop.index }}
-                        {% if element is iterable %}
-
+                    {% for key, element in panier  %}
+                        {% if element is iterable%}
+                            <tr>
+                                <td>Sandwich {{ key + 1 }}</td>
+                            </tr>
+                            {% for ingredient in element %}
+                                {% if ingredient.ingredient is defined %}
+                                    <tr>
+                                    <td>{{ ingredient.ingredient.name }}</td>
+                                    <td>{{ ingredient.ingredient.price/100 }}</td>
+                                    <td>{{ ingredient.quantite }}</td>
+                                    <td>{{ ingredient.ingredient.price * ingredient.quantite /100}}</td>
+                                {% endif %}
+                            {% endfor %}
+                            <td>
+                                <a href="{{ path('app_cart_addMaps', {id: key}) }}" class="btn btn-success">Ajouter</a>
+                                <a href="#" class="btn btn-danger">Supprimer</a>
+                            </td>
+                            </tr>
                         {% endif %}
+                    {% endfor %}
+                    {% for element in dataPanier %}
+                    <tr>
+                        {% if element.sandwich is not null %}
+                            <td>{{ element.sandwich.Name }}</td>
+                            <td>{{ element.sandwich.price }} €</td>
+                            <td>{{ element.quantite }}</td>
+                            <td>{{ element.quantite * element.sandwich.price }} €</td>
+                            <td>
+                                <a href="{{path("addOriginal", {id: element.sandwich.id})}}" class="btn btn-success">Ajouter</a>
+                                <a href="{{path("removeOriginal", {id: element.sandwich.id})}}" class="btn btn-danger">Supprimer</a>
+                            </td>
+                        {% endif %}
+                    </tr>
                     {% endfor %}
                     </tbody>
                     <tfoot>

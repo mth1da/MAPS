@@ -58,7 +58,7 @@
     </table>
     {% if app.user %}
         <a href="{{ path("app_sandwich_delete_all") }}" class="btn btn-danger">Vider le sandwich</a>
-        <a href="{{path("app_cart_add")}}"class="btn btn-success">Ajouter au panier</a>
+        <a href="{{path("app_cart_addMaps")}}"class="btn btn-success">Ajouter au panier</a>
         <a href="{{path("app_cart")}}"class="btn btn-primary">Voir le panier</a>
     {% else %}
         <p>Connectez-vous pour mapper votre sandwich !</p>

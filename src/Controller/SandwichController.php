@@ -19,22 +19,31 @@ class SandwichController extends AbstractController
         //$id = $ingredient->getId();
         $dataContenuSandwich = [];
 
-        $total = 0;
+        $totalIngBySandwich = 0;
+        $totalIngBySandwichByQte = 0;
+        $totalQte = 0;
         if(!empty($contenu)){
             foreach ($contenu as $id => $quantite){
                 $ingredient = $ingredientRepository->find($id);
+                $totalIngBySandwich += $ingredient->getPrice();
+                $totalIngBySandwichByQte += $ingredient->getPrice() * $quantite;
+                $totalQte += $quantite;
                 $dataContenuSandwich[] = [
                     "ingredient" => $ingredient,
-                    "quantite" => $quantite
+                    "quantite" => $quantite,
                 ];
                 //$total+=$ingredient->getPtrice() * $quantite;
             }
         }
+        $dataContenuSandwich['totalIngBySandwich'] = $totalIngBySandwich;
+        $dataContenuSandwich['totalIngBySandwichByQte'] = $totalIngBySandwichByQte;
+        $dataContenuSandwich['totalQte'] = $totalQte;
         $session->set('sandwich', $dataContenuSandwich);
+
         return $this->render('sandwich/index.html.twig', [
             'controller_name' => 'SandwichController',
             'ingredients' => $ingredientRepository->findAll(),
-            "total" => $total,
+            "total" => $totalIngBySandwich,
             "contenu" => $contenu,
             "dataContenuSandwich" => $dataContenuSandwich
         ]);

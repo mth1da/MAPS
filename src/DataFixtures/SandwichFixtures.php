@@ -16,18 +16,18 @@ class SandwichFixtures extends Fixture
         $MAPS = new Sandwich();
         $MAPS->setName('Le MAPS');
         $MAPS->setIsOriginal(True);
-        $MAPS->setPrice(5);
+        $MAPS->setPrice(500);
         $manager->persist($MAPS);
 
         $royal = new Sandwich();
-        $royal->setName('Le royal');
-        $royal->setPrice(5);
+        $royal->setName('Le Royal');
+        $royal->setPrice(500);
         $royal->setIsOriginal(True);
         $manager->persist($royal);
 
         $JB = new Sandwich();
-        $JB->setName('Le jambon beurre');
-        $JB->setPrice(3);
+        $JB->setName('Le Jambon-Beurre');
+        $JB->setPrice(300);
         $JB->setIsOriginal(True);
         $manager->persist($JB);
 

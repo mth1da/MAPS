@@ -25,6 +25,9 @@
                         {% if element is iterable%}
                             <tr>
                                 <td>Sandwich {{ key + 1 }}</td>
+                                <td> {{ element['totalIngBySandwich'] }}</td>
+                                <td> {{ element['totalQte'] }}</td>
+                                <td> {{ element['totalIngBySandwichByQte'] }}</td>
                             </tr>
                             {% for ingredient in element %}
                                 {% if ingredient.ingredient is defined %}
@@ -36,14 +39,15 @@
                                 {% endif %}
                             {% endfor %}
                             <td>
-                                <a href="{{ path('app_cart_addMaps', {id: key}) }}" class="btn btn-success">Ajouter</a>
-                                <a href="#" class="btn btn-danger">Supprimer</a>
+                                <a href="{{ path('app_cart_duplicate_maps', {index: key}) }}" class="btn btn-success">Ajouter</a>
+                                <a href="{{ path('app_cart_remove_maps', {index: key}) }}" class="btn btn-danger">Supprimer</a>
                             </td>
                             </tr>
                         {% endif %}
                     {% endfor %}
                     {% for element in dataPanier %}
                     <tr>
+                        {% if element.sandwich is defined %}
                         {% if element.sandwich is not null %}
                             <td>{{ element.sandwich.Name }}</td>
                             <td>{{ element.sandwich.price }} €</td>
@@ -53,6 +57,7 @@
                                 <a href="{{path("addOriginal", {id: element.sandwich.id})}}" class="btn btn-success">Ajouter</a>
                                 <a href="{{path("removeOriginal", {id: element.sandwich.id})}}" class="btn btn-danger">Supprimer</a>
                             </td>
+                        {% endif %}
                         {% endif %}
                     </tr>
                     {% endfor %}

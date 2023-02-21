@@ -31,18 +31,24 @@ class CartController extends AbstractController
         $dataPanier = [];
         $total = 0;
         $panier = $session->get("panier", []);
-
         if (is_null($panier)){
             return $this->render('cart/index.html.twig', compact("panier"));
         }
         foreach ($panier as $id => $quantiteOrIngr) {
             if (is_array($quantiteOrIngr)){
-                if (isset($quantiteOrIngringr['ingredient'])) {
+                foreach ($quantiteOrIngr as $key => $item) {
+                    if(isset($item['ingredient'])){
+                        $total += $item['ingredient']->getPrice() * $item['quantite'];
+                    }
+                }
+                $dataPanier[] = $quantiteOrIngr;
+
+            /*    if (isset($quantiteOrIngr[$id]['ingredient'])) {
                     $dataPanier[] = $quantiteOrIngr;
                     $total += $quantiteOrIngr['ingredient']->getPrice() * $quantiteOrIngr['quantite'];
                 } else {
                     // handle the case where the 'ingredient' key is missing
-                }
+                }*/
             }
             else{
                 $sandwich = $this->sandwichRepository->find($id);
@@ -68,18 +74,45 @@ class CartController extends AbstractController
             $dataContenuSandwich = [];
 
             if(!empty($panier)){
-                $dataContenuSandwich[] = [$sandwich];
+                $dataContenuSandwich[] = [
+                    $sandwich
+                ];
             }else{
                 $dataContenuSandwich = [$sandwich];
 
             }
+
             $panier=$session->get('panier');
-            dump($panier);
-            $panier[]=$sandwich;
+            $panier[] = $sandwich;
             $session->set("panier", $panier );
-            dump($panier);
             $session->set('sandwich', null);
             $session->set('ingredients', null);
+        //on redirige l'utilisateur vers le panier
+        return $this->redirectToRoute("app_cart");
+    }
+    #[NoReturn] #[Route('/duplicate/maps/{index}', name: 'app_cart_duplicate_maps')]
+    public function duplicateMaps(int $index, SessionInterface $session)
+    {
+        $panier = $session->get("panier", []);
+
+        $dataContenuSandwich = [];
+
+        $panier[] = $panier[$index];
+
+        $session->set("panier", $panier );
+        //on redirige l'utilisateur vers le panier
+        return $this->redirectToRoute("app_cart");
+    }
+    #[NoReturn] #[Route('/remove/maps/{index}', name: 'app_cart_remove_maps')]
+    public function removeMaps(int $index, SessionInterface $session)
+    {
+        $panier = $session->get("panier", []);
+
+        $dataContenuSandwich = [];
+
+        unset($panier[$index]);
+
+        $session->set("panier", $panier );
         //on redirige l'utilisateur vers le panier
         return $this->redirectToRoute("app_cart");
     }

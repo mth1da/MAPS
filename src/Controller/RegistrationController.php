@@ -29,7 +29,7 @@ class RegistrationController extends AbstractController
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
+        if($form->isSubmitted() && $form->isValid()) {
             $this->registrationForm->handleform($user, $form);
 
             $entityManager->persist($user);
@@ -56,12 +56,10 @@ class RegistrationController extends AbstractController
                 $user->getEmail(),
                 'Activation de votre compte MAPS',
                 'register',
-                ['user'=>$user, 'token'=>$token]
+                ['user' => $user, 'token' => $token]
             );
             $this->addFlash('success', 'Inscription réussie ! ');
-        }
-        else {
-            $this->addFlash('danger', 'Nom d\'utilisateur ou email déjà utilisé, merci de réessayer. ');
+            return $this->redirectToRoute('app_homepage');
         }
 
         return $this->render('registration/index.html.twig', [

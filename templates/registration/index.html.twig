@@ -12,10 +12,10 @@
                     <button type="button" class="btn btn-secondary" onclick="location.href='{{ path('app_login') }}'">Connectez-vous ! </button>
                 </p>
 
-                {% for message in app.flashes('success') %}
+{# {% for message in app.flashes('success') %}
                     <div class="p-3 text-success-emphasis bg-success-subtle  border border---bs-success-bg-subtle rounded-3">                        {{ message }}
                     </div>
-                {% endfor %}
+                {% endfor %}#}
 
                 {{ form_start(form) }}
                 {{ form_row(form) }}

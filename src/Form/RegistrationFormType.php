@@ -123,10 +123,5 @@ class RegistrationFormType extends AbstractType
             //echo 'Nom d\'utilisateur ou email déjà utilisé, merci de réessayer.';
         }
 
-
-            //$this->addFlash('reussite', 'Inscription réussie !');
-            //$this->addFlash('echec', 'Nom d\'utilisateur ou email déjà utilisé, merci de réessayer.');
-
-
     }
 }

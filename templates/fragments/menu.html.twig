@@ -2,7 +2,7 @@
 <header>
     <nav class="navbar navbar-expand-lg" style="z-index: 0; background-color: #ffda6a">
         <div class="container-fluid collapse navbar-collapse">
-            <a class="navbar-brand" href="{{ path('app_homepage') }}">MAPS ton sandwich</a>
+            <a class="navbar-brand" href="{{ path('app_homepage') }}">MAPS Ton Sandwich</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -10,9 +10,6 @@
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ path('app_sandwich') }}">Mapping</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Le Concept</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_ingredient') }}">Nos Ingrédients</a>
@@ -24,7 +21,7 @@
                         <a class="nav-link" href="{{ path('app_feed') }}">Vos Sandwichs</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Réservation</a>
+                        <a class="nav-link" href="{{ path('app_booking') }}">Réservation</a>
                     </li>
                 </ul>
                 <!-- Button -->

@@ -79,7 +79,6 @@ class CartController extends AbstractController
                 ];
             }else{
                 $dataContenuSandwich = [$sandwich];
-
             }
 
             $panier=$session->get('panier');
@@ -87,6 +86,7 @@ class CartController extends AbstractController
             $session->set("panier", $panier );
             $session->set('sandwich', null);
             $session->set('ingredients', null);
+
         //on redirige l'utilisateur vers le panier
         return $this->redirectToRoute("app_cart");
     }
@@ -113,6 +113,7 @@ class CartController extends AbstractController
         unset($panier[$index]);
 
         $session->set("panier", $panier );
+
         //on redirige l'utilisateur vers le panier
         return $this->redirectToRoute("app_cart");
     }

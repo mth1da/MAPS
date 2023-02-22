@@ -1,12 +1,9 @@
 <?php
 
 namespace App\Service;
-
+/*
 use App\Repository\SandwichRepository;
-use App\Repository\IngredientRepository;
-use JetBrains\PhpStorm\NoReturn;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Routing\Annotation\Route;
 
 class CartServices
 {
@@ -21,31 +18,15 @@ class CartServices
     {
 
     }
-    public function addOneSandwich(SessionInterface $ingredientRepository) : void
+    public function addOneOriginalSandwich(int $id, SessionInterface $session) : void
     {
-      /*  $panier = $session->get("panier", []);
-        $ingredients = $session->get('ingredients');
-        dd($ingredients);
-        $dataContenuSandwich = [];
-        $total = 0;
-        foreach ($contenu as $id => $quantite){
-            $ingredient = $ingredientRepository->find($id);
-            $dataContenuSandwich[] = [
-                "ingredient" => $ingredient,
-                "quantité" => $quantite
-            ];
-            //$total+=$ingredient->getPrice() * $quantite;
-        }
-
-        if(!empty($panier)){
-            $panier++;
+        $panier = $session->get("panier", []);
+        if(!empty($panier[$id])){
+            $panier[$id]++;
         }else{
-            $panier=[];
-
+            $panier[$id] = 1;
         }
-
-
-        $session->set("panier", $panier);*/
+        $session->set("panier", $panier);
     }
 
     public function removeOneSandwich(int $id, SessionInterface $session) : void
@@ -58,5 +39,6 @@ class CartServices
         }
     }
 
-
 }
+*\
+ */

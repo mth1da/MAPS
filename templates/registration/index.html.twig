@@ -3,11 +3,12 @@
 {% block title %}Inscription{% endblock %}
 
 {% block body %}
-
+    <section class="bg-light p-3">
+        <h1>Inscription au service MAPS</h1>
+    </section>
     <section class="container">
         <div class="row">
             <div class="col">
-                <h1 class="h3 mb-3 font-weight-normal">Inscription au service MAPS</h1>
                 <p> Vous avez déjà un compte ?
                     <button type="button" class="btn btn-secondary" onclick="location.href='{{ path('app_login') }}'">Connectez-vous ! </button>
                 </p>

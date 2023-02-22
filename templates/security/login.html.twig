@@ -3,6 +3,9 @@
 {% block title %}Connexion{% endblock %}
 
 {% block body %}
+    <section class="bg-light p-3">
+        <h1>Connexion à mon compte</h1>
+    </section>
     <section class="container">
         <div class="row">
             <div class="col">
@@ -17,7 +20,6 @@
                         </div>
                     {% endif %}
 
-                    <h1 class="h3 mb-3 font-weight-normal">Connexion à mon compte</h1>
                     <p> Pas encore de compte ?
                         <button type="button" class="btn btn-secondary" onclick="location.href='{{ path('app_registration') }}'">Inscrivez-vous !</button>
                     </p>

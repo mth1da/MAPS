@@ -10,7 +10,7 @@
         {% if app.user %}
             {% if panier %}
                 <a href="{{ path('app_sandwich') }}" class="btn btn-info">Continuer mes achats</a></p>
-                <table class="table">
+                <table class="table table-hover">
                     <thead>
                     <tr>
                         <th>Produit</th>
@@ -21,13 +21,15 @@
                     </tr>
                     </thead>
                     <tbody>
+                    {% set keyPrint = 0 %}
                     {% for key, element in panier  %}
                         {% if element is iterable%}
-                            <tr>
-                                <td>Sandwich {{ key + 1 }}</td>
-                                <td> {{ element['totalIngBySandwich'] /100}}</td>
+                            <tr class="table-secondary">
+                                {% set keyPrint = keyPrint +1 %}
+                                <td>Sandwich {{ keyPrint }}</td>
+                                <td> {{ element['totalIngBySandwich'] /100}} €</td>
                                 <td> {{ element['totalQte'] }}</td>
-                                <td> {{ element['totalIngBySandwichByQte'] /100}}</td>
+                                <td> {{ element['totalIngBySandwichByQte'] /100}} €</td>
                                 <td>
                                     <a href="{{ path('app_cart_duplicate_maps', {index: key}) }}" class="btn btn-success">Ajouter</a>
                                     <a href="{{ path('app_cart_remove_maps', {index: key}) }}" class="btn btn-danger">Supprimer</a>
@@ -37,16 +39,16 @@
                                 {% if ingredient.ingredient is defined %}
                                     <tr>
                                     <td>{{ ingredient.ingredient.name }}</td>
-                                    <td>{{ ingredient.ingredient.price/100 }}</td>
+                                    <td>{{ ingredient.ingredient.price/100 }} €</td>
                                     <td>{{ ingredient.quantite }}</td>
-                                    <td>{{ ingredient.ingredient.price * ingredient.quantite /100}}</td>
+                                    <td>{{ ingredient.ingredient.price * ingredient.quantite /100}} €</td>
                                 {% endif %}
                             {% endfor %}
                             </tr>
                         {% endif %}
                     {% endfor %}
                     {% for element in dataPanier %}
-                    <tr>
+                    <tr class="table-secondary">
                         {% if element.sandwich is defined %}
                         {% if element.sandwich is not null %}
                             <td>{{ element.sandwich.Name }}</td>
@@ -63,9 +65,9 @@
                     {% endfor %}
                     </tbody>
                     <tfoot>
-                    <tr>
+                    <tr class="table-secondary">
                         <td colspan="3">Total</td>
-                        <td class="text-end">{{ total /100}} €</td>
+                        <td >{{ total /100}} €</td>
                     </tr>
                     </tfoot>
                 </table>
@@ -80,7 +82,5 @@
             <p>Connectez-vous pour accéder à votre panier !</p>
             <a href="{{ path("app_login") }}" class="btn btn-secondary">Me connecter</a>
         {% endif %}
-
-        {{ dump(panier) }}
     </main>
 {% endblock %}

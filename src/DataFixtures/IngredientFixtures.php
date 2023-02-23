@@ -346,7 +346,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $beurre->setName('beurre');
         $beurre->setDescription('beurre salé de Bretagne !');
         $beurre->setPrice(10);
-        $beurre->setPhoto("mayo.jpg");
+        $beurre->setPhoto("beurre.jpg");
         $beurre->setTypes(
             $this->getReference('sauce')
         );

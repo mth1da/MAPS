@@ -32,7 +32,7 @@
                             </div>
                             <div class="modal-body">
                                 {% for ingredient in originalSandwich.getSandwichIngredients() %}
-                                    <p class="card-text">ingrédient</p>
+                                    <p class="card-text">{{ingredient.Name}}</p>
                                 {% endfor %}
                             </div>
                             <div class="modal-footer">

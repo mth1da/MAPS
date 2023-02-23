@@ -342,6 +342,16 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($bbq);
 
+        $beurre= new Ingredient();
+        $beurre->setName('beurre');
+        $beurre->setDescription('beurre salé de Bretagne !');
+        $beurre->setPrice(10);
+        $beurre->setPhoto("mayo.jpg");
+        $beurre->setTypes(
+            $this->getReference('sauce')
+        );
+        $manager->persist($beurre);
+
         $wasabi= new Ingredient();
         $wasabi->setName('Sauce Wasabi');
         $wasabi->setDescription('Du Wasabi pour enflammer vos hivers les plus rudes !');
@@ -385,6 +395,44 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
 
 
         $manager->flush();
+
+        $this->addReference("mie", $mie);
+        $this->addReference("burger", $burger);
+        $this->addReference("jambon", $jambon);
+        $this->addReference("steak", $steak);
+        $this->addReference("saumon", $saumon);
+        $this->addReference("crevette", $crevette);
+        $this->addReference("salade", $salade);
+        $this->addReference("olive", $olive);
+        $this->addReference("tomate", $tomate);
+        $this->addReference("carotte", $carotte);
+        $this->addReference("concombre", $concombre);
+        $this->addReference("mais", $mais);
+        $this->addReference("oeuf", $oeuf);
+        $this->addReference("radi", $radi);
+        $this->addReference("parmesan", $parmesan);
+        $this->addReference("roquefort", $roquefort);
+        $this->addReference("feta", $feta);
+        $this->addReference("mozza", $mozza);
+        $this->addReference("chevre", $chevre);
+        $this->addReference("brie", $brie);
+        $this->addReference("cheddar", $cheddar);
+        $this->addReference("emmental", $emmental);
+        $this->addReference("basilic", $basilic);
+        $this->addReference("cor", $cor);
+        $this->addReference("menthe", $menthe);
+        $this->addReference("oignon", $oignon);
+        $this->addReference("curry", $curry);
+        $this->addReference("poivre", $poivre);
+        $this->addReference("papri", $papri);
+        $this->addReference("curcuma", $curcuma);
+        $this->addReference("soja", $soja);
+        $this->addReference("bbq", $bbq);
+        $this->addReference("wasabi", $wasabi);
+        $this->addReference("moutarde", $moutarde);
+        $this->addReference("mayo", $mayo);
+        $this->addReference("ketchup", $ketchup);
+        $this->addReference("beurre", $beurre);
 
 
     }

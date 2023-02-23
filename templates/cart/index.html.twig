@@ -72,7 +72,7 @@
                     </tfoot>
                 </table>
                 <button class="btn btn-danger" onclick="location.href='{{ path('delete') }}'">Vider le panier</button>
-                <button class="btn btn-primary ">Commander</button>
+                <button class="btn btn-primary " onclick="location.href='{{ path('app_checkout') }}'" >Commander</button>
             {% else %}
                 <p>Le panier est vide
                     <a href="{{ path('app_sandwich') }}" class="btn btn-info">Commencer mes achats</a>

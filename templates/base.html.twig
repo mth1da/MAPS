@@ -23,6 +23,9 @@
         {# fontawesome #}
         <script src="https://kit.fontawesome.com/e53f66ada2.js" crossorigin="anonymous" defer></script>
 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
     </head>
     <body>
     {% block header %}
@@ -34,7 +37,7 @@
         <div class="alert alert-warning alert-dismissible" role="alert">
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             <div class="alert-message">
-                <strong>Votre compte n'est pas activé</strong>, <a href="{{ path('app_re_verify_user') }}">renvoyer le lien d'activation</a>
+                <strong>Votre compte n'est pas activé,</strong>  <a href="{{ path('app_re_verify_user') }}">renvoyer le lien d'activation</a>
             </div>
         </div>
     {% endif %}

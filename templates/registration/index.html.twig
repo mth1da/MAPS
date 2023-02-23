@@ -3,19 +3,20 @@
 {% block title %}Inscription{% endblock %}
 
 {% block body %}
-
+    <section class="bg-light p-3">
+        <h1>Inscription au service MAPS</h1>
+    </section>
     <section class="container">
         <div class="row">
             <div class="col">
-                <h1 class="h3 mb-3 font-weight-normal">Inscription au service MAPS</h1>
                 <p> Vous avez déjà un compte ?
                     <button type="button" class="btn btn-secondary" onclick="location.href='{{ path('app_login') }}'">Connectez-vous ! </button>
                 </p>
 
-                {% for message in app.flashes('success') %}
+{# {% for message in app.flashes('success') %}
                     <div class="p-3 text-success-emphasis bg-success-subtle  border border---bs-success-bg-subtle rounded-3">                        {{ message }}
                     </div>
-                {% endfor %}
+                {% endfor %}#}
 
                 {{ form_start(form) }}
                 {{ form_row(form) }}

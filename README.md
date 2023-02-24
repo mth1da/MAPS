@@ -26,6 +26,9 @@ Features :
 3. Install Mailhog : https://github.com/mailhog/MailHog/releases, run the .exe file and go to http://localhost:8025/ to access your inbox.
 4. In your project directory terminal, run the following commands : 
 ```console
+composer install
+```
+```console
 composer require symfony/apache-pack
 ```
 ```console

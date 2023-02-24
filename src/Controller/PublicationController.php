@@ -6,6 +6,7 @@ use App\Entity\Publication;
 use App\Form\PublicationFormType;
 use App\Service\UploadImageService;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,17 +42,23 @@ class PublicationController extends AbstractController
             $photo = $publiForm->get('photo')->getData();
 
             //on appelle le service upload image
-            $fichier = $uploadImgService->create($photo,300,300);
+            try{
+                $fichier = $uploadImgService->create($photo,300,300);
 
-            //on set le nom de fichier dans la bdd
-            $publi->setPhoto($fichier);
+                //on set le nom de fichier dans la bdd
+                $publi->setPhoto($fichier);
 
-            $entityManager->persist($publi);
-            $entityManager->flush();
+                $entityManager->persist($publi);
+                $entityManager->flush();
 
-            $this->addFlash('success', 'Publication partagée avec succès.');
+                $this->addFlash('success', 'Publication partagée avec succès.');
 
-            return $this->redirectToRoute('app_feed');
+                return $this->redirectToRoute('app_feed');
+            }
+            catch (Exception $msg){
+                $this->addFlash('danger', 'Format d\'image incorrect.');
+            }
+
         }
 
         return $this->render('publication/add.html.twig', [

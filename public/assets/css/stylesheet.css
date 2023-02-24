@@ -56,9 +56,14 @@ h1{
     margin-left: auto;
 }
 
+/*titres*/
 .section-title{
     padding-top: 4%;
     padding-bottom: 4%;
     font-family: "Goudy Old Style", serif;
 }
 
+/*flash d'alert*/
+.alert{
+    margin-bottom: 0;
+}

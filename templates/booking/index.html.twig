@@ -7,14 +7,32 @@
     <section class="section-title">
         <h1>Réservez votre place dans notre restaurant<h1>
     </section>
-    <div class="container">
+    <div class="container-form">
+        {# si l'user est connecté #}
         {% if app.user %}
-            <button type="button" class="btn btn-secondary" onclick="location.href='{{ path('app_publication_add') }}'">Réservez ma place</button>
-        {% else%}
-            <button type="button" class="btn btn-secondary" onclick="location.href='{{ path('app_login') }}'">Me connecter</button>
-        {% endif %}
 
-        <p> Coming soon...</p>
+            {# si l'user n'a pas vérifié son adresse mail #}
+            {% if app.user.getisverified() == 0 %}
+                <div class="col-12">
+                    <p>Vous devez vérifier votre adresse mail pour commencer à réserver !</p>
+                </div>
+                <button type="button" class="btn btn-secondary" onclick="location.href='{{ path('app_re_verify_user') }}'">Renvoyer le lien d'activation</button>
+
+            {# si l'user a vérifié son adresse mail #}
+            {% else %}
+                <button type="button" class="btn btn-secondary" onclick="location.href='#'">Réserver ma place</button>
+                <p> Coming soon...</p>
+
+            {% endif %}
+
+        {# si l'user n'est pas connecté #}
+        {% else %}
+            <div class="col-12">
+                <p>Vous devez être connecté pour commencer à réserver !</p>
+            </div>
+            <button type="button" class="btn btn-secondary" onclick="location.href='{{ path('app_login') }}'">Me connecter</button>
+
+        {% endif %}
     </div>
 
 {% endblock %}

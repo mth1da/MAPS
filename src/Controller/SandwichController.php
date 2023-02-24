@@ -25,8 +25,10 @@ class SandwichController extends AbstractController
         if(!empty($contenu)){
             foreach ($contenu as $id => $quantite){
                 $ingredient = $ingredientRepository->find($id);
-                $totalIngBySandwich += $ingredient->getPrice();
-                $totalIngBySandwichByQte += $ingredient->getPrice() * $quantite;
+                if($ingredient != null){
+                    $totalIngBySandwich += $ingredient->getPrice();
+                    $totalIngBySandwichByQte += $ingredient->getPrice() * $quantite;
+                }
                 $totalQte += $quantite;
                 $dataContenuSandwich[] = [
                     "ingredient" => $ingredient,

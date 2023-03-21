@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\IngredientRepository;
 use App\Repository\SandwichRepository;
+use App\Service\CartServices;
 use JetBrains\PhpStorm\NoReturn;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,13 +14,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CartController extends AbstractController
 {
-    //private CartServices $services;
+    private CartServices $services;
     private SandwichRepository $sandwichRepository;
     private IngredientRepository $ingredientRepository;
 
-    public function __construct(SandwichRepository $sandwichRepository, IngredientRepository $ingredientRepository)
+    public function __construct(SandwichRepository $sandwichRepository, IngredientRepository $ingredientRepository, CartServices $services)
     {
-        //$this->services = $services;
+        $this->services = $services;
         $this->sandwichRepository = $sandwichRepository;
         $this->ingredientRepository = $ingredientRepository;
     }
@@ -52,13 +53,8 @@ class CartController extends AbstractController
             }
             else{
                 $sandwich = $this->sandwichRepository->find($id);
-                $dataPanier[] = [
-                    "sandwich" => $sandwich,
-                    "quantite" => $quantiteOrIngr
-                ];
-                if (isset($sandwich)) {
-                    $total += $sandwich->getPrice() * $quantiteOrIngr;
-                }
+                $dataPanier = $this->services->creationDataPanier($sandwich, $quantiteOrIngr);
+                $total = $this->services->recalculeTotal($sandwich, $quantiteOrIngr, $total);
             }
         }
         return $this->render('cart/index.html.twig', compact("dataPanier", "total", "panier"));
@@ -120,36 +116,14 @@ class CartController extends AbstractController
     #[NoReturn] #[Route('/addOriginal/{id}', name: 'addOriginal')]
     public function addOriginal(int $id, SessionInterface $session)
     {
-        // On récupère le panier actuel
-        $panier = $session->get("panier", []);
-
-        if(!empty($panier[$id])){
-            $panier[$id]++;
-        }else{
-            $panier[$id] = 1;
-        }
-
-        // On sauvegarde dans la session
-        $session->set("panier", $panier);
-
-        //on redirige l'utilisateur vers le panier
+        $this->services->addOneOriginalSandwich($id, $session);
         return $this->redirectToRoute("app_cart");
     }
 
     #[NoReturn] #[Route('/removeOriginal/{id}', name: 'removeOriginal')]
     public function removeOriginal(int $id, SessionInterface $session)
     {
-        $panier = $session->get("panier", []);
-
-        if(!empty($panier[$id])){
-            if($panier[$id] > 1){
-                $panier[$id]--;
-            }else{
-                unset($panier[$id]);
-            }
-        }
-        $session->set("panier", $panier);
-
+        $this->services->removeOneSandwich($id, $session);
         return $this->redirectToRoute("app_cart");
     }
 
@@ -157,7 +131,6 @@ class CartController extends AbstractController
     public function deleteAll(SessionInterface $session)
     {
         $session->remove("panier");
-
         return $this->redirectToRoute("app_cart");
     }
 

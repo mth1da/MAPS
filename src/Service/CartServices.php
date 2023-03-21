@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Service;
-/*
+
+use App\Entity\Sandwich;
 use App\Repository\SandwichRepository;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -14,9 +15,21 @@ class CartServices
         $this->sandwichRepository = $sandwichRepository;
     }
 
-    public function creationCart(SessionInterface $session, array $datapanier, float $total) : void
+    public function creationDataPanier(Sandwich $sandwich, int $quantiteOrIngr) : array
     {
+        $dataPanier[] = [
+            "sandwich" => $sandwich,
+            "quantite" => $quantiteOrIngr
+        ];
+        return $dataPanier;
+    }
 
+    public function recalculeTotal(Sandwich $sandwich, int $quantiteOrIngr, int $total) : int
+    {
+        if (isset($sandwich)) {
+            $total += $sandwich->getPrice() * $quantiteOrIngr;
+        }
+        return $total;
     }
     public function addOneOriginalSandwich(int $id, SessionInterface $session) : void
     {
@@ -33,12 +46,14 @@ class CartServices
     {
         $panier = $session->get("panier", []);
 
-        if (!empty($panier[$id])) {
-            unset($panier[$id]);
-            $session->set("panier", $panier);
+        if(!empty($panier[$id])){
+            if($panier[$id] > 1){
+                $panier[$id]--;
+            }else{
+                unset($panier[$id]);
+            }
         }
+        $session->set("panier", $panier);
     }
 
 }
-*\
- */

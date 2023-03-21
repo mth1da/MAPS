@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Form\ResetPasswordFormType;
 use App\Form\ResetPasswordRequestFormType;
 use App\Repository\UserRepository;
+use App\Service\SecurityServices;
 use App\Service\SendMailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,6 +19,13 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
+    private SecurityServices $securityServices;
+
+    public function __construct(SecurityServices $securityServices)
+    {
+        $this->securityServices = $securityServices;
+    }
+
     #[Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -95,25 +103,14 @@ class SecurityController extends AbstractController
     {
         // on vérifie si on a le token dans la base
         $user = $userRepository->findOneByResetToken($token);
-
         if($user){
             $form = $this->createForm(ResetPasswordFormType::class);
-
             $form->handleRequest($request);
-
             if($form->isSubmitted() && $form->isValid()){
-                // on efface le token
-                $user->setResetToken('');
-                $user->setPassword(
-                    $passwordHasher->hashPassword($user, $form->get('password')->getData())
-                );
-                $entityManager->persist($user);
-                $entityManager->flush();
-
+                $this->securityServices->resetPassword($user, $entityManager, $passwordHasher, $form);
                 $this->addFlash('success', 'Mot de passe changé avec succès');
                 return $this->redirectToRoute('app_login');
             }
-
             return $this->render('security/reset_password.html.twig', [
                 'passwordForm' => $form->createView()
             ]);

@@ -5,10 +5,9 @@ use DateTimeImmutable;
 
 class JWTService
 {
-    // on génère le token
 
     /**
-     * Génération du JWT
+     * on génère le Json Web Token
      * @param array $header
      * @param array $payload
      * @param string $secret

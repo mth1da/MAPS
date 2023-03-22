@@ -17,7 +17,13 @@ Features :
 
 ## Class Diagram
 
+![protocole](maps.PNG)
+
 ## Languages
+
+#### API
+- API REST MailHog
+- API Leaflet
 
 ## Settings
 
@@ -49,7 +55,5 @@ npm install
 ```console
 npm run build
 ```
-
-![protocole](maps.PNG)
 
 You're now free to enjoy our MAPS website!

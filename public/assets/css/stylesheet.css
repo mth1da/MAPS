@@ -17,6 +17,49 @@
     -webkit-overflow-scrolling: touch;
 }
 
+.start{
+    transition: all 0.9s ease 0s;
+}
+
+.start:active{
+    transform:translateY(8px);  /*press effect on click*/
+}
+
+.start span{
+    cursor:pointer;
+    display:inline-block;
+    position:relative;
+    transition:0.5s;
+}
+
+.start span:after{
+    content:'\261e'; /*petite flèche on hover*/
+    position:absolute;
+    opacity:0;
+    top:0;
+    right:-20px;
+    transition:0.5s;
+}
+
+.start:hover span{
+    padding-right:25px;
+}
+
+.start:hover span:after{
+    opacity:1;
+    right:0;
+}
+
+a{
+    text-decoration:none;
+    color:black;
+}
+
+#mapId {
+    height: 500px;
+    width: 100%;
+}
+
 /* css pour le feed*/
 .card{
     margin-left:auto;

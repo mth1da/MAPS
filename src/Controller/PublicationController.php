@@ -21,7 +21,7 @@ class PublicationController extends AbstractController
     }
 
     #[Route('/ajout', name: 'add')]
-    public function add(Request $request, EntityManagerInterface $entityManager, UploadImageService $uploadImgService): Response //DI
+    public function add(Request $request, EntityManagerInterface $entityManager, UploadImageService $uploadImgService): Response
     {
         //on crée une nouvelle publication
         $publi = new Publication();
@@ -64,10 +64,6 @@ class PublicationController extends AbstractController
         return $this->render('publication/add.html.twig', [
             'publiForm' => $publiForm,
             ]);
-        //<=>
-        //return $this->render('publication/index.html.twig', [
-        //    'publiForm' => $publiForm,
-        //]);
     }
 
     #[Route('/modification', name: 'update')]

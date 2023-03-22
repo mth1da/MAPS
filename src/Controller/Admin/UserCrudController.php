@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -25,18 +26,17 @@ class UserCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            TextField::new('email'),
-            ChoiceField::new('roles')->setChoices([
-                'ROLE_ADMIN' => 'ROLE_ADMIN',
-                // le dernier role de cette liste seras selectionner par default
-                'ROLE_USER' => 'ROLE_USER',
-            ])
-                ->allowMultipleChoices(),
-            TextField::new('password'),
             TextField::new('first_name'),
             TextField::new('last_name'),
             TextField::new('user_name'),
-            DateTimeField::new('birth_date'),
+            TextField::new('email'),
+            ChoiceField::new('roles')->setChoices([
+                'ROLE_ADMIN' => 'ROLE_ADMIN',
+                // le dernier role de cette liste sera selectionnée par default
+                'ROLE_USER' => 'ROLE_USER',
+            ])
+                ->allowMultipleChoices(),
+            DateField::new('birth_date'),
             DateTimeField::new('created_at')->hideOnForm(),
             //AssociationField::new('user_bookmarks'),
 

@@ -78,9 +78,7 @@ class SandwichController extends AbstractController
                 unset($contenu[$id]);
             }
         }
-
         $session->set("ingredients", $contenu);
-
         return $this->redirectToRoute('app_sandwich');
     }
 
@@ -92,9 +90,7 @@ class SandwichController extends AbstractController
         if(!empty($contenu[$id])){
             unset($contenu[$id]);
         }
-
         $session->set("ingredients", $contenu);
-
         return $this->redirectToRoute('app_sandwich');
     }
     // sert a supprimer tous le sandwich

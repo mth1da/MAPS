@@ -47,9 +47,9 @@ class CheckoutController extends AbstractController
                                         'quantity' => $item['quantite']
                                     ],
                                 ],
-                                'unit_amount' => 1
+                                'unit_amount' => $item['ingredient']->getPrice() * $item['quantite']
                             ],
-                            'quantity' => 1,
+                            'quantity' =>  $item['quantite'],
                         ];
                         $total += $item['ingredient']->getPrice() * $item['quantite'];
                     }
@@ -57,7 +57,6 @@ class CheckoutController extends AbstractController
                 //$dataPanier[] = $quantiteOrIngr;
             }
         }
-
 
         if(isset($panier)){
             //$stripe = new \Stripe\StripeClient(self::API_KEY_TEST_STRIPE);

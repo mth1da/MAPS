@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Random Sandwich{% endblock %}
+
+{% block body %}
+    <section class="section-title">
+        <h1>Random Sandwich</h1>
+    </section>
+    <section class="container-form">
+        <div class="row">
+            <div class="col">
+                <p>Sélectionne le type d'ingrédients que tu veux dans ton MAPS Random Sandwich ! <br>
+                    Si tu as un doute, n'hésite pas à jeter un coup d'oeil aux produits qu'on propose </p><br><br>
+                {{ form_start(pickRandomSandwichForm) }}
+                    {{ form_row(pickRandomSandwichForm.pain) }}
+                    {{ form_row(pickRandomSandwichForm.viande) }}
+                    {{ form_row(pickRandomSandwichForm.poisson) }}
+                    {{ form_row(pickRandomSandwichForm.crudites) }}
+                    {{ form_row(pickRandomSandwichForm.fromage) }}
+                    {{ form_row(pickRandomSandwichForm.plante) }}
+                    {{ form_row(pickRandomSandwichForm.epice) }}
+                    {{ form_row(pickRandomSandwichForm.sauce) }}
+
+                    <button class="btn btn-lg btn-primary my-3" type="submit">
+                        Générer
+                    </button>
+                    <button class="btn btn-lg btn-primary my-3" type="reset">
+                        Effacer
+                    </button>
+                {{ form_end(pickRandomSandwichForm) }}
+
+                </form>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

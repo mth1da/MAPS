@@ -59,6 +59,20 @@ class IngredientRepository extends ServiceEntityRepository
             ;
    }
 
+   public function findOneRandomlyBySlug($slug):array
+   {
+        return $this->createQueryBuilder('i')
+            ->select('i', 't')
+            ->join('i.types', 't')
+            ->where('t.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->orderBy('RAND()')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult()
+            ;
+   }
+
 
 //    public function findOneBySomeField($value): ?Ingredient
 //    {

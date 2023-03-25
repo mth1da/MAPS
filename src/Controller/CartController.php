@@ -122,7 +122,21 @@ class CartController extends AbstractController
     #[NoReturn] #[Route('/removeOriginal/{id}', name: 'removeOriginal')]
     public function removeOriginal(int $id, SessionInterface $session)
     {
-        $this->services->removeOneSandwich($id, $session);
+        $this->services->removeOneOriginalSandwich($id, $session);
+        return $this->redirectToRoute("app_cart");
+    }
+
+    #[NoReturn] #[Route('/addRandom/{id}', name: 'addRandom')]
+    public function addRandom(int $id, SessionInterface $session)
+    {
+        $this->services->addOneRandomSandwich($id, $session);
+        return $this->redirectToRoute("app_cart");
+    }
+
+    #[NoReturn] #[Route('/removeRandom/{id}', name: 'removeRandom')]
+    public function removeRandom(int $id, SessionInterface $session)
+    {
+        $this->services->removeOneRandomSandwich($id, $session);
         return $this->redirectToRoute("app_cart");
     }
 

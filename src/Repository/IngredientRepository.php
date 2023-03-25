@@ -59,7 +59,7 @@ class IngredientRepository extends ServiceEntityRepository
             ;
    }
 
-   public function findOneRandomlyBySlug($slug):array
+   public function findOneRandomlyBySlug($slug): ?Ingredient
    {
         return $this->createQueryBuilder('i')
             ->select('i', 't')
@@ -69,7 +69,7 @@ class IngredientRepository extends ServiceEntityRepository
             ->orderBy('RAND()')
             ->setMaxResults(1)
             ->getQuery()
-            ->getResult()
+            ->getOneOrNullResult()
             ;
    }
 

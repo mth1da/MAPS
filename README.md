@@ -24,6 +24,7 @@ Features :
 #### API
 - API REST MailHog
 - API Leaflet
+- API Stripe
 
 ## Settings
 

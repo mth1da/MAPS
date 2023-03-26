@@ -7,7 +7,9 @@
     <h1>Mon panier</h1>
 </section>
     <main class="container">
+        {# si l'user est connecté #}
         {% if app.user %}
+            {# si l'user a un panier #}
             {% if panier %}
                 <a href="{{ path('app_sandwich') }}" class="btn btn-info">Continuer mes achats</a></p>
                 <table class="table table-hover">
@@ -21,7 +23,9 @@
                     </tr>
                     </thead>
                     <tbody>
+                    {# compteur pour le nb de sandwich #}
                     {% set keyPrint = 0 %}
+                    {# on parcourt chaque sandwich du panier #}
                     {% for key, element in panier  %}
                         {% if element is iterable%}
                             <tr class="table-secondary">
@@ -73,11 +77,13 @@
                 </table>
                 <button class="btn btn-danger" onclick="location.href='{{ path('delete') }}'">Vider le panier</button>
                 <button class="btn btn-primary ">Commander</button>
+            {# si l'user a un panier vide#}
             {% else %}
                 <p>Le panier est vide
                     <a href="{{ path('app_sandwich') }}" class="btn btn-info">Commencer mes achats</a>
                 </p>
             {% endif %}
+        {# si l'user n'est pas connecté#}
         {% else %}
             <p>Connectez-vous pour accéder à votre panier !</p>
             <a href="{{ path("app_login") }}" class="btn btn-secondary">Me connecter</a>

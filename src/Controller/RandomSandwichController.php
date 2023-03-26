@@ -18,7 +18,7 @@ class RandomSandwichController extends AbstractController
     #[Route('/random/sandwich', name: 'app_random_sandwich')]
     public function index(Request $request, IngredientRepository $ingredientRepository, EntityManagerInterface $entityManager, SandwichRepository $sandwichRepository): Response
     {
-        $RANDOM_SANDWICH_PRICE=3;
+        $RANDOM_SANDWICH_PRICE=300;
 
         $sandwich = new Sandwich();
 

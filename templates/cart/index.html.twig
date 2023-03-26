@@ -27,6 +27,7 @@
                     {% set keyPrint = 0 %}
                     {# on parcourt chaque sandwich du panier #}
                     {% for key, element in panier  %}
+                        {# si le sandwich est un sandwich crée par l'user => stocké dans un tableau => iterable #}
                         {% if element is iterable%}
                             <tr class="table-secondary">
                                 {% set keyPrint = keyPrint +1 %}
@@ -51,10 +52,12 @@
                             </tr>
                         {% endif %}
                     {% endfor %}
+
+                    {{ dump(panier) }}
                     {% for element in dataPanier %}
                     <tr class="table-secondary">
                         {% if element.sandwich is defined %}
-                        {% if element.sandwich is not null %}
+                            {# {% if element.sandwich is not null %}#}
                             <td>{{ element.sandwich.Name }}</td>
                             <td>{{ element.sandwich.price /100}} €</td>
                             <td>{{ element.quantite }}</td>
@@ -64,7 +67,7 @@
                                 <a href="{{path("removeOriginal", {id: element.sandwich.id})}}" class="btn btn-danger">Supprimer</a>
                             </td>
                         {% endif %}
-                        {% endif %}
+                {# {% endif %}#}
                     </tr>
                     {% endfor %}
                     </tbody>

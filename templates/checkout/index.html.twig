@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Buy cool new product{% endblock %}
+
+{% block body %}
+
+    <section>
+        <div class="product">
+            <div class="description">
+                <h5>Montant {{ total /100}} €</h5>
+            </div>
+        </div>
+        <form action={{ path('app_checkout_validate')}} method="POST">
+            <button type="submit" id="checkout-button">Checkout</button>
+        </form>
+    </section>
+{% endblock %}

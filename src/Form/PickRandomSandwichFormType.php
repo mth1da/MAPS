@@ -2,14 +2,18 @@
 
 namespace App\Form;
 
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Exception\TransformationFailedException;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 
-class PickRandomSandwichFormType extends AbstractType
+class PickRandomSandwichFormType extends AbstractType implements EventSubscriberInterface
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -84,6 +88,9 @@ class PickRandomSandwichFormType extends AbstractType
                     ])
                 ]
             ]);
+
+        // telling the form builder about the new event subscriber
+        $builder->addEventSubscriber($this);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -91,5 +98,28 @@ class PickRandomSandwichFormType extends AbstractType
         $resolver->setDefaults([
             // Configure your form options here
         ]);
+    }
+
+    public static function getSubscribedEvents()
+    {
+        return [
+            FormEvents::SUBMIT => 'ensureOneFieldIsSubmitted',
+        ];
+    }
+
+    public function ensureOneFieldIsSubmitted(FormEvent $event)
+    {
+        $submittedData = $event->getData();
+
+        // just checking for `null` here
+        if (!isset($submittedData['pain']) && !isset($submittedData['viande'])) {
+            throw new TransformationFailedException(
+                'choisir au moins un checkbox',
+                0, // code
+                null, // previous
+                'choisissez au moins un type d\'ingrédient', // user message
+                ['{{ whatever }}' => 'here'] // message context for the translater
+            );
+        }
     }
 }

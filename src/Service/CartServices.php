@@ -31,7 +31,7 @@ class CartServices
         }
         return $total;
     }
-    public function addOneOriginalSandwich(int $id, SessionInterface $session) : void
+    public function addOneOriginalOrRandomSandwich(int $id, SessionInterface $session) : void
     {
         $panier = $session->get("panier", []);
         if(!empty($panier[$id])){
@@ -42,7 +42,7 @@ class CartServices
         $session->set("panier", $panier);
     }
 
-    public function removeOneOriginalSandwich(int $id, SessionInterface $session) : void
+    public function removeOneOriginalOrRandomSandwich(int $id, SessionInterface $session) : void
     {
         $panier = $session->get("panier", []);
 
@@ -56,28 +56,4 @@ class CartServices
         $session->set("panier", $panier);
     }
 
-    public function addOneRandomSandwich(int $id, SessionInterface $session) : void
-    {
-        $panier = $session->get("panier", []);
-        if(!empty($panier[$id])){
-            $panier[$id]++;
-        }else{
-            $panier[$id] = 1;
-        }
-        $session->set("panier", $panier);
-    }
-
-    public function removeOneRandomSandwich(int $id, SessionInterface $session) : void
-    {
-        $panier = $session->get("panier", []);
-
-        if(!empty($panier[$id])){
-            if($panier[$id] > 1){
-                $panier[$id]--;
-            }else{
-                unset($panier[$id]);
-            }
-        }
-        $session->set("panier", $panier);
-    }
 }

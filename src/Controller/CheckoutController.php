@@ -47,7 +47,7 @@ class CheckoutController extends AbstractController
                                         'quantity' => $item['quantite']
                                     ],
                                 ],
-                                'unit_amount' => $item['ingredient']->getPrice() * $item['quantite']
+                                'unit_amount' => (int)$item['ingredient']->getPrice()
                             ],
                             'quantity' =>  $item['quantite'],
                         ];
@@ -57,7 +57,6 @@ class CheckoutController extends AbstractController
                 //$dataPanier[] = $quantiteOrIngr;
             }
         }
-
         if(isset($panier)){
             //$stripe = new \Stripe\StripeClient(self::API_KEY_TEST_STRIPE);
             header('Content-Type: application/json');
@@ -72,6 +71,7 @@ class CheckoutController extends AbstractController
                     ,'unit_amount' => 2000, 'currency' => 'eur']
             );*/
             try {
+
                 $checkout_session = \Stripe\Checkout\Session::create([
                     'line_items' => $dataPanier,
                     'mode' => 'payment',

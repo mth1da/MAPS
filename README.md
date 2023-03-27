@@ -42,6 +42,12 @@ composer require symfony/runtime
 composer require symfony/webpack-encore-bundle
 ```
 ```console
+composer require stripe/stripe-php
+```
+```console
+composer require beberlei/doctrineextensions=dev-master
+```
+```console
 symfony console doctrine:database:create
 ```
 ```console

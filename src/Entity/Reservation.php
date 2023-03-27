@@ -15,17 +15,15 @@ class Reservation
     private int $id;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private \DateTimeInterface $date;
+    private \DateTimeInterface $dateTimeReservation;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private \DateTimeInterface $time;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?Table $resa_table = null;
 
-    #[ORM\ManyToOne(inversedBy: 'user_resa')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(cascade: ['persist', 'remove'], inversedBy: 'user_resa')]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $resa_user = null;
 
     public function getId(): ?int
@@ -33,29 +31,18 @@ class Reservation
         return $this->id;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDateTimeReservation(): ?\DateTimeInterface
     {
-        return $this->date;
+        return $this->dateTimeReservation;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDateTimeReservation(\DateTimeInterface $dateTimeReservation): self
     {
-        $this->date = $date;
+        $this->dateTimeReservation = $dateTimeReservation;
 
         return $this;
     }
 
-    public function getTime(): ?\DateTimeInterface
-    {
-        return $this->time;
-    }
-
-    public function setTime(\DateTimeInterface $time): self
-    {
-        $this->time = $time;
-
-        return $this;
-    }
 
     public function getResaTable(): ?Table
     {

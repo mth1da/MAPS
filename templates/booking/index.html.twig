@@ -4,35 +4,41 @@
 
 
 {% block body %}
-    <section class="section-title">
+    <section class="bg-light p-3">
         <h1>Réservez votre place dans notre restaurant<h1>
-    </section>
-    <div class="container-form">
-        {# si l'user est connecté #}
-        {% if app.user %}
-
-            {# si l'user n'a pas vérifié son adresse mail #}
-            {% if app.user.getisverified() == 0 %}
-                <div class="col-12">
-                    <p>Vous devez vérifier votre adresse mail pour commencer à réserver !</p>
-                </div>
-                <button type="button" class="btn btn-secondary" onclick="location.href='{{ path('app_re_verify_user') }}'">Renvoyer le lien d'activation</button>
-
-            {# si l'user a vérifié son adresse mail #}
+    <div class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Date de réservation</th>
+                <th scope="col">Table</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if reservations %}
+                {% for reservation in reservations %}
+                    <tr>
+                        <td>{{ reservation.dateTimeReservation | date("d/m/Y m:h") }}</td>
+                        <td>Table {{ reservation.getResaTable.id }}</td>
+                        {% if app.user %}
+                        <td>
+                                <a class="btn btn-secondary"  href="{{ path('app_booking_reservation', {id: reservation.id}) }}">
+                                    Réserver ma place
+                                </a>
+                        </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
             {% else %}
-                <button type="button" class="btn btn-secondary" onclick="location.href='#'">Réserver ma place</button>
-                <p> Coming soon...</p>
-
+            <p>Aucune réservation disponible...</p>
             {% endif %}
-
-        {# si l'user n'est pas connecté #}
-        {% else %}
-            <div class="col-12">
-                <p>Vous devez être connecté pour commencer à réserver !</p>
-            </div>
+            </tbody>
+        </table>
+        {% if app.user is same as(null) %}
             <button type="button" class="btn btn-secondary" onclick="location.href='{{ path('app_login') }}'">Me connecter</button>
-
         {% endif %}
     </div>
+    </section>
 
 {% endblock %}

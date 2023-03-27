@@ -24,10 +24,9 @@ class ReservationCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            DateTimeField::new('date'),
-            DateTimeField::new('time'),
+            DateTimeField::new('dateTimeReservation'),
             AssociationField::new('resa_table'),
-            AssociationField::new('resa_user'),
+            AssociationField::new('resa_user')->setRequired(false),
         ];
     }
 

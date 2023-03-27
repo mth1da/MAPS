@@ -31,6 +31,7 @@ class CartController extends AbstractController
         $dataPanier = [];
         $total = 0;
         $panier = $session->get("panier", []);
+        $sessionTotal = $session->get("total", []);
         if (is_null($panier)){
             return $this->render('cart/index.html.twig', compact("panier"));
         }
@@ -135,5 +136,6 @@ class CartController extends AbstractController
         $session->remove("panier");
         return $this->redirectToRoute("app_cart");
     }
+
 
 }

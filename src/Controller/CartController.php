@@ -57,8 +57,10 @@ class CartController extends AbstractController
                 $total = $this->services->recalculeTotal($sandwich, $quantiteOrIngr, $total);
             }
         }
-        $session->set('total', $total);
-        return $this->render('cart/index.html.twig', compact("dataPanier", "total", "panier"));
+        $sandwiches = $this->sandwichRepository;
+
+        return $this->render('cart/index.html.twig',
+            compact("dataPanier", "total", "panier", "sandwiches"));
     }
 
 
@@ -114,17 +116,17 @@ class CartController extends AbstractController
         //on redirige l'utilisateur vers le panier
         return $this->redirectToRoute("app_cart");
     }
-    #[NoReturn] #[Route('/addOriginal/{id}', name: 'addOriginal')]
-    public function addOriginal(int $id, SessionInterface $session)
+    #[NoReturn] #[Route('/addOriginalOrRandom/{id}', name: 'addOriginalOrRandom')]
+    public function addOriginalOrRandom(int $id, SessionInterface $session)
     {
-        $this->services->addOneOriginalSandwich($id, $session);
+        $this->services->addOneOriginalOrRandomSandwich($id, $session);
         return $this->redirectToRoute("app_cart");
     }
 
-    #[NoReturn] #[Route('/removeOriginal/{id}', name: 'removeOriginal')]
-    public function removeOriginal(int $id, SessionInterface $session)
+    #[NoReturn] #[Route('/removeOriginalOrRandom/{id}', name: 'removeOriginalOrRandom')]
+    public function removeOriginalOrRandom(int $id, SessionInterface $session)
     {
-        $this->services->removeOneSandwich($id, $session);
+        $this->services->removeOneOriginalOrRandomSandwich($id, $session);
         return $this->redirectToRoute("app_cart");
     }
 

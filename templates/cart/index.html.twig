@@ -7,7 +7,9 @@
     <h1>Mon panier</h1>
 </section>
     <main class="container">
+        {# si l'user est connecté #}
         {% if app.user %}
+            {# si l'user a un panier #}
             {% if panier %}
                 <a href="{{ path('app_sandwich') }}" class="btn btn-info">Continuer mes achats</a></p>
                 <table class="table table-hover">
@@ -21,8 +23,11 @@
                     </tr>
                     </thead>
                     <tbody>
+                    {# compteur pour le nb de sandwich #}
                     {% set keyPrint = 0 %}
+                    {# on parcourt chaque sandwich du panier #}
                     {% for key, element in panier  %}
+                        {# si le sandwich est un sandwich crée par l'user => stocké dans un tableau => iterable #}
                         {% if element is iterable%}
                             <tr class="table-secondary">
                                 {% set keyPrint = keyPrint +1 %}
@@ -45,24 +50,37 @@
                                 {% endif %}
                             {% endfor %}
                             </tr>
+                        {# sinon : si le sandwich est un random ou un original #}
+                        {% else %}
+                            {# ici key correspond à l'id du sandwich #}
+                            {# et element correspond à la quantité #}
+
+                            <tr class="table-secondary">
+                                {#{% if element.sandwich is defined %}#}
+                                {# {% if element.sandwich is not null %}#}
+                                    <td>{{ sandwiches.findById(key).name }}</td>
+                                    <td>{{ sandwiches.findById(key).price /100}} €</td>
+                                    <td>{{ element }}</td>
+                                    <td>{{ element * sandwiches.findById(key).price /100}} €</td>
+                                    <td>
+                                        <a href="{{path("addOriginalOrRandom", {id: sandwiches.findById(key).id})}}" class="btn btn-success">Ajouter</a>
+                                        <a href="{{path("removeOriginalOrRandom", {id: sandwiches.findById(key).id})}}" class="btn btn-danger">Supprimer</a>
+                                    </td>
+                                {# {% endif %}#}
+                                {# {% endif %}#}
+                            </tr>
+
+                            {% for ingredient in sandwiches.findById(key).getSandwichIngredients %}
+                                <tr>
+                                {% if ingredient is defined %}
+                                    <td colspan="4">{{ ingredient.name }}</td>
+                                {% endif %}
+                            {% endfor %}
+                            </tr>
+
                         {% endif %}
                     {% endfor %}
-                    {% for element in dataPanier %}
-                    <tr class="table-secondary">
-                        {% if element.sandwich is defined %}
-                        {% if element.sandwich is not null %}
-                            <td>{{ element.sandwich.Name }}</td>
-                            <td>{{ element.sandwich.price /100}} €</td>
-                            <td>{{ element.quantite }}</td>
-                            <td>{{ element.quantite * element.sandwich.price /100}} €</td>
-                            <td>
-                                <a href="{{path("addOriginal", {id: element.sandwich.id})}}" class="btn btn-success">Ajouter</a>
-                                <a href="{{path("removeOriginal", {id: element.sandwich.id})}}" class="btn btn-danger">Supprimer</a>
-                            </td>
-                        {% endif %}
-                        {% endif %}
-                    </tr>
-                    {% endfor %}
+
                     </tbody>
                     <tfoot>
                     <tr class="table-secondary">
@@ -73,11 +91,15 @@
                 </table>
                 <button class="btn btn-danger" onclick="location.href='{{ path('delete') }}'">Vider le panier</button>
                 <button class="btn btn-primary " onclick="location.href='{{ path('app_checkout') }}'" >Commander</button>
+                
+            {# si l'user a un panier vide#}    
             {% else %}
                 <p>Le panier est vide
                     <a href="{{ path('app_sandwich') }}" class="btn btn-info">Commencer mes achats</a>
                 </p>
             {% endif %}
+
+        {# si l'user n'est pas connecté#}
         {% else %}
             <p>Connectez-vous pour accéder à votre panier !</p>
             <a href="{{ path("app_login") }}" class="btn btn-secondary">Me connecter</a>

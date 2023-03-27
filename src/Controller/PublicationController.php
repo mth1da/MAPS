@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Publication;
 use App\Form\PublicationFormType;
+use App\Repository\PublicationRepository;
 use App\Service\UploadImageService;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -12,15 +13,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/publication', name: 'app_publication_')]
+#[Route('/publication', name: 'app_publication')]
 class PublicationController extends AbstractController
 {
-    #[Route('/', name: 'index')]
-    public function index():Response{
-        return $this->render('publication/index.html.twig');
+    #[Route('/', name: '')]
+    public function feed(PublicationRepository $publicationRepository):Response
+    {
+        return $this->render('publication/feed.html.twig', [
+            'publications' => $publicationRepository->findAllByDescendingOrder(),
+        ]);
     }
 
-    #[Route('/ajout', name: 'add')]
+    #[Route('/ajout', name: '_add')]
     public function add(Request $request, EntityManagerInterface $entityManager, UploadImageService $uploadImgService): Response
     {
         //on crée une nouvelle publication
@@ -53,7 +57,7 @@ class PublicationController extends AbstractController
 
                 $this->addFlash('success', 'Publication partagée avec succès.');
 
-                return $this->redirectToRoute('app_feed');
+                return $this->redirectToRoute('app_publication');
             }
             catch (Exception $msg){
                 $this->addFlash('danger', 'Format d\'image incorrect.');
@@ -66,7 +70,7 @@ class PublicationController extends AbstractController
             ]);
     }
 
-    #[Route('/modification', name: 'update')]
+    #[Route('/modification', name: '_update')]
     public function update(Request $request, EntityManagerInterface $entityManager): Response
     {
         //on crée une nouvelle publication
@@ -85,7 +89,7 @@ class PublicationController extends AbstractController
 
             $this->addFlash('success', 'Publication mise à jour avec succès');
 
-            return $this->redirectToRoute('app_publication_index');
+            return $this->redirectToRoute('app_publication');
         }
 
         return $this->render('publication/update.html.twig', [

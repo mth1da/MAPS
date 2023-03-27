@@ -63,4 +63,13 @@ class SandwichRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    public function findById($idSandwich): ?Sandwich
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.id = :idSandwich')
+            ->setParameter('idSandwich', $idSandwich)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
 }

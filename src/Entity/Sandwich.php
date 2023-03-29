@@ -29,6 +29,9 @@ class Sandwich
     #[ORM\Column(nullable: true)]
     private ?float $price = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $photo = null;
+
     #[ORM\Column(nullable: true)]
     private ?bool $is_original = null;
 
@@ -96,6 +99,18 @@ class Sandwich
             $this->price += $ingredient->getPrice();
         }
         return $this->price;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(?string $photo): self
+    {
+        $this->photo = $photo;
+
+        return $this;
     }
 
     public function isIsOriginal(): ?bool

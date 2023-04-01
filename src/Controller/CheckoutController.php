@@ -17,6 +17,7 @@ class CheckoutController extends AbstractController
     #[Route('/checkout', name: 'app_checkout')]
     public function index(SessionInterface $session): Response
     {
+        $panier = $session->get('panier');
         $total = $session->get('total');
         return $this->render('checkout/index.html.twig', [
             'controller_name' => 'CheckoutController',
@@ -33,10 +34,27 @@ class CheckoutController extends AbstractController
         $panier = $session->get('panier');
         $total = $session->get('total');
         $dataPanier = [];
+
         foreach ($panier as $id => $quantiteOrIngr) {
-            if (is_array($quantiteOrIngr)) {
+            if(isset($quantiteOrIngr['sandwich'])){
+                $dataPanier[] = [
+                    'price_data' => [
+                        'currency' => 'eur',
+                        'product_data' => [
+                            'name' => $quantiteOrIngr['sandwich']->getName(),
+                            'metadata' => [
+                                'id_product' => $quantiteOrIngr['sandwich']->getId(),
+                                'quantity' => $quantiteOrIngr['quantite']
+                            ],
+                        ],
+                        'unit_amount' => (int)$quantiteOrIngr['sandwich']->getPrice()
+                    ],
+                    'quantity' =>  $quantiteOrIngr['quantite'],
+                ];
+                $total += $quantiteOrIngr['sandwich']->getPrice() * $quantiteOrIngr['quantite'];
+            }else {
                 foreach ($quantiteOrIngr as $key => $item) {
-                    if (isset($item['ingredient'])) {
+                    if (is_array($item) /*|| isset($item['ingredient'])*/) {
                         $dataPanier[] = [
                             'price_data' => [
                                 'currency' => 'eur',
@@ -54,10 +72,14 @@ class CheckoutController extends AbstractController
                         $total += $item['ingredient']->getPrice() * $item['quantite'];
                     }
                 }
-                //$dataPanier[] = $quantiteOrIngr;
             }
+
+                //$dataPanier[] = $quantiteOrIngr;
+
         }
+
         if(isset($panier)){
+
             //$stripe = new \Stripe\StripeClient(self::API_KEY_TEST_STRIPE);
             header('Content-Type: application/json');
             //Stripe::setApiKey($);

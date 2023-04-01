@@ -28,7 +28,7 @@
                     {# on parcourt chaque sandwich du panier #}
                     {% for key, element in panier  %}
                         {# si le sandwich est un sandwich crée par l'user => stocké dans un tableau => iterable #}
-                        {% if element is iterable%}
+                        {% if element is iterable and element.sandwich is not defined%}
                             <tr class="table-secondary">
                                 {% set keyPrint = keyPrint +1 %}
                                 <td>Sandwich {{ keyPrint }}</td>
@@ -54,27 +54,21 @@
                         {% else %}
                             {# ici key correspond à l'id du sandwich #}
                             {# et element correspond à la quantité #}
-
                             <tr class="table-secondary">
-                                {#{% if element.sandwich is defined %}#}
-                                {# {% if element.sandwich is not null %}#}
-                                    <td>{{ sandwiches.findById(key).name }}</td>
-                                    <td>{{ sandwiches.findById(key).price /100}} €</td>
-                                    <td>{{ element }}</td>
-                                    <td>{{ element * sandwiches.findById(key).price /100}} €</td>
-                                    <td>
-                                        <a href="{{path("addOriginalOrRandom", {id: sandwiches.findById(key).id})}}" class="btn btn-success">Ajouter</a>
-                                        <a href="{{path("removeOriginalOrRandom", {id: sandwiches.findById(key).id})}}" class="btn btn-danger">Supprimer</a>
-                                    </td>
-                                {# {% endif %}#}
-                                {# {% endif %}#}
-                            </tr>
 
-                            {% for ingredient in sandwiches.findById(key).getSandwichIngredients %}
+                                    <td>{{ element.sandwich.name }}</td>
+                                    <td>{{ element.sandwich.price /100}} €</td>
+                                     <td>{{ element.quantite }}</td>
+                                     <td>{{ element.quantite *  element.sandwich.price /100}}</td>
+                                    <td>
+                                        <a href="{{path("addOriginalOrRandom", {id: key})}}" class="btn btn-success">Ajouter</a>
+                                        <a href="{{path("removeOriginalOrRandom", {id: key})}}" class="btn btn-danger">Supprimer</a>
+                                    </td>
+
+                            </tr>
+                            {% for ingredient in element.sandwich.sandwichIngredients %}
                                 <tr>
-                                {% if ingredient is defined %}
                                     <td colspan="4">{{ ingredient.name }}</td>
-                                {% endif %}
                             {% endfor %}
                             </tr>
 

@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Random Sandwich{% endblock %}
+
+{% block body %}
+    <section class="section-title">
+        <h1>Random Sandwich</h1>
+    </section>
+    <section class="container-form">
+        <div class="row">
+            <div class="col">
+
+                <p>sandwich fait</p>
+                {% for ingredient in randomSandwich.getSandwichIngredients() %}
+                    <p class="card-text">{{ingredient.Name}}</p>
+                {% endfor %}
+
+                <a href="{{ path('addOriginalOrRandom', {'id' : randomSandwich.id}) }}" class="btn btn-info btn-lg">Ajouter au panier</a>
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

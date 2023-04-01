@@ -5,9 +5,9 @@
 
 {% block body %}
 <section class="section-title">
-    <h1>Partagez votre MAPS Sandwich !<h1>
+    <h1>Partagez votre MAPS Sandwich !</h1>
 </section>
-<div class="container">
+<div class="container-form">
     {% if app.user %}
         <button type="button" class="btn btn-secondary" onclick="location.href='{{ path('app_publication_add') }}'">Ajouter une publication</button>
     {% else%}

@@ -89,14 +89,14 @@
                 
             {# si l'user a un panier vide#}    
             {% else %}
-                <p>Le panier est vide
+                <p>Le panier est vide <br><br>
                     <a href="{{ path('app_sandwich') }}" class="btn btn-info">Commencer mes achats</a>
                 </p>
             {% endif %}
 
         {# si l'user n'est pas connecté#}
         {% else %}
-            <p>Connectez-vous pour accéder à votre panier !</p>
+            <p>Connectez-vous pour accéder à votre panier !</p> <br><br>
             <a href="{{ path("app_login") }}" class="btn btn-secondary">Me connecter</a>
         {% endif %}
     </main>

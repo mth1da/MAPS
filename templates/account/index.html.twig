@@ -5,14 +5,14 @@
 
 {% block body %}
 
+    <section class="section-title">
+        <h1>Profil de {{ app.user.getFirstName() }} {{ app.user.getLastName() }}  </h1>
+    </section>
+
     <section class="container" style="width:50%">
-
         <div class="row">
-
             <div class="col">
-                <h1 class="h1 mb-3 font-weight-normal">Profil de {{ app.user.getFirstName() }} {{ app.user.getLastName() }}  </h1> <!-- {app.publi.publications|length} -->
-
-
+                <h1 class="h1 mb-3 font-weight-normal"></h1> <!-- {app.publi.publications|length} -->
 
 
                 <fieldset class="mb-3">

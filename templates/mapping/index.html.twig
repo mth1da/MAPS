@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mapping{% endblock %}
+
+{% block body %}
+    <section class="section-title">
+        <h1>Mapping</h1>
+    </section>
+
+    <div id="group-button">
+        <div class="inner">
+            <button class="mapping" onclick="location.href='{{ path('app_random_sandwich') }}'">Sandwich Roulette</button>
+        </div>
+        <div class="inner">
+            <button class="mapping" onclick="location.href='{{ path('app_sandwich') }}'">Sandwich sur Mesure</button>
+
+        </div>
+        <div class="inner">
+            <button class="mapping" onclick="location.href='{{ path('app_original_sandwich') }}'">Sandwich Traditionnels</button>
+
+        </div>
+    </div>
+
+{% endblock %}

@@ -11,7 +11,8 @@
         {% if app.user %}
             {# si l'user a un panier #}
             {% if panier %}
-                <a href="{{ path('app_sandwich') }}" class="btn btn-info">Continuer mes achats</a></p>
+                {{ dump(panier) }}
+                <a href="{{ path('app_mapping') }}" class="btn btn-info">Continuer mes achats</a></p>
                 <table class="table table-hover">
                     <thead>
                     <tr>

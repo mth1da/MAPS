@@ -37,7 +37,8 @@ class CartServices
         $panier = $session->get("panier", []);
 
         if(!empty($panier[$id])){
-            $panier[$id]++;
+            //dd($panier[$id]["quantite"]);
+            $panier[$id]["quantite"]++;
         }else{
             $panier[$id] = 1;
         }

@@ -59,7 +59,7 @@
                                     <td>{{ element.sandwich.name }}</td>
                                     <td>{{ element.sandwich.price /100}} €</td>
                                      <td>{{ element.quantite }}</td>
-                                     <td>{{ element.quantite *  element.sandwich.price /100}}</td>
+                                     <td>{{ element.quantite *  element.sandwich.price /100}} €</td>
                                     <td>
                                         <a href="{{path("addOriginalOrRandom", {id: key})}}" class="btn btn-success">Ajouter</a>
                                         <a href="{{path("removeOriginalOrRandom", {id: key})}}" class="btn btn-danger">Supprimer</a>
@@ -89,7 +89,7 @@
             {# si l'user a un panier vide#}    
             {% else %}
                 <p>Le panier est vide <br><br>
-                    <a href="{{ path('app_sandwich') }}" class="btn btn-info">Commencer mes achats</a>
+                    <a href="{{ path('app_mapping') }}" class="btn btn-info">Commencer mes achats</a>
                 </p>
             {% endif %}
 

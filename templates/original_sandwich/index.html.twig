@@ -3,7 +3,7 @@
 {% block title %}Sandwichs traditionnels{% endblock %}
 
 {% block body %}
-    <section class="bg-light p-3">
+    <section class="section-title">
         <h1>Sandwichs traditionnels</h1>
     </section>
     <div class="container">
@@ -12,12 +12,12 @@
 
                 <div class="col">
                     <div class="card" style="width: 18rem;">
-                        <img src="{{ asset('upload/images/sandwichs/imgtest.webp')}}" class="card-img-top" alt="photo pour le test">
+                        <img src="{{ asset('upload/images/sandwichs/')}}{{ originalSandwich.photo }}" class="card-img-top" alt="photo pour le test">
                         <div class="card-body">
                             <h5 class="card-title">{{ originalSandwich.Name }}</h5>
                             <button type="button" class="btn btn-info btn-lg" data-bs-toggle="modal" data-bs-target="#{{ originalSandwich.id }}">Voir</button>
                             {% if app.user %}
-                                <a href="{{ path('addOriginal', {'id' : originalSandwich.id}) }}" class="btn btn-info btn-lg">+</a>
+                                <a href="{{ path('addOriginalOrRandom', {'id' : originalSandwich.id}) }}" class="btn btn-info btn-lg">+</a>
                             {% endif %}
                         </div>
                     </div>
@@ -32,7 +32,7 @@
                             </div>
                             <div class="modal-body">
                                 {% for ingredient in originalSandwich.getSandwichIngredients() %}
-                                    <p class="card-text">ingrédient</p>
+                                    <p class="card-text">{{ingredient.Name}}</p>
                                 {% endfor %}
                             </div>
                             <div class="modal-footer">
@@ -44,6 +44,12 @@
 
             {% endfor %}
         </div>
+        {% if not app.user %}
+            <p>Connectez-vous pour ajouter au panier !</p>
+            <a href="{{ path("app_login") }}" class="btn btn-secondary">Me connecter</a>
+        {% endif %}
     </div>
+
+
 
 {% endblock %}

@@ -12,15 +12,44 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         //pains
-        $mie = new Ingredient();
-        $mie->setName('Pain de mie');
-        $mie->setDescription('Des tranches de pain de mie savoureuses !');
-        $mie->setPrice(100);
-        $mie->setPhoto("painmie.jpg");
-        $mie->setTypes(
+        $arepa = new Ingredient();
+        $arepa->setName('Arepa');
+        $arepa->setDescription('Arepa de qualité !');
+        $arepa->setPrice(100);
+        $arepa->setPhoto("arepa.jpg");
+        $arepa->setTypes(
             $this->getReference('pain')
         );
-        $manager->persist($mie);
+
+        $bagel = new Ingredient();
+        $bagel->setName('Bagel');
+        $bagel->setDescription('Un Bagel de qualité !');
+        $bagel->setPrice(100);
+        $bagel->setPhoto("bagel.jpg");
+        $bagel->setTypes(
+            $this->getReference('pain')
+        );
+        $manager->persist($bagel);
+
+        $baguette = new Ingredient();
+        $baguette->setName('Baguette');
+        $baguette->setDescription('Baguette certifiée !');
+        $baguette->setPrice(100);
+        $baguette->setPhoto("baguette.jpg");
+        $baguette->setTypes(
+            $this->getReference('pain')
+        );
+        $manager->persist($baguette);
+
+        $bretzel = new Ingredient();
+        $bretzel->setName('Bretzel');
+        $bretzel->setDescription('Un Bretzel de qualité !');
+        $bretzel->setPrice(100);
+        $bretzel->setPhoto("bretzel.jpg");
+        $bretzel->setTypes(
+            $this->getReference('pain')
+        );
+        $manager->persist($bretzel);
 
         $burger = new Ingredient();
         $burger->setName('Pain Burger');
@@ -32,8 +61,88 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($burger);
 
+        $ciabatta = new Ingredient();
+        $ciabatta->setName('Ciabatta');
+        $ciabatta->setDescription('Une Ciabatta de qualité !');
+        $ciabatta->setPrice(100);
+        $ciabatta->setPhoto("ciabatta.jpg");
+        $ciabatta->setTypes(
+            $this->getReference('pain')
+        );
+        $manager->persist($ciabatta);
+
+        $challah = new Ingredient();
+        $challah->setName('Challah');
+        $challah->setDescription('Une Challah de qualité !');
+        $challah->setPrice(100);
+        $challah->setPhoto("challah.jpg");
+        $challah->setTypes(
+            $this->getReference('pain')
+        );
+        $manager->persist($challah);
+
+        $complet = new Ingredient();
+        $complet->setName('Pain Complet');
+        $complet->setDescription('Un pain Complet de qualité !');
+        $complet->setPrice(100);
+        $complet->setPhoto("complet.jpg");
+        $complet->setTypes(
+            $this->getReference('pain')
+        );
+        $manager->persist($complet);
+
+        $manager->persist($arepa);
+        $mie = new Ingredient();
+        $mie->setName('Pain de mie');
+        $mie->setDescription('Des tranches de pain de mie savoureuses !');
+        $mie->setPrice(100);
+        $mie->setPhoto("painmie.jpg");
+        $mie->setTypes(
+            $this->getReference('pain')
+        );
+        $manager->persist($mie);
+
+        $pita = new Ingredient();
+        $pita->setName('Pita');
+        $pita->setDescription('Pita de qualité !');
+        $pita->setPrice(100);
+        $pita->setPhoto("pita.jpg");
+        $pita->setTypes(
+            $this->getReference('pain')
+        );
+        $manager->persist($pita);
+
+        $tortilla = new Ingredient();
+        $tortilla->setName('Tortilla');
+        $tortilla->setDescription('Tortilla de qualité !');
+        $tortilla->setPrice(100);
+        $tortilla->setPhoto("tortilla.jpg");
+        $tortilla->setTypes(
+            $this->getReference('pain')
+        );
+        $manager->persist($tortilla);
 
         //viandes
+        $poulet = new Ingredient();
+        $poulet->setName('Poulet');
+        $poulet->setDescription('Du bon poulet fermier !');
+        $poulet->setPrice(100);
+        $poulet->setPhoto("poulet.jpg");
+        $poulet->setTypes(
+            $this->getReference('viande')
+        );
+        $manager->persist($poulet);
+
+        $merguez = new Ingredient();
+        $merguez->setName('Merguez');
+        $merguez->setDescription('Des merguez bien savoureuses !');
+        $merguez->setPrice(100);
+        $merguez->setPhoto("merguez.jpg");
+        $merguez->setTypes(
+            $this->getReference('viande')
+        );
+        $manager->persist($merguez);
+
         $jambon = new Ingredient();
         $jambon->setName('Jambon');
         $jambon->setDescription('Des tranches de jambon savoureuses !');
@@ -89,7 +198,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $olive = new Ingredient();
         $olive->setName('Olives');
         $olive->setDescription('De bonnes olives venues tout droit de Sicile !');
-        $olive->setPrice(20);
+        $olive->setPrice(30);
         $olive->setPhoto("olive.jpg");
         $olive->setTypes(
             $this->getReference('crudite')
@@ -139,7 +248,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $oeuf = new Ingredient();
         $oeuf->setName('Oeufs');
         $oeuf->setDescription('Des oeufs durs issus d\'élevages certifiés en plein air !');
-        $oeuf->setPrice(20);
+        $oeuf->setPrice(40);
         $oeuf->setPhoto("oeuf.jpg");
         $oeuf->setTypes(
             $this->getReference('crudite')
@@ -192,7 +301,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $mozza = new Ingredient();
         $mozza->setName('Mozzarella');
         $mozza->setDescription('De bonnes tranches de mozzarella venues tout droit d\'Italie !');
-        $mozza->setPrice(30);
+        $mozza->setPrice(40);
         $mozza->setPhoto("mozza.jpg");
         $mozza->setTypes(
             $this->getReference('fromage')
@@ -342,6 +451,16 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($bbq);
 
+        $beurre= new Ingredient();
+        $beurre->setName('Beurre');
+        $beurre->setDescription('Beurre salé de Bretagne !');
+        $beurre->setPrice(10);
+        $beurre->setPhoto("beurre.jpg");
+        $beurre->setTypes(
+            $this->getReference('sauce')
+        );
+        $manager->persist($beurre);
+
         $wasabi= new Ingredient();
         $wasabi->setName('Sauce Wasabi');
         $wasabi->setDescription('Du Wasabi pour enflammer vos hivers les plus rudes !');
@@ -385,6 +504,49 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
 
 
         $manager->flush();
+
+        $this->addReference("mie", $mie);
+        $this->addReference("burger", $burger);
+        $this->addReference("bagel", $bagel);
+        $this->addReference("baguette", $baguette);
+        $this->addReference("bretzel", $bretzel);
+        $this->addReference("jambon", $jambon);
+        $this->addReference("steak", $steak);
+        $this->addReference("merguez", $merguez);
+        $this->addReference("poulet", $poulet);
+        $this->addReference("saumon", $saumon);
+        $this->addReference("crevette", $crevette);
+        $this->addReference("salade", $salade);
+        $this->addReference("olive", $olive);
+        $this->addReference("tomate", $tomate);
+        $this->addReference("carotte", $carotte);
+        $this->addReference("concombre", $concombre);
+        $this->addReference("mais", $mais);
+        $this->addReference("oeuf", $oeuf);
+        $this->addReference("radi", $radi);
+        $this->addReference("parmesan", $parmesan);
+        $this->addReference("roquefort", $roquefort);
+        $this->addReference("feta", $feta);
+        $this->addReference("mozza", $mozza);
+        $this->addReference("chevre", $chevre);
+        $this->addReference("brie", $brie);
+        $this->addReference("cheddar", $cheddar);
+        $this->addReference("emmental", $emmental);
+        $this->addReference("basilic", $basilic);
+        $this->addReference("cor", $cor);
+        $this->addReference("menthe", $menthe);
+        $this->addReference("oignon", $oignon);
+        $this->addReference("curry", $curry);
+        $this->addReference("poivre", $poivre);
+        $this->addReference("papri", $papri);
+        $this->addReference("curcuma", $curcuma);
+        $this->addReference("soja", $soja);
+        $this->addReference("bbq", $bbq);
+        $this->addReference("wasabi", $wasabi);
+        $this->addReference("moutarde", $moutarde);
+        $this->addReference("mayo", $mayo);
+        $this->addReference("ketchup", $ketchup);
+        $this->addReference("beurre", $beurre);
 
 
     }

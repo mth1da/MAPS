@@ -3,12 +3,24 @@
 {% block title %}Ajout des publications{% endblock %}
 
 {% block body %}
-    <main class="container">
-        <section class="row">
+    <section class="section-title">
+        <h1>Ajoutez une publication</h1>
+    </section>
+    <main class="container-form">
+
+        {# si l'user n'a pas vérifié son adresse mail #}
+        {% if app.user.getisverified() == 0 %}
             <div class="col-12">
-                <h1>Ajouter une Publication</h1>
-                {% include "publication/_form.html.twig" %}
+                <p>Vous devez vérifier votre adresse mail pour commencer à publier !</p>
             </div>
-        </section>
+            <button type="button" class="btn btn-secondary" onclick="location.href='{{ path('app_re_verify_user') }}'">Renvoyer le lien d'activation.</button>
+        {% else %}
+            <section class="row">
+                <div class="col-12">
+                    {% include "publication/_form.html.twig" %}
+                </div>
+            <section class="row">
+        {% endif %}
+
     </main>
 {% endblock %}

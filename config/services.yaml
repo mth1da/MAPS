@@ -7,6 +7,7 @@ parameters:
     app.images_upload_file_path: '%kernel.project_dir%/public/upload/images/publications/'
     # app.images_upload_file_path: '%kernel.project_dir%/public/uploads/'
     app.jwtsecret: '%env(JWT_SECRET)%'
+    app.host: '%env(HOST)'
 
 services:
     # default configuration for services in *this* file

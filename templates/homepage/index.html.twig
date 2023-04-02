@@ -2,6 +2,13 @@
 
 {% block title %}Home - MAPS!{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin=""/>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+{% endblock %}
 
 {% block header %}
 
@@ -11,20 +18,46 @@
 
 {% block body %}
 
-        <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-            <div class="col-md-5 p-lg-5 mx-auto my-5">
-                <h1 class="display-4 font-weight-normal">Le Concept</h1>
-                <p class="lead font-weight-normal">
-                    Maps Ton Sandwich est né d'une idée simple :
-                    remplir son casse-croûte d'ingrédients locaux,<br> de qualité, et qui régalent !<br><br>
-                    Pour mapper ton sandwich, choisis les compositions qui te plaisent, ajoute les au panier et on s'occupe du reste.<br><br>
-                    Alors, prêt(e) à mapper l'expérience ?
-                </p>
-                <a class="btn btn-outline-secondary" href="{{ path('app_sandwich') }}">Commencer</a>
-            </div>
-            <div class="product-device box-shadow d-none d-md-block"></div>
-            <div class="product-device product-device-2 box-shadow d-none d-md-block"></div>
+    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+        <div class="col-md-5 p-lg-5 mx-auto my-5">
+            <h1 class="display-4 font-weight-normal">Le Concept</h1>
+            <p class="lead font-weight-normal">
+                Maps Ton Sandwich est né d'une idée simple :
+                remplir son casse-croûte d'ingrédients locaux,<br> de qualité, et qui régalent !<br><br>
+                Pour mapper ton sandwich, choisis les compositions qui te plaisent, ajoute les au panier et on s'occupe du reste.<br><br>
+                Alors, prêt(e) à mapper l'expérience ?
+            </p>
+            <a class="btn btn-outline-secondary start" href="{{ path('app_mapping') }}"><span>Commencer</span></a>
         </div>
+
+        <div class="row">
+            <div class="col-md-6 ">
+                <div id="mapId">
+                    <script>
+                        let map = L.map('mapId').setView([48.8269527, 2.3648285], 13); //latitude et longitude + zoom par défaut
+                        //on charge les "tuiles"
+                        L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+                            attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
+                            minZoom: 1,
+                            maxZoom: 20
+                        }).addTo(map);
+                        var marker = L.marker([48.8269527, 2.3648285]).addTo(map);
+                        marker.bindPopup("Maps Ton Sandwich")
+                    </script>
+                </div>
+            </div>
+
+            <div class="col-md-6 ">
+                <section class="section-title">
+                    <h1>Rends-nous visite !</h1>
+                </section><br>
+                <i class="fa-solid fa-location-dot"></i> 90 rue de Tolbiac <br> 75013 Paris<br><br>
+                <i class="fa-solid fa-phone"></i> <a href="tel:+33711223344">07 11 22 33 44</a> <br><br>
+                <i class="fa-solid fa-envelope"></i> <a href="mailto:info@maps.com">info@maps.com</a>
+            </div>
+        </div>
+
+    </div>
 
 {% endblock %}
 

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block body %}
+
+    <section class="section-title">
+        <h1>Checkout</h1>
+    </section>
+    <section class="container-form">
+
+        <div class="product">
+            <div class="description">
+                <h5>Montant : {{ total /100}} €</h5>
+            </div>
+        </div>
+        <form action={{ path('app_checkout_validate')}} method="POST">
+            <button type="reset" class="btn btn-danger" onclick="location.href='{{ path('app_cart') }}'">Annuler</button>
+            <button type="submit" id="" class="btn btn-primary">Valider</button>
+        </form>
+    </section>
+{% endblock %}

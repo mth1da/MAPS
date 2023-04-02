@@ -35,19 +35,14 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // On génère le JWT de l'utilisateur
-            // On crée le Header
-            $header = [
-                'typ' => 'JWT',
-                'alg' => 'HS256'
-            ];
+            //on génère le JWT de l'utilisateur
+                //on crée le header
+            $header = ['typ' => 'JWT', 'alg' => 'HS256'];
 
-            // On crée le Payload
-            $payload = [
-                'user_id' => $user->getId()
-            ];
+                //on crée le payload
+            $payload = ['user_id' => $user->getId()];
 
-            // On génère le token
+                //on génère le token
             $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
 
             //on envoie un mail de confirmation
@@ -56,10 +51,11 @@ class RegistrationController extends AbstractController
                 $user->getEmail(),
                 'Activation de votre compte MAPS',
                 'register',
-                ['user' => $user, 'token' => $token]
+                ['user' => $user, 'token' => $token] //<=>compact('user', 'token')
             );
+
             $this->addFlash('success', 'Inscription réussie ! ');
-            return $this->redirectToRoute('app_homepage');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('registration/index.html.twig', [
@@ -82,12 +78,12 @@ class RegistrationController extends AbstractController
             if($user && !$user->getIsVerified()){
                 $user->setIsVerified(true);
                 $em->flush($user);
-                $this->addFlash('success', 'Adresse email vérifiée');
+                $this->addFlash('success', 'Adresse email vérifiée.');
                 return $this->redirectToRoute('app_homepage');
             }
         }
         // problème dans le token
-        $this->addFlash('danger', 'Le token est invalide ou a expiré');
+        $this->addFlash('danger', 'Le token est invalide ou a expiré.');
         return $this->redirectToRoute('app_login');
     }
 
@@ -98,39 +94,35 @@ class RegistrationController extends AbstractController
         $user = $this->getUser();
 
         if(!$user){
-            $this->addFlash('danger', 'Vous devez être connecté pour accéder à cette page');
+            $this->addFlash('danger', 'Vous devez être connecté pour accéder à cette page.');
             return $this->redirectToRoute('app_login');
         }
 
         if($user->getIsVerified()){
-            $this->addFlash('warning', 'Cet utilisateur est déjà vérifié');
+            $this->addFlash('warning', 'Cet utilisateur est déjà vérifié.');
             return $this->redirectToRoute('app_login');
         }
 
-        // On génère le JWT de l'utilisateur
-        // On crée le Header
-        $header = [
-            'typ' => 'JWT',
-            'alg' => 'HS256'
-        ];
+        //on génère le JWT de l'utilisateur
+            //on crée le header
+        $header = ['typ' => 'JWT', 'alg' => 'HS256'];
 
-        // On crée le Payload
-        $payload = [
-            'user_id' => $user->getId()
-        ];
+        //on crée le payload
+        $payload = ['user_id' => $user->getId()];
 
-        // On génère le token
+        //on génère le token
         $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
 
-        // On envoie un mail
+        //on envoie un mail
         $mail->send(
             'no-reply@maps.com',
             $user->getEmail(),
             'Activation de votre compte MAPS',
             'register',
-            compact('user', 'token')
+            ['user' => $user, 'token' => $token] // <=>compact('user', 'token')
         );
-        $this->addFlash('success', 'Email de vérification envoyé');
+
+        $this->addFlash('success', 'Email de vérification envoyé.');
         return $this->redirectToRoute('app_homepage');
     }
 }

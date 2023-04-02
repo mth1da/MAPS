@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Paiement effectué {% endblock %}
+
+{% block body %}
+    <section class="section-title">
+        <h1>Checkout</h1>
+    </section>
+    <section class="container-form">
+        <p>
+            Paiement effectué avec succès ! <br><br>
+            <button type="reset" class="btn btn-outline-secondary" onclick="location.href='{{ path('app_homepage') }}'">Retour au site</button>
+        </p>
+    </section>
+{% endblock %}

@@ -4,22 +4,22 @@ namespace App\Controller;
 
 use App\Repository\IngredientRepository;
 use App\Repository\SandwichRepository;
+use App\Service\CartServices;
 use JetBrains\PhpStorm\NoReturn;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
-//use App\Service\CartServices;
 
 class CartController extends AbstractController
 {
-    //private CartServices $services;
+    private CartServices $services;
     private SandwichRepository $sandwichRepository;
     private IngredientRepository $ingredientRepository;
 
-    public function __construct(SandwichRepository $sandwichRepository, IngredientRepository $ingredientRepository)
+    public function __construct(SandwichRepository $sandwichRepository, IngredientRepository $ingredientRepository, CartServices $services)
     {
-        //$this->services = $services;
+        $this->services = $services;
         $this->sandwichRepository = $sandwichRepository;
         $this->ingredientRepository = $ingredientRepository;
     }
@@ -31,61 +31,86 @@ class CartController extends AbstractController
         $dataPanier = [];
         $total = 0;
         $panier = $session->get("panier", []);
+        $sessionTotal = $session->get("total", []);
         if (is_null($panier)){
             return $this->render('cart/index.html.twig', compact("panier"));
         }
         foreach ($panier as $id => $quantiteOrIngr) {
             if (is_array($quantiteOrIngr)){
-                foreach ($quantiteOrIngr as $key => $item) {
-                    if(isset($item['ingredient'])){
-                        $total += $item['ingredient']->getPrice() * $item['quantite'];
+                if(!isset($quantiteOrIngr['sandwich'])){
+                    foreach ($quantiteOrIngr as $key => $item)
+                    {
+                        if(isset($item['ingredient'])){
+                            $total += $item['ingredient']->getPrice() * $item['quantite'];
+                        }
+
                     }
                 }
+
                 $dataPanier[] = $quantiteOrIngr;
 
-            /*    if (isset($quantiteOrIngr[$id]['ingredient'])) {
-                    $dataPanier[] = $quantiteOrIngr;
-                    $total += $quantiteOrIngr['ingredient']->getPrice() * $quantiteOrIngr['quantite'];
-                } else {
-                    // handle the case where the 'ingredient' key is missing
-                }*/
+                /*    if (isset($quantiteOrIngr[$id]['ingredient'])) {
+                        $dataPanier[] = $quantiteOrIngr;
+                        $total += $quantiteOrIngr['ingredient']->getPrice() * $quantiteOrIngr['quantite'];
+                    } else {
+                        // handle the case where the 'ingredient' key is missing
+                    }*/
             }
             else{
                 $sandwich = $this->sandwichRepository->find($id);
-                $dataPanier[] = [
-                    "sandwich" => $sandwich,
-                    "quantite" => $quantiteOrIngr
-                ];
-                if (isset($sandwich)) {
-                    $total += $sandwich->getPrice() * $quantiteOrIngr;
+                $dataPanier = $this->services->creationDataPanier($sandwich, $quantiteOrIngr);
+                foreach ($dataPanier as $id => $sandwichNoPersonalize) {
+                    $sandwichNoPersonalize = [
+                        "sandwich" => $sandwichNoPersonalize['sandwich'],
+                        "quantite" => $sandwichNoPersonalize['quantite'],
+                 /*       "totalIngBySandwich" => 0,
+                        "totalIngBySandwichByQte" => 0,
+                        "totalQte" => $sandwichNoPersonalize['quantite']*/
+                    ];
+                    unset($panier[ $sandwichNoPersonalize['sandwich']->getId()]);
+                    $panier[] = $sandwichNoPersonalize;
+
+                    //$total+=$ingredient->getPtrice() * $quantite;
                 }
             }
         }
-        return $this->render('cart/index.html.twig', compact("dataPanier", "total", "panier"));
+
+        $panier = array_values($panier);
+
+        $session->set('panier', $panier);
+        $sandwiches = $this->sandwichRepository;
+        foreach ($panier as $id => $item) {
+            if(isset($item['quantite'])){
+                $total += $item['quantite'] * $item['sandwich']->getPrice();
+            }
+        }
+        $session->set('total', $total);
+        return $this->render('cart/index.html.twig',
+            compact("dataPanier", "total", "panier", "sandwiches"));
     }
 
 
     #[NoReturn] #[Route('/addMaps', name: 'app_cart_addMaps')]
     public function addMaps(SessionInterface $session)
     {
-            $panier = $session->get("panier", []);
-            $sandwich = $session->get('sandwich');
+        $panier = $session->get("panier", []);
+        $sandwich = $session->get('sandwich');
 
-            $dataContenuSandwich = [];
+        $dataContenuSandwich = [];
 
-            if(!empty($panier)){
-                $dataContenuSandwich[] = [
-                    $sandwich
-                ];
-            }else{
-                $dataContenuSandwich = [$sandwich];
-            }
+        if(!empty($panier)){
+            $dataContenuSandwich[] = [
+                $sandwich
+            ];
+        }else{
+            $dataContenuSandwich = [$sandwich];
+        }
 
-            $panier=$session->get('panier');
-            $panier[] = $sandwich;
-            $session->set("panier", $panier );
-            $session->set('sandwich', null);
-            $session->set('ingredients', null);
+        $panier=$session->get('panier');
+        $panier[] = $sandwich;
+        $session->set("panier", $panier );
+        $session->set('sandwich', null);
+        $session->set('ingredients', null);
 
         //on redirige l'utilisateur vers le panier
         return $this->redirectToRoute("app_cart");
@@ -117,39 +142,17 @@ class CartController extends AbstractController
         //on redirige l'utilisateur vers le panier
         return $this->redirectToRoute("app_cart");
     }
-    #[NoReturn] #[Route('/addOriginal/{id}', name: 'addOriginal')]
-    public function addOriginal(int $id, SessionInterface $session)
+    #[NoReturn] #[Route('/addOriginalOrRandom/{id}', name: 'addOriginalOrRandom')]
+    public function addOriginalOrRandom(int $id, SessionInterface $session, IngredientRepository $ingredientRepository)
     {
-        // On récupère le panier actuel
-        $panier = $session->get("panier", []);
-
-        if(!empty($panier[$id])){
-            $panier[$id]++;
-        }else{
-            $panier[$id] = 1;
-        }
-
-        // On sauvegarde dans la session
-        $session->set("panier", $panier);
-
-        //on redirige l'utilisateur vers le panier
+        $this->services->addOneOriginalOrRandomSandwich($id, $session, $ingredientRepository);
         return $this->redirectToRoute("app_cart");
     }
 
-    #[NoReturn] #[Route('/removeOriginal/{id}', name: 'removeOriginal')]
-    public function removeOriginal(int $id, SessionInterface $session)
+    #[NoReturn] #[Route('/removeOriginalOrRandom/{id}', name: 'removeOriginalOrRandom')]
+    public function removeOriginalOrRandom(int $id, SessionInterface $session)
     {
-        $panier = $session->get("panier", []);
-
-        if(!empty($panier[$id])){
-            if($panier[$id] > 1){
-                $panier[$id]--;
-            }else{
-                unset($panier[$id]);
-            }
-        }
-        $session->set("panier", $panier);
-
+        $this->services->removeOneOriginalOrRandomSandwich($id, $session);
         return $this->redirectToRoute("app_cart");
     }
 
@@ -157,8 +160,8 @@ class CartController extends AbstractController
     public function deleteAll(SessionInterface $session)
     {
         $session->remove("panier");
-
         return $this->redirectToRoute("app_cart");
     }
+
 
 }

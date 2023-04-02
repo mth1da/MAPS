@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Service;
-/*
+
+use App\Entity\Sandwich;
+use App\Repository\IngredientRepository;
 use App\Repository\SandwichRepository;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -14,31 +16,39 @@ class CartServices
         $this->sandwichRepository = $sandwichRepository;
     }
 
-    public function creationCart(SessionInterface $session, array $datapanier, float $total) : void
+    public function creationDataPanier(Sandwich $sandwich,  $quantiteOrIngr) : array
     {
-
+        $dataPanier[] = [
+            "sandwich" => $sandwich,
+            "quantite" => $quantiteOrIngr
+        ];
+        return $dataPanier;
     }
-    public function addOneOriginalSandwich(int $id, SessionInterface $session) : void
+
+    public function recalculeTotal(Sandwich $sandwich,  $quantiteOrIngr, int $total) : int
+    {
+        if (isset($sandwich)) {
+            $total += $sandwich->getPrice() * $quantiteOrIngr;
+        }
+        return $total;
+    }
+    public function addOneOriginalOrRandomSandwich(int $id, SessionInterface $session, IngredientRepository $ingredientRepository) : void
     {
         $panier = $session->get("panier", []);
+
         if(!empty($panier[$id])){
-            $panier[$id]++;
+            $panier[$id]["quantite"]++;
         }else{
             $panier[$id] = 1;
         }
         $session->set("panier", $panier);
     }
 
-    public function removeOneSandwich(int $id, SessionInterface $session) : void
+    public function removeOneOriginalOrRandomSandwich(int $id, SessionInterface $session) : void
     {
         $panier = $session->get("panier", []);
-
-        if (!empty($panier[$id])) {
-            unset($panier[$id]);
-            $session->set("panier", $panier);
-        }
+        unset($panier[$id]);
+        $session->set("panier", $panier);
     }
 
 }
-*\
- */

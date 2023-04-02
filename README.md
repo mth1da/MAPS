@@ -17,7 +17,14 @@ Features :
 
 ## Class Diagram
 
+![protocole](maps.PNG)
+
 ## Languages
+
+#### API
+- API REST MailHog
+- API Leaflet
+- API Stripe
 
 ## Settings
 
@@ -38,6 +45,12 @@ composer require symfony/runtime
 composer require symfony/webpack-encore-bundle
 ```
 ```console
+composer require stripe/stripe-php
+```
+```console
+composer require beberlei/doctrineextensions=dev-master
+```
+```console
 symfony console doctrine:database:create
 ```
 ```console
@@ -52,7 +65,5 @@ npm install
 ```console
 npm run build
 ```
-
-![protocole](maps.PNG)
 
 You're now free to enjoy our MAPS website!

@@ -3,10 +3,12 @@
 {% block title %}Modification des publications{% endblock %}
 
 {% block body %}
-    <main class="container">
+    <section class="section-title">
+        <h1>Modifiez une publication<h1>
+    </section>
+    <main class="container-form">
         <section class="row">
             <div class="col-12">
-                <h1>Modifier une Publication</h1>
                 {% include "publication/_form.html.twig" with {'button_label': 'Modifier'}%}
             </div>
         </section>

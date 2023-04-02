@@ -4,23 +4,28 @@ namespace App\Controller;
 
 use App\Entity\Publication;
 use App\Form\PublicationFormType;
+use App\Repository\PublicationRepository;
 use App\Service\UploadImageService;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/publication', name: 'app_publication_')]
+#[Route('/publication', name: 'app_publication')]
 class PublicationController extends AbstractController
 {
-    #[Route('/', name: 'index')]
-    public function index():Response{
-        return $this->render('publication/index.html.twig');
+    #[Route('/', name: '')]
+    public function feed(PublicationRepository $publicationRepository):Response
+    {
+        return $this->render('publication/feed.html.twig', [
+            'publications' => $publicationRepository->findAllByDescendingOrder(),
+        ]);
     }
 
-    #[Route('/ajout', name: 'add')]
-    public function add(Request $request, EntityManagerInterface $entityManager, UploadImageService $uploadImgService): Response //DI
+    #[Route('/ajout', name: '_add')]
+    public function add(Request $request, EntityManagerInterface $entityManager, UploadImageService $uploadImgService): Response
     {
         //on crée une nouvelle publication
         $publi = new Publication();
@@ -41,29 +46,31 @@ class PublicationController extends AbstractController
             $photo = $publiForm->get('photo')->getData();
 
             //on appelle le service upload image
-            $fichier = $uploadImgService->create($photo,300,300);
+            try{
+                $fichier = $uploadImgService->create($photo,300,300);
 
-            //on set le nom de fichier dans la bdd
-            $publi->setPhoto($fichier);
+                //on set le nom de fichier dans la bdd
+                $publi->setPhoto($fichier);
 
-            $entityManager->persist($publi);
-            $entityManager->flush();
+                $entityManager->persist($publi);
+                $entityManager->flush();
 
-            $this->addFlash('success', 'Publication partagée avec succès.');
+                $this->addFlash('success', 'Publication partagée avec succès.');
 
-            return $this->redirectToRoute('app_feed');
+                return $this->redirectToRoute('app_publication');
+            }
+            catch (Exception $msg){
+                $this->addFlash('danger', 'Format d\'image incorrect.');
+            }
+
         }
 
         return $this->render('publication/add.html.twig', [
             'publiForm' => $publiForm,
             ]);
-        //<=>
-        //return $this->render('publication/index.html.twig', [
-        //    'publiForm' => $publiForm,
-        //]);
     }
 
-    #[Route('/modification', name: 'update')]
+    #[Route('/modification', name: '_update')]
     public function update(Request $request, EntityManagerInterface $entityManager): Response
     {
         //on crée une nouvelle publication
@@ -82,7 +89,7 @@ class PublicationController extends AbstractController
 
             $this->addFlash('success', 'Publication mise à jour avec succès');
 
-            return $this->redirectToRoute('app_publication_index');
+            return $this->redirectToRoute('app_publication');
         }
 
         return $this->render('publication/update.html.twig', [

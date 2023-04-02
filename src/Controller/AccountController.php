@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\EditPassType;
 use App\Form\EditProfileType;
+use App\Repository\ReservationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,9 +17,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class AccountController extends AbstractController
 {
     #[Route('/account', name: 'app_account')]
-    public function index(): Response
+    public function index(ReservationRepository $reservationRepository): Response
     {
-        return $this->render('account/index.html.twig');
+
+        return $this->render('account/index.html.twig', [
+            "reservations" => $reservationRepository->findBy(['resa_user' => $this->getUser()])
+        ]);
     }
 
 

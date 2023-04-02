@@ -24,10 +24,4 @@ class IngredientsController extends AbstractController
             'sauces' => $ingredientRepository->findBySlug('sauce'),
         ]);
     }
-
-    #[Route('/ingredient/modifier/id', name: 'modif_ingredient')]
-    public function modifIngredient(){
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
-        //ici il faut être admin
-    }
 }

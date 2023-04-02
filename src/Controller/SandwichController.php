@@ -25,8 +25,10 @@ class SandwichController extends AbstractController
         if(!empty($contenu)){
             foreach ($contenu as $id => $quantite){
                 $ingredient = $ingredientRepository->find($id);
-                $totalIngBySandwich += $ingredient->getPrice();
-                $totalIngBySandwichByQte += $ingredient->getPrice() * $quantite;
+                if($ingredient != null){
+                    $totalIngBySandwich += $ingredient->getPrice();
+                    $totalIngBySandwichByQte += $ingredient->getPrice() * $quantite;
+                }
                 $totalQte += $quantite;
                 $dataContenuSandwich[] = [
                     "ingredient" => $ingredient,
@@ -78,9 +80,7 @@ class SandwichController extends AbstractController
                 unset($contenu[$id]);
             }
         }
-
         $session->set("ingredients", $contenu);
-
         return $this->redirectToRoute('app_sandwich');
     }
 
@@ -92,9 +92,7 @@ class SandwichController extends AbstractController
         if(!empty($contenu[$id])){
             unset($contenu[$id]);
         }
-
         $session->set("ingredients", $contenu);
-
         return $this->redirectToRoute('app_sandwich');
     }
     // sert a supprimer tous le sandwich

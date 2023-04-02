@@ -17,6 +17,7 @@
     -webkit-overflow-scrolling: touch;
 }
 
+/*bouton commencer*/
 .start{
     transition: all 0.9s ease 0s;
 }
@@ -65,7 +66,7 @@ a{
     margin-left:auto;
     margin-right: auto;
     margin-bottom: 50px ;
-    width: 45%;
+    width: 100%;
     border: 1px solid;
     padding: 10px;
     background-color: whitesmoke;
@@ -111,6 +112,48 @@ h1{
     margin-bottom: 0;
 }
 
+/*mapping buttons*/
+#group-button {
+    width:100%;
+    height: 500px;
+    text-align: center;
+}
+
+.inner {
+    display: inline-block;
+    height:400px;
+    width: 30%;
+    transition: transform .2s; /* Animation */
+}
+
+.inner:hover {
+    transform: scale(1.2);
+}
+
+.inner:active{
+    transform:scale(1.1);  /*press effect on click*/
+}
+
+.mapping {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    color: whitesmoke;
+    opacity: 0.6;
+    font-size: xx-large;
+    background: violet;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 5px;
+}
+
+.mapping:hover {
+    opacity: 1
+}
+
+/*random form*/
 .random-form{
     width: 100%;
     height: 200px;

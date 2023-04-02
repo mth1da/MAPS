@@ -76,6 +76,10 @@ h1{
     text-align:center;
 }
 
+.img-publi{
+    width:20%;
+}
+
 /*css pour le caroussel*/
 .carousel .carousel-item {
     height: 250px;

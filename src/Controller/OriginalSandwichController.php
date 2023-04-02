@@ -13,7 +13,9 @@ class OriginalSandwichController extends AbstractController
     public function index(SandwichRepository $sandwichRepository): Response
     {
         return $this->render('original_sandwich/index.html.twig', [
-            'orginalsSandwichs' => $sandwichRepository->findAll(),
+            'orginalsSandwichs' => $sandwichRepository->findBy(['is_original' => true]),
+
         ]);
     }
+
 }

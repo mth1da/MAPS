@@ -34,6 +34,27 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
 
 
         //viandes
+
+        $poulet = new Ingredient();
+        $poulet->setName('Poulet');
+        $poulet->setDescription('Du bon poulet fermier !');
+        $poulet->setPrice(100);
+        $poulet->setPhoto("poulet.jpg");
+        $poulet->setTypes(
+            $this->getReference('viande')
+        );
+        $manager->persist($poulet);
+
+        $merguez = new Ingredient();
+        $merguez->setName('Merguez');
+        $merguez->setDescription('Des tranches de jambon savoureuses !');
+        $merguez->setPrice(100);
+        $merguez->setPhoto("merguez.jpg");
+        $merguez->setTypes(
+            $this->getReference('viande')
+        );
+        $manager->persist($merguez);
+
         $jambon = new Ingredient();
         $jambon->setName('Jambon');
         $jambon->setDescription('Des tranches de jambon savoureuses !');

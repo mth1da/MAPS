@@ -11,6 +11,7 @@
     {% if app.user %}
         <button type="button" class="btn btn-secondary" onclick="location.href='{{ path('app_publication_add') }}'">Ajouter une publication</button>
     {% else%}
+        <p>Connectez-vous pour ajouter une publication.</p>
         <button type="button" class="btn btn-secondary" onclick="location.href='{{ path('app_login') }}'">Me connecter</button>
     {% endif %}
 

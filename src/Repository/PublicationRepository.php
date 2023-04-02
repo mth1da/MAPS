@@ -46,6 +46,19 @@ class PublicationRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    public function findPublicationsByUserIdDescendingOrder(int $userId): array
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p', 'u')
+            ->join('p.publi_user', 'u')
+            ->where('u.id = :id')
+            ->setParameter('id', $userId)
+            ->orderBy('p.created_at', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
 
 
 //    /**

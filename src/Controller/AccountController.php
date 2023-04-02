@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\EditPassType;
 use App\Form\EditProfileType;
+use App\Repository\PublicationRepository;
 use App\Repository\ReservationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,13 +18,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class AccountController extends AbstractController
 {
     #[Route('/account', name: 'app_account')]
-    public function index(ReservationRepository $reservationRepository): Response
+    public function index(ReservationRepository $reservationRepository, PublicationRepository $publicationRepository): Response
     {
-
+        //dd($this->getUser()->getId());
         return $this->render('account/index.html.twig', [
-            "reservations" => $reservationRepository->findBy(['resa_user' => $this->getUser()])
+            "reservations" => $reservationRepository->findBy(['resa_user' => $this->getUser()]),
+            'publications' => $publicationRepository->findPublicationsByUserIdDescendingOrder($this->getUser()->getId()),
         ]);
     }
+
+
 
 
 
@@ -51,5 +55,21 @@ class AccountController extends AbstractController
             'editForm' => $editForm->createView(),
         ]);
     }
+
+    public function showUserProfile(int $userId)
+    {
+        $userRepository = $this->getDoctrine()->getRepository(User::class);
+        $user = $userRepository->find($userId);
+
+        $publicationRepository = $this->getDoctrine()->getRepository(Publication::class);
+        $publications = $publicationRepository->findPublicationsByUserIdDescendingOrder($userId);
+
+        return $this->render('user/profile.html.twig', [
+            'user' => $user,
+            'publications' => $publications,
+        ]);
+    }
+
+
 
 }

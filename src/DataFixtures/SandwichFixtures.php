@@ -17,7 +17,8 @@ class SandwichFixtures extends Fixture implements DependentFixtureInterface
         $MAPS->setIsOriginal(True);
         $MAPS->setPrice(150);
         $MAPS->setPhoto("mapsSandwich2.jpg");
-        $MAPS->addSandwichIngredient($this->getReference("burger"));
+        $MAPS->addSandwichIngredient($this->getReference("ciabatta"));
+        $MAPS->addSandwichIngredient($this->getReference("steak"));
         $MAPS->addSandwichIngredient($this->getReference("cheddar"));
         $MAPS->addSandwichIngredient($this->getReference("tomate"));
         $manager->persist($MAPS);

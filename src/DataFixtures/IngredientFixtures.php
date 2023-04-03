@@ -505,6 +505,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->flush();
 
+        $this->addReference("ciabatta", $ciabatta);
         $this->addReference("mie", $mie);
         $this->addReference("burger", $burger);
         $this->addReference("bagel", $bagel);

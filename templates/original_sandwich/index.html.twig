@@ -17,7 +17,7 @@
                             <h5 class="card-title">{{ originalSandwich.Name }}</h5>
                             <button type="button" class="btn btn-info btn-lg" data-bs-toggle="modal" data-bs-target="#{{ originalSandwich.id }}">Voir</button>
                             {% if app.user %}
-                                <a href="{{ path('addOriginal', {'id' : originalSandwich.id}) }}" class="btn btn-info btn-lg">+</a>
+                                <a href="{{ path('addOriginalOrRandom', {'id' : originalSandwich.id}) }}" class="btn btn-info btn-lg">+</a>
                             {% endif %}
                         </div>
                     </div>
@@ -44,11 +44,12 @@
 
             {% endfor %}
         </div>
+        {% if not app.user %}
+            <p>Connectez-vous pour ajouter au panier !</p>
+            <a href="{{ path("app_login") }}" class="btn btn-secondary">Me connecter</a>
+        {% endif %}
     </div>
 
-    {% if not app.user %}
-        <p>Connectez-vous pour ajouter au panier !</p>
-        <a href="{{ path("app_login") }}" class="btn btn-secondary">Me connecter</a>
-    {% endif %}
+
 
 {% endblock %}

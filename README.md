@@ -24,6 +24,7 @@ Features :
 #### API
 - API REST MailHog
 - API Leaflet
+- API Stripe
 
 ## Settings
 
@@ -39,6 +40,12 @@ composer require symfony/runtime
 ```
 ```console
 composer require symfony/webpack-encore-bundle
+```
+```console
+composer require stripe/stripe-php
+```
+```console
+composer require beberlei/doctrineextensions=dev-master
 ```
 ```console
 symfony console doctrine:database:create

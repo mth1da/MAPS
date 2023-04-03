@@ -15,8 +15,10 @@ class SandwichFixtures extends Fixture implements DependentFixtureInterface
         $MAPS = new Sandwich();
         $MAPS->setName('Le MAPS');
         $MAPS->setIsOriginal(True);
-        $MAPS->setPrice(500);
-        $MAPS->addSandwichIngredient($this->getReference("burger"));
+        $MAPS->setPrice(150);
+        $MAPS->setPhoto("mapsSandwich2.jpg");
+        $MAPS->addSandwichIngredient($this->getReference("ciabatta"));
+        $MAPS->addSandwichIngredient($this->getReference("steak"));
         $MAPS->addSandwichIngredient($this->getReference("cheddar"));
         $MAPS->addSandwichIngredient($this->getReference("tomate"));
         $manager->persist($MAPS);
@@ -25,6 +27,7 @@ class SandwichFixtures extends Fixture implements DependentFixtureInterface
         $royal->setName('Le Royal');
         $royal->setPrice(500);
         $royal->setIsOriginal(True);
+        $royal->setPhoto("royal.jpg");
         $royal->addSandwichIngredient($this->getReference("mie"));
         $royal->addSandwichIngredient($this->getReference("crevette"));
         $royal->addSandwichIngredient($this->getReference("concombre"));
@@ -38,9 +41,10 @@ class SandwichFixtures extends Fixture implements DependentFixtureInterface
 
         $JB = new Sandwich();
         $JB->setName('Le Jambon-Beurre');
-        $JB->setPrice(300);
+        $JB->setPrice(200);
         $JB->setIsOriginal(True);
-        $JB->addSandwichIngredient($this->getReference("mie"));
+        $JB->setPhoto("jambonBeurreSandwich.jpg");
+        $JB->addSandwichIngredient($this->getReference("baguette"));
         $JB->addSandwichIngredient($this->getReference("jambon"));
         $JB->addSandwichIngredient($this->getReference("beurre"));
         $manager->persist($JB);

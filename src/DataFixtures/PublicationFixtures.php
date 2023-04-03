@@ -30,8 +30,8 @@ class PublicationFixtures extends Fixture implements DependentFixtureInterface
         );
         $publi2->setPhoto("publication2.jpg");
         $publi2->setCommentaire('j\'adore');
-        $date = new \DateTimeImmutable('2023-02-16');
-        $newDate = $date->setTime(19, 20, 55);
+        $date = new \DateTimeImmutable('2023-04-02');
+        $newDate = $date->setTime(19, 10, 55);
         $publi2->setCreatedAt($newDate);
         $manager->persist($publi2);
 

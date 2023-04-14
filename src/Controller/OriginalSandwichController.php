@@ -14,6 +14,7 @@ class OriginalSandwichController extends AbstractController
     {
         return $this->render('original_sandwich/index.html.twig', [
             'orginalsSandwichs' => $sandwichRepository->findBy(['is_original' => true]),
+            'orginalsUtilisateurs' => $sandwichRepository->findBy(['is_original' => false]),
 
         ]);
     }

@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Ingredient;
+use App\Entity\Sandwich;
 use App\Repository\IngredientRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;

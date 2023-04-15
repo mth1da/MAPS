@@ -35,6 +35,9 @@ class Sandwich
     #[ORM\Column(nullable: true)]
     private ?bool $is_original = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $is_mapse = null;
+
     public function __construct()
     {
         $this->sandwich_ingredients = new ArrayCollection();
@@ -122,6 +125,12 @@ class Sandwich
     {
         $this->is_original = $is_original;
 
+        return $this;
+    }
+
+    public function setIsMapse(?bool $is_mapse): self
+    {
+        $this->is_mapse = $is_mapse;
         return $this;
     }
 

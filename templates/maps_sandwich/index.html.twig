@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vos sandwichs{% endblock %}
+
+{% block body %}
+    <section class="section-title">
+        <h1>Les sandwichs que vous avez mapsé !</h1>
+    </section>
+    <div class="container">
+        <div class="row">
+            {% for mapsSandwich in mapsSandwichs %}
+
+                <div class="col">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ originalSandwich.Name }}</h5>
+                            <button type="button" class="btn btn-info btn-lg" data-bs-toggle="modal" data-bs-target="#{{ originalSandwich.id }}">Voir</button>
+                            {% if app.user %}
+                                <a href="{{ path('addOriginalOrRandom', {'id' : originalSandwich.id}) }}" class="btn btn-info btn-lg">+</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="{{ originalSandwich.id }}" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">{{ originalSandwich.Name }}</h4>
+                            </div>
+                            <div class="modal-body">
+                                {% for ingredient in originalSandwich.getSandwichIngredients() %}
+                                    <p class="card-text">{{ingredient.Name}}</p>
+                                {% endfor %}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-bs-dismiss="modal">Fermer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+        {% if not app.user %}
+            <p>Connectez-vous pour ajouter au panier !</p>
+            <a href="{{ path("app_login") }}" class="btn btn-secondary">Me connecter</a>
+        {% endif %}
+    </div>
+
+
+
+{% endblock %}

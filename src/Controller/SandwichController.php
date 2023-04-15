@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Ingredient;
+use App\Entity\Sandwich;
 use App\Repository\IngredientRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -116,5 +118,38 @@ class SandwichController extends AbstractController
     public function deleteAllIngredient(SessionInterface $session){
         $session->remove("ingredients");
         return $this->redirectToRoute('app_sandwich');
+    }
+
+    #[Route('/sandwich/save', name: 'app_sandwich_save')]
+    public function saveSandwich(SessionInterface $session, EntityManagerInterface $em)
+    {
+
+        $panier = $session->get("panier", []);
+        $sandwich = $session->get('sandwich');
+
+        $dataContenuSandwich = [];
+
+        if(!empty($panier)){
+            $dataContenuSandwich[] = [
+                $sandwich
+            ];
+        }else{
+            $dataContenuSandwich = [$sandwich];
+        }
+
+        $price = 0;
+        $sandwich = new Sandwich();
+        $sandwich->setIsOriginal(False);
+        $sandwich->setName("sandwich utilisateur".$sandwich->getId());
+        foreach ($dataContenuSandwich as $qté => $ingrédient) {
+            for ($i = 1; $i <= $qté; $i++) {
+                $sandwich->addSandwichIngredient($ingrédient);
+                $price += $ingrédient->getPrice();
+            }
+        }
+        $sandwich->setPrice($price);
+        $em->persist($sandwich);
+        $em->flush();
+        return $this->redirectToRoute("app_sandwich");
     }
 }

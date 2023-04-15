@@ -14,7 +14,7 @@ class Reservation
     #[ORM\Column]
     private int $id;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $dateTimeReservation;
 
 

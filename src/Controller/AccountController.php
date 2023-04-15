@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -55,6 +56,14 @@ class AccountController extends AbstractController
         ]);
     }
 
+    #[Route('/account/current/edit/reservation/{id}', name: 'app_account_save_current_edit_reservation')]
+    public function saveEditReservation($id, SessionInterface $session): Response
+    {
+        $session->get('currentEditReservationId');
+        $session->set('currentEditReservationId', $id);
+        return $this->redirectToRoute('app_booking');
+    }
+
     public function showUserProfile(int $userId, PublicationRepository $publicationRepository, UserRepository $userRepository)
     {
         return $this->render('user/profile.html.twig', [
@@ -62,5 +71,6 @@ class AccountController extends AbstractController
             'publications' => $publicationRepository->findPublicationsByUserIdDescendingOrder($userId),
         ]);
     }
+
 
 }

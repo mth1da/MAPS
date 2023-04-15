@@ -17,7 +17,7 @@ Features :
 
 ## Class Diagram
 
-![protocole](public/documents/diagram/maps.PNG)
+![protocole](public/documents/diagram/maps.png)
 
 ## Languages
 

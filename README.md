@@ -10,21 +10,38 @@ Features :
 - Mapping system — ie. creating your own sandwich
 - Cart system
 - Payment system
-- Publications feed 
-- Bookmark system
+- Publications and feed 
+- Profile page
 - Reservation system
 - Admin back-end interface
 
 ## Class Diagram
 
-![protocole](maps.PNG)
+![protocole](public/documents/diagram/maps.PNG)
 
 ## Languages
 
+#### PHP
+PHP is a server-side scripting language used for creating dynamic and web applications. We used it with Symfony, a framework used for building projects with a MVC architecture. 
+
+#### Twig 
+Twig is a flexible, and secure PHP template engine used by Symfony that simplifies the process of creating and maintaining HTML code.
+
+#### Bootstrap & CSS
+Bootstrap is an open-source CSS framework that provides a collection of pre-designed web components and tools. With a good configuration, we could override Bootstrap components with CSS files.
+
 #### API
 - API REST MailHog
+
+MailHog is an email testing tool and API that allows to easily test and preview emails sent from web applications, without actually sending them to real email addresses.
+
 - API Leaflet
+
+Leaflet is an open-source JavaScript library and API for creating interactive maps.
+
 - API Stripe
+
+Stripe is a payment processing API that enables businesses to accept and manage online payments securely. We used the test version, that doesn't actually send any money.
 
 ## Settings
 
@@ -64,6 +81,15 @@ npm install
 ```
 ```console
 npm run build
+```
+
+5. Log in with one of the users below (or create yours!)
+```console
+Amandine (ADMIN) - email : amandine@admin.com, password : admin
+Mathilde (ADMIN) - email : mathilde@admin.com, password : admin
+Pauline (ADMIN) - email : pauline@admin.com, password : admin
+Samra (ADMIN) - email : samra@admin.com, password : admin
+Johnny (USER) - email : john@user.com, password : fabul0us
 ```
 
 You're now free to enjoy our MAPS website!

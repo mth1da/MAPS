@@ -15,9 +15,11 @@ Features :
 - Reservation system
 - Admin back-end interface
 
+
 ## Class Diagram
 
 ![protocole](public/documents/diagram/maps.png)
+
 
 ## Languages
 
@@ -42,6 +44,7 @@ Leaflet is an open-source JavaScript library and API for creating interactive ma
 - API Stripe
 
 Stripe is a payment processing API that enables businesses to accept and manage online payments securely. We used the test version, that doesn't actually send any money.
+
 
 ## Settings
 

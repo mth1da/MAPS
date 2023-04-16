@@ -71,29 +71,32 @@ class PublicationController extends AbstractController
     }
 
     #[Route('/modification', name: '_update')]
-    public function update(Request $request, EntityManagerInterface $entityManager): Response
+    public function update($id, Request $request, EntityManagerInterface $entityManager, PublicationFormType $publicationFormType): Response
     {
-        //on crée une nouvelle publication
-        $publi = new Publication();
+        // Charger la publication existante à partir de l'ID
+        $publi = $entityManager->getRepository(Publication::class)->find($id);
 
-        //on crée le formulaire
-        $publiForm = $this->createForm(PublicationFormType::class, $publi);
+        // Créer le formulaire avec la publication existante
+        $publiForm = $this->createForm(PublicationFormType::class, $publi, [
+            'publication_id' => $publi->getId(), // Transmettez l'ID de la publication comme option
+        ]);
 
-        //on traite la requête du form
+        // Traiter la requête du formulaire
         $publiForm->handleRequest($request);
 
-        //on vérifie si le form est soumis et valide
-        if($publiForm->isSubmitted() && $publiForm->isValid()){
-            $entityManager->persist($publi);
-            $entityManager->flush();
+        // Vérifier si le formulaire est soumis et valide
+        if ($publiForm->isSubmitted() && $publiForm->isValid()) {
+            //$entityManager->persist($publi);
+            $entityManager->update(true);
 
             $this->addFlash('success', 'Publication mise à jour avec succès');
 
-            return $this->redirectToRoute('app_publication');
+            return $this->redirectToRoute('app_account');
         }
 
         return $this->render('publication/update.html.twig', [
-            'publiForm' => $publiForm,
+            'publiForm' => $publiForm->createView(),
         ]);
+
     }
 }

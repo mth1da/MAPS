@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Publication;
 use App\Form\EditPassType;
 use App\Form\EditProfileType;
+use App\Form\PublicationFormType;
 use App\Repository\PublicationRepository;
 use App\Repository\ReservationRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -28,8 +29,8 @@ class AccountController extends AbstractController
         ]);
     }
 
-    #[Route('account/deletePublication', name: 'app_account_deletePublication')]
-    public function deletePublication(int $publicationId): void
+    #[Route('account/removePublication', name: 'app_account_removePublication')]
+    public function removePublication(int $publicationId): void
     {
         $entityManager = $this->getEntityManager();
         $publication = $entityManager->getRepository(Publication::class)->find($publicationId);
@@ -39,7 +40,6 @@ class AccountController extends AbstractController
             $entityManager->flush();
         }
     }
-
 
     #[Route('/account/edit', name: 'app_account_edit')]
     public function editProfile(EntityManagerInterface $em, Request $request): Response
@@ -65,6 +65,7 @@ class AccountController extends AbstractController
             'editForm' => $editForm->createView(),
         ]);
     }
+
 
 
 }

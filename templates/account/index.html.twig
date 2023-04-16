@@ -11,15 +11,15 @@
 
     <section class="container" style="width:50%">
         <div class="row">
-            <div class="col">
+            <div class="col ">
                 <h1 class="h1 mb-3 font-weight-normal"></h1> <!-- {app.publi.publications|length} -->
 
 
-                <fieldset class="mb-3">
+                <fieldset class="mb-3 card">
                     <legend>Mes Informations</legend>
+                    <hr>
 
-
-                    <table width="600px" height="240px" bgcolor="#f5f5dc" cellpadding="10px" border-style="dotted">
+                    <table  align="center" width="500px" height="240px"  cellpadding="10px" border-style="dotted">
                         <tr>
                             <td>Nom :</td>
                             <th>{{ app.user.getLastName() }}</th>
@@ -45,18 +45,17 @@
 
                         <tr>
                             <td></td>
-                            <td  align="right">
+                            <td  align="left">
                                 <a href="{{ path('app_account_edit') }}"> <button class="btn btn-dark my-sm-2" type="submit">
-                                    Modifier mon Profil <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                                    </svg>
+                                    Modifier mon Profil <i class="fa-regular fa-pen-to-square"></i>
                                 </button></a>
+
                             </td>
                         </tr>
 
                     </table>
                 </fieldset>
+
 
                 <style>
                     .a { text-decoration:none;}
@@ -72,10 +71,7 @@
                     <legend>Mes Sandwichs</legend>
 
                     <button class="btn btn-lg btn-primary my-3" type="submit">
-                        Modifier <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                        </svg>
+                        Modifier <i class="fa-regular fa-pen-to-square"></i>
                     </button>
                     <button class="btn btn-lg btn-primary my-3" type="reset">
                         Effacer <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eraser-fill" viewBox="0 0 16 16">
@@ -104,7 +100,7 @@
                                             <td>Table {{ reservation.getResaTable.id }}</td>
                                             <td>
                                                 <button class="btn btn-lg btn-primary my-3" type="submit">
-                                                    Modifier <i class="fa-solid fa-pen-to-square"></i>
+                                                    Modifier <i class="fa-regular fa-pen-to-square"></i>
                                                 </button>
                                             </td>
                                             <td>
@@ -129,20 +125,55 @@
                     {% if publications %}
 
                         {% for publi in publications %}
-                        <tr>
-
-                            <td> <img src="{{ asset('upload/images/publications/')}}{{ publi.photo }}" class="card-img-top" alt="photo pour le test">
-                            </td>
-
-                        </tr>
 
 
-                        <button class="btn btn-lg btn-primary my-3" type="submit">
-                        Modifier <i class="fa-solid fa-pen-to-square"></i>
-                    </button>
-                    <button class="btn btn-lg btn-primary my-3" type="reset">
-                        Retirer <i class="fa-sharp fa-solid fa-trash"></i>
-                    </button>
+                    <div class="container">
+                    <div class="row">
+                        <div class=" col-md-6">
+                            <div class="card" style="width: 22rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ publi.getPubliUser().getUsername() }}</h5>
+                                    <img src="{{ asset('upload/images/publications/')}}{{ publi.photo }}" class="card-img-top" alt="photo pour le test">
+
+                                    {% set startDate = date(publi.createdAt) %}
+                                    {% set difference = date( 'now' | date() ).diff(date(startDate)) %}
+
+                                    {% set leftMinutes = difference.i %}
+                                    {% set leftHours = difference.h %}
+                                    {% set leftDays = difference.days %}
+                                    {% set leftYears = difference.y %}
+
+                                    {% if leftHours < 1 %}
+                                        <p class="card-subtitle mb-2 text-muted">il y a {{ leftMinutes }} minutes.</p>
+                                    {% elseif leftHours == 1 %}
+                                        <p class="card-subtitle mb-2 text-muted">il y a 1 heure.</p>
+                                    {% elseif leftHours >= 1 and leftDays < 1 %}
+                                        <p class="card-subtitle mb-2 text-muted">il y a {{ leftHours }} heures.</p>
+                                    {% elseif leftDays == 1%}
+                                        <p class="card-subtitle mb-2 text-muted">il y a 1 jour.</p>
+                                    {% elseif  leftDays >= 1 and leftDays < 7  %}
+                                        <p class="card-subtitle mb-2 text-muted">il y a {{ leftDays }} jours. </p>
+                                    {% else %}
+                                        <p class="card-subtitle mb-2 text-muted">{{ publi.createdAt|date('d-m-Y')}}</p>
+                                    {% endif %}
+
+                                    <p class="card-text">{{ publi.commentaire }}</p>
+                                    <a href="{{ path('app_publication_update')  }}" class="btn btn-primary">Modifier <i class="fa-solid fa-pen-to-square"></i></a>
+
+                                    <form action="{{ path('app_account_removePublication', {'publicationId': publi.id}) }}" method="post" class="d-inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette publication ?');">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <a class="btn btn-primary" type="submit">
+                                            Retirer <i class="fa-sharp fa-solid fa-trash"></i>
+                                        </a>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div></div>
+
+
+
                         {% endfor %}
 
                     {% else %}

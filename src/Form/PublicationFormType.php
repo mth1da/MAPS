@@ -14,7 +14,6 @@ class PublicationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-
         $builder
             ->add('photo', FileType::class, [
                 'label' => 'Photo',
@@ -24,7 +23,6 @@ class PublicationFormType extends AbstractType
             ->add('commentaire', options:[
                 'label' => 'Commentaire'
             ])
-
         ;
     }
 

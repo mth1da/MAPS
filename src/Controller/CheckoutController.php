@@ -2,8 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Order;
 use App\Repository\IngredientRepository;
-use JetBrains\PhpStorm\NoReturn;
+use Doctrine\ORM\EntityManagerInterface;
 use Stripe\Exception\ApiErrorException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -115,8 +116,17 @@ class CheckoutController extends AbstractController
        return $this->redirect( $checkout_session->url, 303);
     }
     #[Route('/checkout/success', name: 'app_checkout_success')]
-    public function success(SessionInterface $session): Response
+    public function success(SessionInterface $session, EntityManagerInterface $entityManager): Response
     {
+
+        $order = new Order();
+
+        $order->setOrderUser($this->getUser());
+        $order->setCost($session->get("total")/100);
+
+        $entityManager->persist($order);
+        $entityManager->flush();
+
         $session->remove('panier');
 
         $url = $this->generateUrl('app_homepage');

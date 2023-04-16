@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Form\EditPassType;
 use App\Form\EditProfileType;
 use App\Repository\PublicationRepository;
 use App\Repository\ReservationRepository;
@@ -12,7 +11,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 

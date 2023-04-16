@@ -72,6 +72,14 @@ class AccountController extends AbstractController
 
 
 
+    public function showUserProfile(int $userId, PublicationRepository $publicationRepository, UserRepository $userRepository)
+    {
+        return $this->render('user/profile.html.twig', [
+            'user' => $userRepository->find($userId),
+            'publications' => $publicationRepository->findPublicationsByUserIdDescendingOrder($userId),
+        ]);
+    }
+
 
 
     #[Route('account/removePublication', name: 'app_account_removePublication')]

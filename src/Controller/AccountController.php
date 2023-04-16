@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Form\EditPassType;
 use App\Form\EditProfileType;
 use App\Repository\PublicationRepository;
 use App\Repository\ReservationRepository;
@@ -12,7 +11,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 
@@ -56,6 +54,9 @@ class AccountController extends AbstractController
         ]);
     }
 
+
+
+
     #[Route('/account/current/edit/reservation/{id}', name: 'app_account_save_current_edit_reservation')]
     public function saveEditReservation($id, SessionInterface $session): Response
     {
@@ -64,6 +65,8 @@ class AccountController extends AbstractController
         return $this->redirectToRoute('app_booking');
     }
 
+
+
     public function showUserProfile(int $userId, PublicationRepository $publicationRepository, UserRepository $userRepository)
     {
         return $this->render('user/profile.html.twig', [
@@ -71,6 +74,21 @@ class AccountController extends AbstractController
             'publications' => $publicationRepository->findPublicationsByUserIdDescendingOrder($userId),
         ]);
     }
+
+
+
+    #[Route('account/removePublication', name: 'app_account_removePublication')]
+    public function removePublication(int $publicationId): void
+    {
+        $entityManager = $this->getEntityManager();
+        $publication = $entityManager->getRepository(Publication::class)->find($publicationId);
+
+        if ($publication !== null) {
+            $entityManager->remove($publication);
+            $entityManager->flush();
+        }
+    }
+
 
 
 }

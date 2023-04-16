@@ -39,6 +39,16 @@ class PublicationRepository extends ServiceEntityRepository
         }
     }
 
+    public function update(Publication $publication, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($publication);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+
     public function findAllByDescendingOrder(): array
     {
         return $this->createQueryBuilder('p')

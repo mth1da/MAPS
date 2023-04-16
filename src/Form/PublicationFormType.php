@@ -23,7 +23,6 @@ class PublicationFormType extends AbstractType
             ->add('commentaire', options:[
                 'label' => 'Commentaire'
             ])
-
         ;
     }
 

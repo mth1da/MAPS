@@ -90,7 +90,7 @@
                             <tbody>
                             {% for reservation in reservations %}
                                 <tr>
-                                    <td>{{ reservation.dateTimeReservation | date("d/m/Y m:h") }}</td>
+                                    <td>{{ reservation.dateTimeReservation | date("d/m/Y H:i") }}</td>
 
                                     <td>Table {{ reservation.getResaTable.id }}</td>
                                     <td>

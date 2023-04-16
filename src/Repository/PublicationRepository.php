@@ -60,7 +60,6 @@ class PublicationRepository extends ServiceEntityRepository
     }
 
 
-
 //    /**
 //     * @return Publication[] Returns an array of Publication objects
 //     */

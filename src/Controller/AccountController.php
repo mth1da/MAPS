@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Publication;
 use App\Form\EditPassType;
 use App\Form\EditProfileType;
 use App\Repository\PublicationRepository;
@@ -27,8 +28,17 @@ class AccountController extends AbstractController
         ]);
     }
 
+    #[Route('account/deletePublication', name: 'app_account_deletePublication')]
+    public function deletePublication(int $publicationId): void
+    {
+        $entityManager = $this->getEntityManager();
+        $publication = $entityManager->getRepository(Publication::class)->find($publicationId);
 
-
+        if ($publication !== null) {
+            $entityManager->remove($publication);
+            $entityManager->flush();
+        }
+    }
 
 
     #[Route('/account/edit', name: 'app_account_edit')]
@@ -55,21 +65,6 @@ class AccountController extends AbstractController
             'editForm' => $editForm->createView(),
         ]);
     }
-
-    public function showUserProfile(int $userId)
-    {
-        $userRepository = $this->getDoctrine()->getRepository(User::class);
-        $user = $userRepository->find($userId);
-
-        $publicationRepository = $this->getDoctrine()->getRepository(Publication::class);
-        $publications = $publicationRepository->findPublicationsByUserIdDescendingOrder($userId);
-
-        return $this->render('user/profile.html.twig', [
-            'user' => $user,
-            'publications' => $publications,
-        ]);
-    }
-
 
 
 }

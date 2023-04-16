@@ -56,6 +56,12 @@ class AccountController extends AbstractController
         ]);
     }
 
+
+
+
+
+
+
     #[Route('/account/current/edit/reservation/{id}', name: 'app_account_save_current_edit_reservation')]
     public function saveEditReservation($id, SessionInterface $session): Response
     {
@@ -71,6 +77,24 @@ class AccountController extends AbstractController
             'publications' => $publicationRepository->findPublicationsByUserIdDescendingOrder($userId),
         ]);
     }
+
+
+
+
+
+
+    #[Route('account/removePublication', name: 'app_account_removePublication')]
+    public function removePublication(int $publicationId): void
+    {
+        $entityManager = $this->getEntityManager();
+        $publication = $entityManager->getRepository(Publication::class)->find($publicationId);
+
+        if ($publication !== null) {
+            $entityManager->remove($publication);
+            $entityManager->flush();
+        }
+    }
+
 
 
 }

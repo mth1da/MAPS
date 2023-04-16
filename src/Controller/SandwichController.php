@@ -123,33 +123,22 @@ class SandwichController extends AbstractController
     #[Route('/sandwich/save', name: 'app_sandwich_save')]
     public function saveSandwich(SessionInterface $session, EntityManagerInterface $em)
     {
+        $newSandwich = new Sandwich();
+        $newSandwich->setIsMapse(true);
+        $newSandwich->setName("sandwich utilisateur" . $newSandwich->getId());
+        $price = 0.0;
 
-        $panier = $session->get("panier", []);
         $sandwich = $session->get('sandwich');
-
-        $dataContenuSandwich = [];
-
-        if(!empty($panier)){
-            $dataContenuSandwich[] = [
-                $sandwich
-            ];
-        }else{
-            $dataContenuSandwich = [$sandwich];
-        }
-
-        $price = 0;
-        $sandwich = new Sandwich();
-        $sandwich->setIsOriginal(False);
-        $sandwich->setName("sandwich utilisateur".$sandwich->getId());
-        foreach ($dataContenuSandwich as $qté => $ingrédient) {
-            for ($i = 1; $i <= $qté; $i++) {
-                $sandwich->addSandwichIngredient($ingrédient);
-                $price += $ingrédient->getPrice();
+            foreach ($sandwich as $ingredient) {
+                if(!empty($ingredient)){;
+                    $newSandwich->addSandwichIngredient($ingredient["ingredient"]);
+                    $price += $ingredient["quantite"];
+                    $em->persist($newSandwich);
+                    $em->flush();
+                }
             }
-        }
-        $sandwich->setPrice($price);
-        $em->persist($sandwich);
-        $em->flush();
+        $newSandwich->setPrice($price);
+
         return $this->redirectToRoute("app_sandwich");
     }
 }

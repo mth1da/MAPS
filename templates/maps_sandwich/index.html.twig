@@ -13,24 +13,24 @@
                 <div class="col">
                     <div class="card" style="width: 18rem;">
                         <div class="card-body">
-                            <h5 class="card-title">{{ originalSandwich.Name }}</h5>
-                            <button type="button" class="btn btn-info btn-lg" data-bs-toggle="modal" data-bs-target="#{{ originalSandwich.id }}">Voir</button>
+                            <h5 class="card-title">{{ mapsSandwich.Name }}</h5>
+                            <button type="button" class="btn btn-info btn-lg" data-bs-toggle="modal" data-bs-target="#{{ mapsSandwich.id }}">Voir</button>
                             {% if app.user %}
-                                <a href="{{ path('addOriginalOrRandom', {'id' : originalSandwich.id}) }}" class="btn btn-info btn-lg">+</a>
+                                <a href="{{ path('addOriginalOrRandom', {'id' : mapsSandwich.id}) }}" class="btn btn-info btn-lg">+</a>
                             {% endif %}
                         </div>
                     </div>
                 </div>
 
-                <div class="modal fade" id="{{ originalSandwich.id }}" role="dialog">
+                <div class="modal fade" id="{{ mapsSandwich.id }}" role="dialog">
                     <div class="modal-dialog">
                         <!-- Modal content-->
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title">{{ originalSandwich.Name }}</h4>
+                                <h4 class="modal-title">{{ mapsSandwich.Name }}</h4>
                             </div>
                             <div class="modal-body">
-                                {% for ingredient in originalSandwich.getSandwichIngredients() %}
+                                {% for ingredient in mapsSandwich.getSandwichIngredients() %}
                                     <p class="card-text">{{ingredient.Name}}</p>
                                 {% endfor %}
                             </div>

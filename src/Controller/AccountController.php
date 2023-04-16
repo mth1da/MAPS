@@ -70,15 +70,6 @@ class AccountController extends AbstractController
         return $this->redirectToRoute('app_booking');
     }
 
-    public function showUserProfile(int $userId, PublicationRepository $publicationRepository, UserRepository $userRepository)
-    {
-        return $this->render('user/profile.html.twig', [
-            'user' => $userRepository->find($userId),
-            'publications' => $publicationRepository->findPublicationsByUserIdDescendingOrder($userId),
-        ]);
-    }
-
-
 
 
 

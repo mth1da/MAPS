@@ -7,7 +7,7 @@ An innovative website to create and share the sandwiches with the toppings you l
 Features : 
 - Registration and authentication system
 - Mailer and reset password system
-- Mapping system — ie. creating your own sandwich
+- Mapping system — i.e. creating your own sandwich
 - Cart system
 - Payment system
 - Publications and feed 
@@ -24,7 +24,7 @@ Features :
 ## Languages
 
 #### PHP
-PHP is a server-side scripting language used for creating dynamic and web applications. We used it with Symfony, a framework used for building projects with a MVC architecture. 
+PHP is a server-side scripting language used for creating dynamic and web applications. We used it with Symfony, a framework used for building projects with an MVC architecture. 
 
 #### Twig 
 Twig is a flexible, and secure PHP template engine used by Symfony that simplifies the process of creating and maintaining HTML code.
@@ -49,8 +49,8 @@ Stripe is a payment processing API that enables businesses to accept and manage 
 ## Settings
 
 1. Clone or fork the MAPS repository on your local machine.
-2. In the .env file, comment line 32 and uncomment line 31 : fill the app with your database name user, !ChangeMe! with your database password and app with your database name.
-3. Install Mailhog : https://github.com/mailhog/MailHog/releases, run the .exe file and go to http://localhost:8025/ to access your inbox.
+2. In the .env file, comment line 32 and uncomment line 31 : fill the app with your database server username, !ChangeMe! with your database password and app with your database name.
+3. Install MailHog : https://github.com/mailhog/MailHog/releases, run the .exe file and go to http://localhost:8025/ to access your inbox.
 4. In your project directory terminal, run the following commands : 
 ```console
 composer install

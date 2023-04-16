@@ -11,8 +11,9 @@
 
     <section class="container" style="width:50%">
         <div class="row">
-            <div class="col ">
+            <div class="col">
                 <h1 class="h1 mb-3 font-weight-normal"></h1> <!-- {app.publi.publications|length} -->
+
 
 
                 <fieldset class="mb-3 card">
@@ -47,8 +48,8 @@
                             <td></td>
                             <td  align="left">
                                 <a href="{{ path('app_account_edit') }}"> <button class="btn btn-dark my-sm-2" type="submit">
-                                    Modifier mon Profil <i class="fa-regular fa-pen-to-square"></i>
-                                </button></a>
+                                        Modifier mon Profil <i class="fa-regular fa-pen-to-square"></i>
+                                    </button></a>
 
                             </td>
                         </tr>
@@ -62,60 +63,53 @@
                 </style>
 
 
-
-
-
-
-
+                {#
                 <fieldset class="mb-3">
                     <legend>Mes Sandwichs</legend>
 
                     <button class="btn btn-lg btn-primary my-3" type="submit">
-                        Modifier <i class="fa-regular fa-pen-to-square"></i>
+                        Modifier <i class="fa-solid fa-pen-to-square"></i>
                     </button>
                     <button class="btn btn-lg btn-primary my-3" type="reset">
-                        Effacer <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eraser-fill" viewBox="0 0 16 16">
-                            <path d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828l6.879-6.879zm.66 11.34L3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293l.16-.16z"/>
-                        </svg>
+                        Effacer <i class="fa-solid fa-trash"></i>
                     </button>
-                </fieldset>
+                </fieldset>#}
 
                 <fieldset class="mb-3">
                     <legend>Mes Réservations</legend>
                     {% if reservations %}
-                            <table class="table">
-                                <thead>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Date de réservation</th>
+                                <th scope="col">Table</th>
+                                <th scope="col">Vous avez changé d'avis?</th>
+                                <th scope="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for reservation in reservations %}
                                 <tr>
-                                    <th scope="col">Date de réservation</th>
-                                    <th scope="col">Table</th>
-                                    <th scope="col">Vous avez changé d'avis?</th>
-                                    <th scope="col"></th>
+                                    <td>{{ reservation.dateTimeReservation | date("d/m/Y m:h") }}</td>
+
+                                    <td>Table {{ reservation.getResaTable.id }}</td>
+                                    <td>
+                                        <a href="{{ path('app_account_save_current_edit_reservation', {id: reservation.id}) }}" class="btn btn-lg btn-primary my-3" >
+                                            Modifier <i class="fa-solid fa-pen-to-square"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('app_account_remove_reservation', {id: reservation.id}) }}" class="btn btn-lg btn-danger my-3" >
+                                            Effacer <i class="fa-solid fa-trash"></i>
+                                        </a>
+                                    </td>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                    {% for reservation in reservations %}
-                                        <tr>
-                                            <td>{{ reservation.dateTimeReservation | date("d/m/Y m:h") }}</td>
-
-                                            <td>Table {{ reservation.getResaTable.id }}</td>
-                                            <td>
-                                                <button class="btn btn-lg btn-primary my-3" type="submit">
-                                                    Modifier <i class="fa-regular fa-pen-to-square"></i>
-                                                </button>
-                                            </td>
-                                            <td>
-                                                <button class="btn btn-lg btn-primary my-3" type="reset">
-                                                    Supprimer <i class="fa-sharp fa-solid fa-trash"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-
+                            {% endfor %}
+                            </tbody>
+                        </table>
 
                     {% else %}
-                        <p>Aucune réservations</p>
+                        <p>Aucune réservation</p>
                     {% endif %}
                 </fieldset>
 
@@ -127,50 +121,50 @@
                         {% for publi in publications %}
 
 
-                    <div class="container">
-                    <div class="row">
-                        <div class=" col-md-6">
-                            <div class="card" style="width: 22rem;">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ publi.getPubliUser().getUsername() }}</h5>
-                                    <img src="{{ asset('upload/images/publications/')}}{{ publi.photo }}" class="card-img-top" alt="photo pour le test">
+                            <div class="container">
+                                <div class="row">
+                                    <div class=" col-md-6">
+                                        <div class="card" style="width: 22rem;">
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{ publi.getPubliUser().getUsername() }}</h5>
+                                                <img src="{{ asset('upload/images/publications/')}}{{ publi.photo }}" class="card-img-top" alt="photo pour le test">
 
-                                    {% set startDate = date(publi.createdAt) %}
-                                    {% set difference = date( 'now' | date() ).diff(date(startDate)) %}
+                                                {% set startDate = date(publi.createdAt) %}
+                                                {% set difference = date( 'now' | date() ).diff(date(startDate)) %}
 
-                                    {% set leftMinutes = difference.i %}
-                                    {% set leftHours = difference.h %}
-                                    {% set leftDays = difference.days %}
-                                    {% set leftYears = difference.y %}
+                                                {% set leftMinutes = difference.i %}
+                                                {% set leftHours = difference.h %}
+                                                {% set leftDays = difference.days %}
+                                                {% set leftYears = difference.y %}
 
-                                    {% if leftHours < 1 %}
-                                        <p class="card-subtitle mb-2 text-muted">il y a {{ leftMinutes }} minutes.</p>
-                                    {% elseif leftHours == 1 %}
-                                        <p class="card-subtitle mb-2 text-muted">il y a 1 heure.</p>
-                                    {% elseif leftHours >= 1 and leftDays < 1 %}
-                                        <p class="card-subtitle mb-2 text-muted">il y a {{ leftHours }} heures.</p>
-                                    {% elseif leftDays == 1%}
-                                        <p class="card-subtitle mb-2 text-muted">il y a 1 jour.</p>
-                                    {% elseif  leftDays >= 1 and leftDays < 7  %}
-                                        <p class="card-subtitle mb-2 text-muted">il y a {{ leftDays }} jours. </p>
-                                    {% else %}
-                                        <p class="card-subtitle mb-2 text-muted">{{ publi.createdAt|date('d-m-Y')}}</p>
-                                    {% endif %}
+                                                {% if leftHours < 1 %}
+                                                    <p class="card-subtitle mb-2 text-muted">il y a {{ leftMinutes }} minutes.</p>
+                                                {% elseif leftHours == 1 %}
+                                                    <p class="card-subtitle mb-2 text-muted">il y a 1 heure.</p>
+                                                {% elseif leftHours >= 1 and leftDays < 1 %}
+                                                    <p class="card-subtitle mb-2 text-muted">il y a {{ leftHours }} heures.</p>
+                                                {% elseif leftDays == 1%}
+                                                    <p class="card-subtitle mb-2 text-muted">il y a 1 jour.</p>
+                                                {% elseif  leftDays >= 1 and leftDays < 7  %}
+                                                    <p class="card-subtitle mb-2 text-muted">il y a {{ leftDays }} jours. </p>
+                                                {% else %}
+                                                    <p class="card-subtitle mb-2 text-muted">{{ publi.createdAt|date('d-m-Y')}}</p>
+                                                {% endif %}
 
-                                    <p class="card-text">{{ publi.commentaire }}</p>
-                                    <a href="{{ path('app_publication_update')  }}" class="btn btn-primary">Modifier <i class="fa-solid fa-pen-to-square"></i></a>
+                                                <p class="card-text">{{ publi.commentaire }}</p>
+                                                <a href="{{ path('app_publication_update')  }}" class="btn btn-primary">Modifier <i class="fa-solid fa-pen-to-square"></i></a>
 
-                                    <form action="{{ path('app_account_removePublication', {'publicationId': publi.id}) }}" method="post" class="d-inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette publication ?');">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <a class="btn btn-primary" type="submit">
-                                            Retirer <i class="fa-sharp fa-solid fa-trash"></i>
-                                        </a>
-                                    </form>
+                                                <form action="{{ path('app_account_removePublication', {'publicationId': publi.id}) }}" method="post" class="d-inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette publication ?');">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <a class="btn btn-primary" type="submit">
+                                                        Retirer <i class="fa-sharp fa-solid fa-trash"></i>
+                                                    </a>
+                                                </form>
 
-                                </div>
-                            </div>
-                        </div>
-                    </div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div></div>
 
 
 
@@ -187,4 +181,5 @@
 
 
 {% endblock %}
+
 

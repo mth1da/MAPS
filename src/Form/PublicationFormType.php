@@ -14,7 +14,6 @@ class PublicationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $publicationId = $options['publication_id']; // Récupérez l'ID de la publication depuis les options
 
         $builder
             ->add('photo', FileType::class, [
@@ -24,10 +23,6 @@ class PublicationFormType extends AbstractType
             ])
             ->add('commentaire', options:[
                 'label' => 'Commentaire'
-            ])
-            ->add('id', HiddenType::class, [
-                'data' => $publicationId, // Passez l'ID de la publication au champ masqué
-                'mapped' => false, // Ne pas mapper le champ à l'entité Publication
             ])
 
         ;

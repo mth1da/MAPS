@@ -59,9 +59,6 @@ class AccountController extends AbstractController
 
 
 
-
-
-
     #[Route('/account/current/edit/reservation/{id}', name: 'app_account_save_current_edit_reservation')]
     public function saveEditReservation($id, SessionInterface $session): Response
     {

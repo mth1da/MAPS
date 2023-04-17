@@ -89,7 +89,7 @@ class RegistrationController extends AbstractController
 
 
     #[Route('/reverif', name: 'app_re_verify_user')]
-    public function reVerify(JWTService $jwt, SendMailService $mail, UserRepository $userRepository): Response
+    public function reVerify(JWTService $jwt, SendMailService $mail): Response
     {
         $user = $this->getUser();
 

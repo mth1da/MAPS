@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Repository\PublicationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\User;
 
 #[ORM\Entity(repositoryClass: PublicationRepository::class)]
 class Publication
@@ -23,6 +22,9 @@ class Publication
 
     #[ORM\Column]
     private \DateTimeImmutable $created_at;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updated_at = null;
 
     #[ORM\ManyToOne(inversedBy: 'publications')]
     #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")] //si on supp un user => toutes ses publi sup
@@ -69,6 +71,18 @@ class Publication
     public function setCreatedAt(\DateTimeImmutable $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(?\DateTimeImmutable $updated_at): self
+    {
+        $this->updated_at = $updated_at;
 
         return $this;
     }

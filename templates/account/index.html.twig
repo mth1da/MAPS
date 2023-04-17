@@ -12,15 +12,13 @@
     <section class="container" style="width:50%">
         <div class="row">
             <div class="col">
-                <h1 class="h1 mb-3 font-weight-normal"></h1> <!-- {app.publi.publications|length} -->
-
-
+                <h1 class="h1 mb-3 font-weight-normal"></h1>
 
                 <fieldset class="mb-3 card">
                     <legend>Mes Informations</legend>
                     <hr>
 
-                    <table  align="center" width="500px" height="240px"  cellpadding="10px" border-style="dotted">
+                    <table cellpadding="10px">
                         <tr>
                             <td>Nom :</td>
                             <th>{{ app.user.getLastName() }}</th>
@@ -47,36 +45,81 @@
                         <tr>
                             <td></td>
                             <td  align="left">
-                                <a href="{{ path('app_account_edit') }}"> <button class="btn btn-dark my-sm-2" type="submit">
+                                <a href="{{ path('app_account_edit') }}">
+                                    <button class="btn btn-dark my-sm-2" type="submit">
                                         Modifier mon Profil <i class="fa-regular fa-pen-to-square"></i>
-                                    </button></a>
-
+                                    </button>
+                                </a>
                             </td>
                         </tr>
-
                     </table>
                 </fieldset>
 
-
-                <style>
-                    .a { text-decoration:none;}
-                </style>
-
-
-                {#
                 <fieldset class="mb-3">
-                    <legend>Mes Sandwichs</legend>
+                    <legend>Mes Publications</legend>
+                    {# si l'user a des publications #}
+                    {% if publications %}
+                        {% for publi in publications %}
 
-                    <button class="btn btn-lg btn-primary my-3" type="submit">
-                        Modifier <i class="fa-solid fa-pen-to-square"></i>
-                    </button>
-                    <button class="btn btn-lg btn-primary my-3" type="reset">
-                        Effacer <i class="fa-solid fa-trash"></i>
-                    </button>
-                </fieldset>#}
+                            <div class="super-container-publi">
+                                <div class="container-publi">
+                                    <img src="{{ asset('upload/images/publications/')}}{{ publi.photo }}" class="img-publi" alt="photo pour le test">
+                                    <button class="button-publi" data-bs-toggle="modal" data-bs-target="#{{ publi.id }}"></button>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="{{ publi.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" >
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <img src="{{ asset('upload/images/publications/')}}{{ publi.photo }}" class="card-img-top" alt="alternative text ">
+
+                                            {% set startDate = date(publi.createdAt) %}
+                                            {% set difference = date( 'now' | date() ).diff(date(startDate)) %}
+
+                                            {% set leftMinutes = difference.i %}
+                                            {% set leftHours = difference.h %}
+                                            {% set leftDays = difference.days %}
+                                            {% set leftYears = difference.y %}
+
+                                            {% if leftHours < 1 %}
+                                                <p class="card-subtitle mb-2 text-muted">il y a {{ leftMinutes }} minutes.</p>
+                                            {% elseif leftHours == 1 %}
+                                                <p class="card-subtitle mb-2 text-muted">il y a 1 heure.</p>
+                                            {% elseif leftHours >= 1 and leftDays < 1 %}
+                                                <p class="card-subtitle mb-2 text-muted">il y a {{ leftHours }} heures.</p>
+                                            {% elseif leftDays == 1%}
+                                                <p class="card-subtitle mb-2 text-muted">il y a 1 jour.</p>
+                                            {% elseif  leftDays >= 1 and leftDays < 7  %}
+                                                <p class="card-subtitle mb-2 text-muted">il y a {{ leftDays }} jours. </p>
+                                            {% else %}
+                                                <p class="card-subtitle mb-2 text-muted">{{ publi.createdAt|date('d-m-Y')}}</p>
+                                            {% endif %}
+
+                                            <p class="card-text">{{ publi.commentaire }}</p>
+                                            <a href="{{ path('app_publication_update', {id: publi.id}) }}" class="btn btn-l btn-primary" >
+                                                Modifier <i class="fa-solid fa-pen-to-square"></i>
+                                            </a>
+                                            <a href="{{ path('app_publication_delete', {id: publi.id}) }}" class="btn btn-l btn-danger" >
+                                                Effacer <i class="fa-solid fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {# si l'user n'a pas de publications #}
+                    {% else %}
+                        <p>Aucune publication</p>
+                    {% endif %}
+                </fieldset>
 
                 <fieldset class="mb-3">
                     <legend>Mes Réservations</legend>
+                    {# si l'user a des réservations#}
                     {% if reservations %}
                         <table class="table">
                             <thead>
@@ -84,7 +127,6 @@
                                 <th scope="col">Date de réservation</th>
                                 <th scope="col">Table</th>
                                 <th scope="col">Vous avez changé d'avis?</th>
-                                <th scope="col"></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -94,12 +136,11 @@
 
                                     <td>Table {{ reservation.getResaTable.id }}</td>
                                     <td>
-                                        <a href="{{ path('app_account_save_current_edit_reservation', {id: reservation.id}) }}" class="btn btn-lg btn-primary my-3" >
+                                        <a href="{{ path('app_account_save_current_edit_reservation', {id: reservation.id}) }}" class="btn btn-l btn-primary" >
                                             Modifier <i class="fa-solid fa-pen-to-square"></i>
                                         </a>
-                                    </td>
-                                    <td>
-                                        <a href="{{ path('app_account_remove_reservation', {id: reservation.id}) }}" class="btn btn-lg btn-danger my-3" >
+
+                                        <a href="{{ path('app_account_remove_reservation', {id: reservation.id}) }}" class="btn btn-l btn-danger" >
                                             Effacer <i class="fa-solid fa-trash"></i>
                                         </a>
                                     </td>
@@ -107,77 +148,41 @@
                             {% endfor %}
                             </tbody>
                         </table>
+                    {# si l'user n'a pas de réservations #}
                     {% else %}
                         <p>Aucune réservation</p>
                     {% endif %}
                 </fieldset>
 
                 <fieldset class="mb-3">
-                    <legend>Mes Publications</legend>
-
-                    {% if publications %}
-
-                        {% for publi in publications %}
-
-
-                            <div class="container">
-                                <div class="row">
-                                    <div class=" col-md-6">
-                                        <div class="card" style="width: 22rem;">
-                                            <div class="card-body">
-                                                <h5 class="card-title">{{ publi.getPubliUser().getUsername() }}</h5>
-                                                <img src="{{ asset('upload/images/publications/')}}{{ publi.photo }}" class="card-img-top" alt="photo pour le test">
-
-                                                {% set startDate = date(publi.createdAt) %}
-                                                {% set difference = date( 'now' | date() ).diff(date(startDate)) %}
-
-                                                {% set leftMinutes = difference.i %}
-                                                {% set leftHours = difference.h %}
-                                                {% set leftDays = difference.days %}
-                                                {% set leftYears = difference.y %}
-
-                                                {% if leftHours < 1 %}
-                                                    <p class="card-subtitle mb-2 text-muted">il y a {{ leftMinutes }} minutes.</p>
-                                                {% elseif leftHours == 1 %}
-                                                    <p class="card-subtitle mb-2 text-muted">il y a 1 heure.</p>
-                                                {% elseif leftHours >= 1 and leftDays < 1 %}
-                                                    <p class="card-subtitle mb-2 text-muted">il y a {{ leftHours }} heures.</p>
-                                                {% elseif leftDays == 1%}
-                                                    <p class="card-subtitle mb-2 text-muted">il y a 1 jour.</p>
-                                                {% elseif  leftDays >= 1 and leftDays < 7  %}
-                                                    <p class="card-subtitle mb-2 text-muted">il y a {{ leftDays }} jours. </p>
-                                                {% else %}
-                                                    <p class="card-subtitle mb-2 text-muted">{{ publi.createdAt|date('d-m-Y')}}</p>
-                                                {% endif %}
-
-                                                <p class="card-text">{{ publi.commentaire }}</p>
-                                                <a href="{{ path('app_publication_update')  }}" class="btn btn-primary">Modifier <i class="fa-solid fa-pen-to-square"></i></a>
-
-                                                <form action="{{ path('app_account_removePublication', {'publicationId': publi.id}) }}" method="post" class="d-inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette publication ?');">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <a class="btn btn-primary" type="submit">
-                                                        Retirer <i class="fa-sharp fa-solid fa-trash"></i>
-                                                    </a>
-                                                </form>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div></div>
-
-
-
-                        {% endfor %}
-
+                    <legend>Mes Commandes</legend>
+                    {# si l'user a des commandes #}
+                    {% if commandes %}
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Date de la commande</th>
+                                <th scope="col">Montant</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for commande in commandes %}
+                                <tr>
+                                    <td>{{ commande.createdAt|date('d-m-Y H:i')}}</td>
+                                    <td>{{ commande.cost }}€</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    {# si l'user n'a pas de commandes#}
                     {% else %}
-                        <p>Aucune publication</p>
+                        <p>Aucune commande</p>
                     {% endif %}
                 </fieldset>
 
             </div>
         </div>
     </section>
-
 
 {% endblock %}
 

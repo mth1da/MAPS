@@ -70,6 +70,16 @@ class PublicationRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findPublicationById(int $idPubli)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.id = :idPubli')
+            ->setParameter('idPubli', $idPubli)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
+
 
 //    /**
 //     * @return Publication[] Returns an array of Publication objects
@@ -95,4 +105,5 @@ class PublicationRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
 }

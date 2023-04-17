@@ -76,8 +76,45 @@ h1{
     text-align:center;
 }
 
-.img-publi{
-    width:20%;
+/*css pour les publications du profil*/
+
+.super-container-publi{
+    display:inline-block;
+    height:200px;
+}
+
+.img-publi:hover{
+    transform: scale(1.2);
+}
+
+.container-publi .button-publi{
+    position: absolute;
+    background-color: transparent;
+    color: white;
+    padding: 50% 50%;
+    border: none;
+    cursor: pointer;
+    transition: transform .2s; /* Animation */
+}
+
+.container-publi {
+    position: relative;
+    /*width: 20%;*/
+    height:100%;
+    display:inline-flex;
+}
+
+.container-publi:hover{
+    transform: scale(0.95);
+}
+
+.container-publi:active{
+    transform: scale(1.1);
+}
+
+.container-publi img {
+    width: auto;
+    height: 100%;
 }
 
 /*css pour le caroussel*/

@@ -26,7 +26,6 @@ class RandomSandwichController extends AbstractController
         $randomForm->handleRequest($request);
 
         if($randomForm->isSubmitted() && $randomForm->isValid()){
-
             //on parcourt le form
             foreach ($randomForm->getData() as $key => $ingredient ){
                 //si l'user a coché tel type d'ingrédient
@@ -46,7 +45,6 @@ class RandomSandwichController extends AbstractController
             return $this->render('random_sandwich/add_random.html.twig', [
                 'randomSandwich' => $sandwichRepository->findById($idSandwich)
             ]);
-            //return $this->redirectToRoute('app_random_sandwich_recap', array( 'id' => $sandwich->getId()));
         }
 
         return $this->render('random_sandwich/pick_random.html.twig', [
@@ -54,14 +52,4 @@ class RandomSandwichController extends AbstractController
         ]);
     }
 
-
-    /*
-    #[Route('/random/sandwich/{idSandwich}', name: 'app_random_sandwich_recap')]
-    public function recap(SandwichRepository $sandwichRepository, int $idSandwich): Response
-    {
-        dd($idSandwich);
-        return $this->render('random_sandwich/add_random.html.twig', [
-            'randomSandwich' => $sandwichRepository->findById($idSandwich)
-        ]);
-    }*/
 }

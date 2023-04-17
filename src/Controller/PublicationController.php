@@ -59,7 +59,7 @@ class PublicationController extends AbstractController
 
                 return $this->redirectToRoute('app_publication');
             }
-            catch (Exception $msg){
+            catch (Exception){
                 $this->addFlash('danger', 'Format d\'image incorrect.');
             }
 
@@ -70,11 +70,11 @@ class PublicationController extends AbstractController
             ]);
     }
 
-    #[Route('/modification', name: '_update')]
-    public function update(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/modification/{id}', name: '_update')]
+    public function update(int $id, Request $request, EntityManagerInterface $entityManager, PublicationRepository $publicationRepository): Response
     {
-        //on crée une nouvelle publication
-        $publi = new Publication();
+        //on récupère la publication
+        $publi = $publicationRepository->findPublicationById($id);
 
         //on crée le formulaire
         $publiForm = $this->createForm(PublicationFormType::class, $publi);
@@ -82,8 +82,9 @@ class PublicationController extends AbstractController
         //on traite la requête du form
         $publiForm->handleRequest($request);
 
-        //on vérifie si le form est soumis et valide
-        if($publiForm->isSubmitted() && $publiForm->isValid()){
+        //on vérifie si le form est soumis
+        if($publiForm->isSubmitted()){
+            $publi->setUpdatedAt(New \DateTimeImmutable());
             $entityManager->persist($publi);
             $entityManager->flush();
 
@@ -94,6 +95,26 @@ class PublicationController extends AbstractController
 
         return $this->render('publication/update.html.twig', [
             'publiForm' => $publiForm,
+            'publication' => $publicationRepository->findPublicationById($id),
         ]);
+    }
+
+    #[Route('/suppression/{id}', name: '_delete')]
+    public function delete(int $id, EntityManagerInterface $entityManager, PublicationRepository $publicationRepository): Response
+    {
+
+        //on récupère la publication
+        $publi = $publicationRepository->findPublicationById($id);
+
+        try{
+            $entityManager->remove($publi);
+            $entityManager->flush();
+            $this->addFlash('success', 'Publication supprimée avec succès');
+            return $this->redirectToRoute('app_account');
+        } catch (Exception){
+            $this->addFlash('danger', 'Un problème est survenu.');
+        }
+
+        return $this->redirectToRoute('app_account');
     }
 }

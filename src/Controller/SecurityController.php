@@ -29,11 +29,6 @@ class SecurityController extends AbstractController
     #[Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-
-        if ($this->getUser()) {
-            //return $this->redirectToRoute('app_homepage');
-         }
-
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
@@ -60,7 +55,7 @@ class SecurityController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             //on cherche l'user par son email
-            $user = $userRepository->findOneByEmail($form->get('email')->getData());
+            $user = $userRepository->findOneBy(['email' => $form->get('email')->getData()]);
 
             // on vérifie si on a un user avec cet email
             if($user){
@@ -98,8 +93,9 @@ class SecurityController extends AbstractController
     #[Route('/forgotten-password/{token}', name:'reset_pwd')]
     public function resetPass(string $token, Request $request, UserRepository $userRepository, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
+        //dd(['token'=>$token]);
         // on vérifie si on a le token dans la base
-        $user = $userRepository->findOneByResetToken($token);
+        $user = $userRepository->findOneBy(['resetToken'=>$token]);
 
         // on vérifie si on a un user avec ce token
         if($user){

@@ -76,8 +76,33 @@ h1{
     text-align:center;
 }
 
+/*css pour les publications du profil*/
 .img-publi{
+    height:auto;
     width:20%;
+}
+
+.container-publi .button-publi{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: transparent;
+    color: white;
+    padding: 50% 50%;
+    border: none;
+    cursor: pointer;
+}
+
+.container-publi {
+    position: relative;
+    width: 20%;
+}
+
+.container-publi img {
+    width: 100%;
+    height: auto;
 }
 
 /*css pour le caroussel*/

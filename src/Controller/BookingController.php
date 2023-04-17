@@ -31,7 +31,8 @@ class BookingController extends AbstractController
         $entityManager->flush();
         $session->set('currentEditReservationId', null);
 
-        return $this->redirectToRoute('app_booking');
+        $this->addFlash('success', 'Votre réservation a bien été ajoutée.');
+        return $this->redirectToRoute('app_account');
     }
     #[Route('/booking/remove/reservation/{id}', name: 'app_account_remove_reservation')]
     public function removeAccountReservation($id,ReservationRepository $reservationRepository,

@@ -4,12 +4,25 @@
 
 {% block body %}
     <section class="section-title">
-        <h1>Modifiez une publication<h1>
+        <h1>Modifiez une publication</h1>
     </section>
     <main class="container-form">
         <section class="row">
-            <div class="col-12">
-                {% include "publication/_form.html.twig" with {'button_label': 'Modifier'}%}
+            <div class="col">
+                {{ form_start(publiForm) }}
+
+                    <label for="image">Photo</label>
+                    <img id="image" class="form-control" src="{{ asset('upload/images/publications/')}}{{ publication.photo }}" alt="photo pour le test">
+
+                    {{ form_row(publiForm.commentaire) }}
+
+                    <button class="btn btn-lg btn-primary my-3" type="submit">
+                        Modifier
+                    </button>
+                    <button class="btn btn-lg btn-primary my-3" type="reset">
+                        Effacer
+                    </button>
+                {{ form_end(publiForm, {'render_rest': false}) }}
             </div>
         </section>
     </main>

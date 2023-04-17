@@ -2,7 +2,6 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Ingredient;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -38,10 +37,20 @@ class UserCrudController extends AbstractCrudController
                 ->allowMultipleChoices(),
             DateField::new('birth_date'),
             DateTimeField::new('created_at')->hideOnForm(),
-            //AssociationField::new('user_bookmarks'),
+            DateTimeField::new('updated_at')->hideOnForm(),
 
         ];
     }
+
+    public function updateEntity(EntityManagerInterface $em, $entityInstance): void
+    {
+        if(!$entityInstance instanceof User) return;
+
+        $entityInstance->setUpdatedAt(new \DateTimeImmutable);
+
+        parent::UpdateEntity($em, $entityInstance);
+    }
+
 /*    public function persistEntity(EntityManagerInterface $em, $entityInstance): void
     {
         if(!$entityInstance instanceof Ingredient) return;

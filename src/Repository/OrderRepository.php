@@ -39,6 +39,19 @@ class OrderRepository extends ServiceEntityRepository
         }
     }
 
+    public function findOrdersByUserIdDescendingOrder(int $userId): array
+    {
+        return $this->createQueryBuilder('o')
+            ->select('o', 'u')
+            ->join('o.order_user', 'u')
+            ->where('u.id = :id')
+            ->setParameter('id', $userId)
+            ->orderBy('o.created_at', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
 //    /**
 //     * @return Order[] Returns an array of Order objects
 //     */

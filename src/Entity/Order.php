@@ -24,9 +24,10 @@ class Order
     #[ORM\Column]
     private \DateTimeImmutable $created_at;
 
-    #[ORM\ManyToOne(inversedBy: 'User')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(inversedBy: 'orders')]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")] //si on supp un user => toutes ses orders sup
     private ?User $order_user = null;
+
     function __construct(){ //constructeur
         $this->created_at = new \DateTimeImmutable(); //date du jour automatiquement
     }
@@ -83,8 +84,8 @@ class Order
 
         return $this;
     }
-
+/*
     public function __toString(){
         return  $this->id;
-    }
+    }*/
 }

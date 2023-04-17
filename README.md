@@ -21,7 +21,7 @@ Features :
 ![protocole](public/documents/diagram/maps.png)
 
 
-## Languages
+## Languages & Technologies
 
 #### PHP
 PHP is a server-side scripting language used for creating dynamic and web applications. We used it with Symfony, a framework used for building projects with an MVC architecture. 
@@ -45,6 +45,10 @@ Leaflet is an open-source JavaScript library and API for creating interactive ma
 
 Stripe is a payment processing API that enables businesses to accept and manage online payments securely. We used the test version, that doesn't actually send any money.
 
+#### Trello
+
+Trello is an online tool of project management, inspired by the Kanban method. We used it to manage the creation of our website with efficiency.
+Here is the link to our workspace : https://trello.com/b/lOo9E17u/projet-management
 
 ## Settings
 

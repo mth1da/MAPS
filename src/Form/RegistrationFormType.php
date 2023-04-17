@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Validator\Constraints\Length;
@@ -108,20 +109,13 @@ class RegistrationFormType extends AbstractType
         ]);
     }
 
-    public function handleForm(User $user, \Symfony\Component\Form\FormInterface $form): void
+    public function handleForm(User $user, FormInterface $form): void
     {
         $user->setPassword(
             $this->passwordHasher->hashPassword($user, $form->get("password")->getData())
         );
 
-        try {
-            $this->entityManager -> persist($user);
-            $this->entityManager ->flush();
-            echo "Inscription réussie !";
-
-        }catch (UniqueConstraintViolationException){
-            echo 'Nom d\'utilisateur ou email déjà utilisé, merci de réessayer.';
-        }
-
+        $this->entityManager -> persist($user);
+        $this->entityManager ->flush();
     }
 }

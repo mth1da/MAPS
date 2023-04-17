@@ -8,6 +8,7 @@ use App\Repository\UserRepository;
 use App\Service\JWTService;
 use App\Service\SendMailService;
 use Doctrine\ORM\EntityManagerInterface;
+use PharIo\Version\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,39 +24,52 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/registration', name: 'app_registration')]
-    public function index(Request $request, SendMailService $mail, JWTService $jwt, EntityManagerInterface $entityManager): Response
+    public function index(Request $request, SendMailService $mail, JWTService $jwt, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $this->registrationForm->handleform($user, $form);
 
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $existingEmail=$userRepository->findOneBy(['email' => $user->getEmail()]);
+            $existingUsername=$userRepository->findOneBy(['user_name' => $user->getUserName()]);
 
-            //on génère le JWT de l'utilisateur
-                //on crée le header
-            $header = ['typ' => 'JWT', 'alg' => 'HS256'];
+            if (!$existingEmail && !$existingUsername){
+                try{
+                    $this->registrationForm->handleform($user, $form);
 
-                //on crée le payload
-            $payload = ['user_id' => $user->getId()];
+                    $entityManager->persist($user);
+                    $entityManager->flush();
 
-                //on génère le token
-            $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
+                    //on génère le JWT de l'utilisateur
+                    //on crée le header
+                    $header = ['typ' => 'JWT', 'alg' => 'HS256'];
 
-            //on envoie un mail de confirmation
-            $mail->send(
-                'no-reply@maps.com',
-                $user->getEmail(),
-                'Activation de votre compte MAPS',
-                'register',
-                ['user' => $user, 'token' => $token] //<=>compact('user', 'token')
-            );
+                    //on crée le payload
+                    $payload = ['user_id' => $user->getId()];
 
-            $this->addFlash('success', 'Inscription réussie ! ');
-            return $this->redirectToRoute('app_login');
+                    //on génère le token
+                    $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
+
+                    //on envoie un mail de confirmation
+                    $mail->send(
+                        'no-reply@maps.com',
+                        $user->getEmail(),
+                        'Activation de votre compte MAPS',
+                        'register',
+                        ['user' => $user, 'token' => $token] //<=>compact('user', 'token')
+                    );
+                    $this->addFlash('success', 'Inscription réussie ! ');
+
+                } catch(Exception){
+                $this->addFlash('danger', 'Un problème est survenu');
+                }
+                return $this->redirectToRoute('app_login');
+            }
+            else {
+                $this->addFlash('danger', 'Nom d\'utilisateur ou email déjà utilisé, merci de réessayer.');
+            }
         }
 
         return $this->render('registration/index.html.twig', [

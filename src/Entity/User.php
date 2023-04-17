@@ -7,17 +7,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping\DiscriminatorColumn;
-use Doctrine\ORM\Mapping\DiscriminatorMap;
-use Doctrine\ORM\Mapping\InheritanceType;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-
-//#[Entity]
-//#[InheritanceType('JOINED')]
-//#[DiscriminatorColumn(name: 'discr', type: 'string')]
-//#[DiscriminatorMap(['user' => User::class])] //heritage
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -75,9 +67,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'resa_user', targetEntity: Reservation::class)]
     private Collection $user_resa;
 
-    #[ORM\OneToMany(mappedBy: 'bookmark_user', targetEntity: Bookmark::class)]
-    private Collection $user_bookmarks;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $token = null;
 
@@ -92,7 +81,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->orders = new ArrayCollection();
         $this->publications = new ArrayCollection();
         $this->user_resa = new ArrayCollection();
-        $this->user_bookmarks = new ArrayCollection();
         $this->roles = ['ROLE_USER'];
     }
 
@@ -327,10 +315,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-    /**
-     * @return Collection<int, Bookmark>
-     */
 
     public function getToken(): ?string
     {

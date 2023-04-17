@@ -59,7 +59,7 @@ class PublicationController extends AbstractController
 
                 return $this->redirectToRoute('app_publication');
             }
-            catch (Exception $msg){
+            catch (Exception){
                 $this->addFlash('danger', 'Format d\'image incorrect.');
             }
 
@@ -73,7 +73,6 @@ class PublicationController extends AbstractController
     #[Route('/modification/{id}', name: '_update')]
     public function update(int $id, Request $request, EntityManagerInterface $entityManager, PublicationRepository $publicationRepository): Response
     {
-
         //on récupère la publication
         $publi = $publicationRepository->findPublicationById($id);
 
@@ -101,7 +100,7 @@ class PublicationController extends AbstractController
     }
 
     #[Route('/suppression/{id}', name: '_delete')]
-    public function delete(int $id, Request $request, EntityManagerInterface $entityManager, PublicationRepository $publicationRepository): Response
+    public function delete(int $id, EntityManagerInterface $entityManager, PublicationRepository $publicationRepository): Response
     {
 
         //on récupère la publication
@@ -112,24 +111,10 @@ class PublicationController extends AbstractController
             $entityManager->flush();
             $this->addFlash('success', 'Publication supprimée avec succès');
             return $this->redirectToRoute('app_account');
-        } catch (Exception $msg){
+        } catch (Exception){
             $this->addFlash('danger', 'Un problème est survenu.');
         }
 
         return $this->redirectToRoute('app_account');
-        //on vérifie si le form est soumis et valide
-        //if($publiForm->isSubmitted()){
-            //$entityManager->persist($publi);
-            //$entityManager->flush();
-
-
-            //return $this->redirectToRoute('app_account');
-        //}
-
-/*
-        return $this->render('account/index.html.twig', [
-            'publiForm' => $publiForm,
-            'publication' => $publicationRepository->findPublicationById($id),
-        ]);*/
     }
 }

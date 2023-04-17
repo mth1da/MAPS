@@ -6,7 +6,6 @@ use App\Form\EditProfileType;
 use App\Repository\OrderRepository;
 use App\Repository\PublicationRepository;
 use App\Repository\ReservationRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;

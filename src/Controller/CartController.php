@@ -50,7 +50,6 @@ class CartController extends AbstractController
             }
             else{
                 $sandwich = $this->sandwichRepository->find($id);
-                //dd($sandwich);
                 $dataPanier = $this->services->creationDataPanier($sandwich, $quantiteOrIngr);
                 foreach ($dataPanier as $id => $sandwichNoPersonalize) {
                     $sandwichNoPersonalize = [
@@ -82,15 +81,6 @@ class CartController extends AbstractController
     public function addMaps(SessionInterface $session)
     {
         $this->services->addOneMapsSandwich($session);
-        $panier = $session->get("panier", []);
-
-        if(!$panier){
-            //dd(end($panier));
-
-            $this->addFlash('danger', 'Selectionnez au moins un ingrédient.');
-            return $this->redirectToRoute("app_sandwich");
-        }
-        //dd($panier);
         return $this->redirectToRoute("app_cart");
     }
 

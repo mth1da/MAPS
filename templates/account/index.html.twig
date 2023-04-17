@@ -59,13 +59,15 @@
                     <legend>Mes Publications</legend>
                     {% if publications %}
 
+
                         {% for publi in publications %}
-                            <tr>
-                                    <div class="container-publi">
-                                        <img src="{{ asset('upload/images/publications/')}}{{ publi.photo }}" class="img-publi" alt="photo pour le test">
-                                        <button class="button-publi" data-bs-toggle="modal" data-bs-target="#{{ publi.id }}"></button>
-                                    </div>
-                            </tr>
+
+                            <div class="super-container-publi">
+                                <div class="container-publi">
+                                    <img src="{{ asset('upload/images/publications/')}}{{ publi.photo }}" class="img-publi" alt="photo pour le test">
+                                    <button class="button-publi" data-bs-toggle="modal" data-bs-target="#{{ publi.id }}"></button>
+                                </div>
+                            </div>
 
                             <div class="modal fade" id="{{ publi.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" >
@@ -110,7 +112,6 @@
                                 </div>
                             </div>
                         {% endfor %}
-
                     {% else %}
                         <p>Aucune publication</p>
                     {% endif %}

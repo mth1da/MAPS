@@ -46,15 +46,7 @@ class CartController extends AbstractController
 
                     }
                 }
-
                 $dataPanier[] = $quantiteOrIngr;
-
-                /*    if (isset($quantiteOrIngr[$id]['ingredient'])) {
-                        $dataPanier[] = $quantiteOrIngr;
-                        $total += $quantiteOrIngr['ingredient']->getPrice() * $quantiteOrIngr['quantite'];
-                    } else {
-                        // handle the case where the 'ingredient' key is missing
-                    }*/
             }
             else{
                 $sandwich = $this->sandwichRepository->find($id);
@@ -63,14 +55,9 @@ class CartController extends AbstractController
                     $sandwichNoPersonalize = [
                         "sandwich" => $sandwichNoPersonalize['sandwich'],
                         "quantite" => $sandwichNoPersonalize['quantite'],
-                 /*       "totalIngBySandwich" => 0,
-                        "totalIngBySandwichByQte" => 0,
-                        "totalQte" => $sandwichNoPersonalize['quantite']*/
                     ];
                     unset($panier[ $sandwichNoPersonalize['sandwich']->getId()]);
                     $panier[] = $sandwichNoPersonalize;
-
-                    //$total+=$ingredient->getPtrice() * $quantite;
                 }
             }
         }
@@ -93,59 +80,28 @@ class CartController extends AbstractController
     #[NoReturn] #[Route('/addMaps', name: 'app_cart_addMaps')]
     public function addMaps(SessionInterface $session)
     {
-        $panier = $session->get("panier", []);
-        $sandwich = $session->get('sandwich');
-
-        $dataContenuSandwich = [];
-
-        if(!empty($panier)){
-            $dataContenuSandwich[] = [
-                $sandwich
-            ];
-        }else{
-            $dataContenuSandwich = [$sandwich];
-        }
-
-        $panier=$session->get('panier');
-        $panier[] = $sandwich;
-        $session->set("panier", $panier );
-        $session->set('sandwich', null);
-        $session->set('ingredients', null);
-
-        //on redirige l'utilisateur vers le panier
+        $this->services->addOneMapsSandwich($session);
         return $this->redirectToRoute("app_cart");
     }
+
     #[NoReturn] #[Route('/duplicate/maps/{index}', name: 'app_cart_duplicate_maps')]
     public function duplicateMaps(int $index, SessionInterface $session)
     {
-        $panier = $session->get("panier", []);
-
-        $dataContenuSandwich = [];
-
-        $panier[] = $panier[$index];
-
-        $session->set("panier", $panier );
-        //on redirige l'utilisateur vers le panier
+        $this->services->duplicateMapsSandwich($index, $session);
         return $this->redirectToRoute("app_cart");
     }
+
     #[NoReturn] #[Route('/remove/maps/{index}', name: 'app_cart_remove_maps')]
     public function removeMaps(int $index, SessionInterface $session)
     {
-        $panier = $session->get("panier", []);
-
-        $dataContenuSandwich = [];
-
-        unset($panier[$index]);
-
-        $session->set("panier", $panier );
-
-        //on redirige l'utilisateur vers le panier
+        $this->services->removeMapsSandwich($index, $session);
         return $this->redirectToRoute("app_cart");
     }
+
     #[NoReturn] #[Route('/addOriginalOrRandom/{id}', name: 'addOriginalOrRandom')]
-    public function addOriginalOrRandom(int $id, SessionInterface $session, IngredientRepository $ingredientRepository)
+    public function addOriginalOrRandom(int $id, SessionInterface $session)
     {
-        $this->services->addOneOriginalOrRandomSandwich($id, $session, $ingredientRepository);
+        $this->services->addOneOriginalOrRandomSandwich($id, $session);
         return $this->redirectToRoute("app_cart");
     }
 

@@ -55,7 +55,6 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Show Sandwich', 'fas fa-eye', Sandwich::class)
         ]);
         yield MenuItem::subMenu('Action User', 'fas fa-bars')->setSubItems([
-            MenuItem::linkToCrud('Create User', 'fas fa-plus', User::class)->setAction(Crud::PAGE_NEW),
             MenuItem::linkToCrud('Show User', 'fas fa-eye', User::class)
         ]);
         yield MenuItem::subMenu('Action Table', 'fas fa-bars')->setSubItems([
@@ -67,7 +66,6 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Show Publication', 'fas fa-eye', Publication::class)
         ]);
         yield MenuItem::subMenu('Action Order', 'fas fa-bars')->setSubItems([
-            MenuItem::linkToCrud('Create Order', 'fas fa-plus', Order::class)->setAction(Crud::PAGE_NEW),
             MenuItem::linkToCrud('Show Order', 'fas fa-eye', Order::class)
         ]);
         yield MenuItem::subMenu('Action Reservation', 'fas fa-bars')->setSubItems([
@@ -79,7 +77,5 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Show Type', 'fas fa-eye', Type::class)
         ]);
 
-
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }

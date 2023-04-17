@@ -7,11 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[Entity]
-#[InheritanceType('JOINED')]
-#[DiscriminatorColumn(name: 'discr', type: 'string')]
-#[DiscriminatorMap(['sandwich' => Sandwich::class, 'sandwich_moment' => SandwichMoment::class, 'original_sandwich' => OriginalSandwich::class])] //heritage
-
 #[ORM\Entity(repositoryClass: SandwichRepository::class)]
 class Sandwich
 {
@@ -125,17 +120,4 @@ class Sandwich
         return $this;
     }
 
-
-
-
-}
-
-class SandwichMoment extends Sandwich{
-    #[ORM\Column(type: Types::TEXT)]
-    private string $description;
-}
-
-class OriginalSandwich extends Sandwich{
-    #[ORM\Column(type: Types::TEXT)]
-    private string $description;
 }

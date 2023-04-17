@@ -5,7 +5,6 @@ namespace App\Service;
 use Exception;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-//use Symfony\Component\Validator\Constraints\Uuid;
 
 class UploadImageService
 {
@@ -18,8 +17,7 @@ class UploadImageService
 
     public function create(UploadedFile $pic, ?int $width = 250, ?int $height =250)
     {
-        //on donne un nv nom à l'image
-        //$uuid = Uuid::v4();
+        //on donne un nouveau nom random à l'image
         $fichier = md5(uniqid(rand(), true)) . '.webp';
 
         //on récupère les infos de l'image
@@ -83,10 +81,5 @@ class UploadImageService
         //$pic->move($path . $fichier);
 
         return $fichier;
-    }
-
-    public function delete(string $fichier, ?int $width = 250, ?int $height = 250)
-    {
-
     }
 }

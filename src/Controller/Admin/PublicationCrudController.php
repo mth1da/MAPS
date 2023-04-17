@@ -3,13 +3,13 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Publication;
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class PublicationCrudController extends AbstractCrudController
 {
@@ -31,10 +31,20 @@ class PublicationCrudController extends AbstractCrudController
                 ->setUploadDir(self::PUBLICATION_UPLOAD_DIR),
 
             TextEditorField::new('commentaire'),
-            DateTimeField::new('created_at')->hideOnForm(),
             AssociationField::new('publi_user'),
+            DateTimeField::new('created_at')->hideOnForm(),
+            DateTimeField::new('updated_at')->hideOnForm(),
 
         ];
+    }
+
+    public function updateEntity(EntityManagerInterface $em, $entityInstance): void
+    {
+        if(!$entityInstance instanceof Publication) return;
+
+        $entityInstance->setUpdatedAt(new \DateTimeImmutable);
+
+        parent::UpdateEntity($em, $entityInstance);
     }
 
 }

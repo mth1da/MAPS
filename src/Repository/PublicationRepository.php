@@ -39,6 +39,16 @@ class PublicationRepository extends ServiceEntityRepository
         }
     }
 
+    public function update(Publication $publication, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($publication);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+
     public function findAllByDescendingOrder(): array
     {
         return $this->createQueryBuilder('p')
@@ -60,29 +70,14 @@ class PublicationRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findPublicationById(int $idPubli)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.id = :idPubli')
+            ->setParameter('idPubli', $idPubli)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
 
-//    /**
-//     * @return Publication[] Returns an array of Publication objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Publication
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }

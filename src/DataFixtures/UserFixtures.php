@@ -49,12 +49,12 @@ class UserFixtures extends Fixture
             "birthday" => '30-03-2000',
         ],
         [
-            "email" => "user@user.com",
-            "password" => "password",
+            "email" => "john@user.com",
+            "password" => "fabul0us",
             "roles" => "ROLE_USER",
             "lastName" => "Donne",
             "firstName" => "John",
-            "userName" => "user",
+            "userName" => "johnny",
             "birthday" => '23-01-1998',
         ]
     ];

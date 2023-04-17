@@ -76,8 +76,44 @@ h1{
     text-align:center;
 }
 
-.img-publi{
-    width:20%;
+/*css pour les publications du profil*/
+.super-container-publi{
+    display:inline-block;
+    height:200px;
+}
+
+.img-publi:hover{
+    transform: scale(1.2);
+}
+
+.container-publi .button-publi{
+    position: absolute;
+    background-color: transparent;
+    color: white;
+    padding: 50% 50%;
+    border: none;
+    cursor: pointer;
+    transition: transform .2s; /* Animation */
+}
+
+.container-publi {
+    position: relative;
+    /*width: 20%;*/
+    height:100%;
+    display:inline-flex;
+}
+
+.container-publi:hover{
+    transform: scale(0.95);
+}
+
+.container-publi:active{
+    transform: scale(1.1);
+}
+
+.container-publi img {
+    width: auto;
+    height: 100%;
 }
 
 /*css pour le caroussel*/
@@ -156,86 +192,3 @@ h1{
 .mapping:hover {
     opacity: 1
 }
-
-/*random form*/
-.random-form{
-    width: 100%;
-    height: 200px;
-}
-
-.random-form input[type="checkbox"] {
-    position: relative;
-    display: inline-block;
-    min-height: 170px;
-    width: 30%;
-    background: #ebebeb;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -o-appearance: none;
-    appearance: none;
-}
-
-.random-form input[type="checkbox"]:after {
-    content: '';
-    font-size: 2em;
-    text-align: center;
-    line-height: 70px;
-    color: #555555;
-    position: absolute;
-    margin: auto auto;
-    left: 0; right: 0; bottom: 0; top: 0;
-    display: block;
-    height: 70px;
-    width: 70px;
-    border-radius: 50%;
-    background-image: none;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-color: #ffffff;
-    -webkit-transition: all 0.3s ease-out;
-    -moz-transition: all 0.3s ease-out;
-    -ms-transition: all 0.3s ease-out;
-    -o-transition: all 0.3s ease-out;
-    transition: all 0.3s ease-out;
-}
-
-.random-form input[type="checkbox"]:before {
-    position: absolute;
-    margin: auto auto;
-    left: 0; right: 0; bottom: 0; top: 0;
-    content: '';
-    display: block;
-    height: 80px;
-    width: 80px;
-    border: 2px solid #fff;
-    border-radius: 50%;
-    -webkit-transition: all 0.1s ease-in;
-    -moz-transition: all 0.1s ease-in;
-    -ms-transition: all 0.1s ease-in;
-    -o-transition: all 0.1s ease-in;
-    transition: all 0.1s ease-in;
-}
-
-.random-form input[type="checkbox"]:hover:before {
-    height: 60px;
-    width: 60px;
-}
-
-.random-form input[type="checkbox"]:checked:before {
-    height: 100%;
-    width: 100%;
-    background: #dd3455;
-    border: none;
-    border-radius: 0;
-}
-
-.random-form input[type="checkbox"]:focus {
-    outline: none;
-}
-
-.random-form input[type="checkbox"].pain:after { content: 'pain'; }
-.random-form input[type="checkbox"].b:after { content: 'B'; }
-.random-form input[type="checkbox"].c:after { content: 'C'; }
-
-
-.random-form input[type="checkbox"]:checked:after { content: '✓'; }

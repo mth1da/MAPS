@@ -4,8 +4,6 @@ namespace App\Repository;
 
 use App\Entity\Ingredient;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Query;
-use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -41,10 +39,6 @@ class IngredientRepository extends ServiceEntityRepository
         }
     }
 
-    /*
-     * @return Ingredient[] Returns an array of Ingredient objects
-     */
-
     public function findBySlug($slug): array
     {
 
@@ -73,14 +67,4 @@ class IngredientRepository extends ServiceEntityRepository
             ;
    }
 
-
-//    public function findOneBySomeField($value): ?Ingredient
-//    {
-//        return $this->createQueryBuilder('i')
-//            ->andWhere('i.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }

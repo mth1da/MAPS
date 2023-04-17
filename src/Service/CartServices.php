@@ -3,7 +3,6 @@
 namespace App\Service;
 
 use App\Entity\Sandwich;
-use App\Repository\IngredientRepository;
 use App\Repository\SandwichRepository;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -25,14 +24,36 @@ class CartServices
         return $dataPanier;
     }
 
-    public function recalculeTotal(Sandwich $sandwich,  $quantiteOrIngr, int $total) : int
+    public function addOneMapsSandwich(SessionInterface $session, ): void
     {
-        if (isset($sandwich)) {
-            $total += $sandwich->getPrice() * $quantiteOrIngr;
-        }
-        return $total;
+        $panier = $session->get("panier", []);
+        $sandwich = $session->get('sandwich');
+
+        $panier[] = $sandwich;
+        $session->set("panier", $panier );
+        $session->set('sandwich', null);
+        $session->set('ingredients', null);
     }
-    public function addOneOriginalOrRandomSandwich(int $id, SessionInterface $session, IngredientRepository $ingredientRepository) : void
+
+    public function duplicateMapsSandwich(int $index, SessionInterface $session)
+    {
+        $panier = $session->get("panier", []);
+
+        $panier[] = $panier[$index];
+
+        $session->set("panier", $panier );
+    }
+
+    public function removeMapsSandwich(int $index, SessionInterface $session)
+    {
+        $panier = $session->get("panier", []);
+
+        unset($panier[$index]);
+
+        $session->set("panier", $panier );
+    }
+
+    public function addOneOriginalOrRandomSandwich(int $id, SessionInterface $session) : void
     {
         $panier = $session->get("panier", []);
 

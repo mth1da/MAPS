@@ -7,17 +7,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping\DiscriminatorColumn;
-use Doctrine\ORM\Mapping\DiscriminatorMap;
-use Doctrine\ORM\Mapping\InheritanceType;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-
-//#[Entity]
-//#[InheritanceType('JOINED')]
-//#[DiscriminatorColumn(name: 'discr', type: 'string')]
-//#[DiscriminatorMap(['user' => User::class])] //heritage
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -63,17 +55,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private \DateTimeImmutable $created_at;
 
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updated_at = null;
+
     #[ORM\OneToMany(mappedBy: 'order_user', targetEntity: Order::class)]
-    private Collection $user_order;
+    private Collection $orders;
 
     #[ORM\OneToMany(mappedBy: 'publi_user', targetEntity: Publication::class)]
     private Collection $publications;
 
     #[ORM\OneToMany(mappedBy: 'resa_user', targetEntity: Reservation::class)]
     private Collection $user_resa;
-
-    #[ORM\OneToMany(mappedBy: 'bookmark_user', targetEntity: Bookmark::class)]
-    private Collection $user_bookmarks;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $token = null;
@@ -86,10 +78,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     function __construct(){ //constructeur
         $this->created_at = new \DatetimeImmutable(); //date du jour automatiquement
-        $this->user_order = new ArrayCollection();
+        $this->orders = new ArrayCollection();
         $this->publications = new ArrayCollection();
         $this->user_resa = new ArrayCollection();
-        $this->user_bookmarks = new ArrayCollection();
         $this->roles = ['ROLE_USER'];
     }
 
@@ -223,18 +214,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(?\DateTimeImmutable $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, order>
      */
     public function getUserOrder(): Collection
     {
-        return $this->user_order;
+        return $this->orders;
     }
 
     public function addUserOrder(order $userOrder): self
     {
-        if (!$this->user_order->contains($userOrder)) {
-            $this->user_order->add($userOrder);
+        if (!$this->orders->contains($userOrder)) {
+            $this->orders->add($userOrder);
             $userOrder->setOrderUser($this);
         }
 
@@ -243,7 +246,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeUserOrder(order $userOrder): self
     {
-        if ($this->user_order->removeElement($userOrder)) {
+        if ($this->orders->removeElement($userOrder)) {
             // set the owning side to null (unless already changed)
             if ($userOrder->getOrderUser() === $this) {
                 $userOrder->setOrderUser(null);
@@ -313,36 +316,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Bookmark>
-     */
-    public function getUserBookmarks(): Collection
-    {
-        return $this->user_bookmarks;
-    }
-
-    public function addUserBookmark(Bookmark $userBookmark): self
-    {
-        if (!$this->user_bookmarks->contains($userBookmark)) {
-            $this->user_bookmarks->add($userBookmark);
-            $userBookmark->setBookmarkUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUserBookmark(Bookmark $userBookmark): self
-    {
-        if ($this->user_bookmarks->removeElement($userBookmark)) {
-            // set the owning side to null (unless already changed)
-            if ($userBookmark->getBookmarkUser() === $this) {
-                $userBookmark->setBookmarkUser(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getToken(): ?string
     {
         return $this->token;
@@ -389,9 +362,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->is_verified;
     }
 }
-/*class Client extends User{
-
-}*/
 
 
 

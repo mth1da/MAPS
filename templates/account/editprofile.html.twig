@@ -5,29 +5,19 @@
 
 {% block body %}
 
-    <section class="container" style="width:50%">
+    <section class="section-title">
+        <h1>Modification du profil de {{ app.user.getFirstName() }} {{ app.user.getLastName() }} </h1>
+    </section>
 
+    <section class="container-form">
         <div class="row">
-
             <div class="col">
-                <h1 class="h3 mb-3 font-weight-normal">Modification du profil de {{ app.user.getFirstName() }} {{ app.user.getLastName() }} </h1>
-
-
-                {% for message in app.flashes('success') %}
-                    <div class="p-3 text-success-emphasis bg-success-subtle  border border---bs-success-bg-subtle rounded-3">                        {{ message }}
-                    </div>
-                {% endfor %}
-
 
                 <fieldset class="mb-3">
-                    <legend>Mes Informations</legend>
 
                     {{ form(editForm) }}
 
-
                 </fieldset>
-
-
 
             </div>
         </div>

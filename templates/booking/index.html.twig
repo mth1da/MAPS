@@ -17,8 +17,11 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col">Date de réservation</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Heure</th>
                     <th scope="col">Table</th>
+                    <th scope="col">Places</th>
+                    <th scope="col">Emplacement</th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
@@ -26,8 +29,11 @@
                 {% if reservations %}
                     {% for reservation in reservations %}
                         <tr>
-                            <td>{{ reservation.dateTimeReservation | date("d/m/Y m:h") }}</td>
+                            <td>{{ reservation.dateTimeReservation | date("d/m/Y") }}</td>
+                            <td>{{ reservation.dateTimeReservation | date("H:i") }}</td>
                             <td>Table {{ reservation.getResaTable.id }}</td>
+                            <td>{{ reservation.getResaTable.nbSeat }}</td>
+                            <td>{{ reservation.getResaTable.location }}</td>
                             {% if app.user %}
                             <td>
                                     <a class="btn btn-secondary"  href="{{ path('app_booking_reservation', {id: reservation.id}) }}">

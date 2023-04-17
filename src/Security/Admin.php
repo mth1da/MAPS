@@ -71,4 +71,9 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function eraseCredentials()
+    {
+        // here because of override
+    }
 }

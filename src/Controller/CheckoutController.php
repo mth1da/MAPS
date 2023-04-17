@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Order;
-use App\Repository\IngredientRepository;
+use App\Service\StripeService;
 use Doctrine\ORM\EntityManagerInterface;
 use Stripe\Exception\ApiErrorException;
 use Stripe\Stripe;
@@ -15,6 +15,13 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class CheckoutController extends AbstractController
 {
+    private StripeService $service;
+
+    public function __construct(StripeService $service)
+    {
+        $this->service = $service;
+    }
+
     CONST API_KEY_TEST_STRIPE = 'sk_test_51MeZo7AcMBtMl4zFPKo7CTtdYB2Agp8EbJPK3BaWT69btAyp4hkgJRZIVGoQahBvegYTLe7SfvPkgFLbAvKFqbMS00wnFdegkd';
     #[Route('/checkout', name: 'app_checkout')]
     public function index(SessionInterface $session): Response
@@ -30,60 +37,18 @@ class CheckoutController extends AbstractController
      * @throws ApiErrorException
      */
     #[Route('/checkout/validate', name: 'app_checkout_validate')]
-    public function validate(SessionInterface $session, IngredientRepository $ingredientRepository)
+    public function validate(SessionInterface $session)
     {
-        $panier = $session->get('panier');
-        $total = $session->get('total');
-        $dataPanier = [];
 
-        foreach ($panier as $id => $quantiteOrIngr) {
-            if(isset($quantiteOrIngr['sandwich'])){
-                $dataPanier[] = [
-                    'price_data' => [
-                        'currency' => 'eur',
-                        'product_data' => [
-                            'name' => $quantiteOrIngr['sandwich']->getName(),
-                            'metadata' => [
-                                'id_product' => $quantiteOrIngr['sandwich']->getId(),
-                                'quantity' => $quantiteOrIngr['quantite']
-                            ],
-                        ],
-                        'unit_amount' => (int)$quantiteOrIngr['sandwich']->getPrice()
-                    ],
-                    'quantity' =>  $quantiteOrIngr['quantite'],
-                ];
-                $total += $quantiteOrIngr['sandwich']->getPrice() * $quantiteOrIngr['quantite'];
-            }else {
-                foreach ($quantiteOrIngr as $key => $item) {
-                    if (is_array($item) /*|| isset($item['ingredient'])*/) {
-                        $dataPanier[] = [
-                            'price_data' => [
-                                'currency' => 'eur',
-                                'product_data' => [
-                                    'name' => $item['ingredient']->getName(),
-                                    'metadata' => [
-                                        'id_product' => $item['ingredient']->getId(),
-                                        'quantity' => $item['quantite']
-                                    ],
-                                ],
-                                'unit_amount' => (int)$item['ingredient']->getPrice()
-                            ],
-                            'quantity' =>  $item['quantite'],
-                        ];
-                        $total += $item['ingredient']->getPrice() * $item['quantite'];
-                    }
-                }
-            }
-        }
+        $panier = $session->get('panier');
+        $dataPanier = $this->service->setPanier($session);
 
         if(isset($panier)){
 
             header('Content-Type: application/json');
             Stripe::setApiKey(self::API_KEY_TEST_STRIPE);
-            $YOUR_DOMAIN = $this->getParameter('app.host');
 
             try {
-
                 $checkout_session = \Stripe\Checkout\Session::create([
                     'line_items' => $dataPanier,
                     'mode' => 'payment',
@@ -104,10 +69,10 @@ class CheckoutController extends AbstractController
         }
        return $this->redirect( $checkout_session->url, 303);
     }
+
     #[Route('/checkout/success', name: 'app_checkout_success')]
     public function success(SessionInterface $session, EntityManagerInterface $entityManager): Response
     {
-
         $order = new Order();
 
         $order->setOrderUser($this->getUser());

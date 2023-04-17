@@ -6,6 +6,7 @@ use App\Entity\Order;
 use App\Repository\IngredientRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Stripe\Exception\ApiErrorException;
+use Stripe\Stripe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -18,7 +19,6 @@ class CheckoutController extends AbstractController
     #[Route('/checkout', name: 'app_checkout')]
     public function index(SessionInterface $session): Response
     {
-        $panier = $session->get('panier');
         $total = $session->get('total');
         return $this->render('checkout/index.html.twig', [
             'controller_name' => 'CheckoutController',
@@ -74,25 +74,14 @@ class CheckoutController extends AbstractController
                     }
                 }
             }
-
-                //$dataPanier[] = $quantiteOrIngr;
-
         }
 
         if(isset($panier)){
 
-            //$stripe = new \Stripe\StripeClient(self::API_KEY_TEST_STRIPE);
             header('Content-Type: application/json');
-            //Stripe::setApiKey($);
-            \Stripe\Stripe::setApiKey(self::API_KEY_TEST_STRIPE);
+            Stripe::setApiKey(self::API_KEY_TEST_STRIPE);
             $YOUR_DOMAIN = $this->getParameter('app.host');
-       /*     $t = $stripe->products->create(['name' => 'T-shirt']);
 
-            dd($t);
-            $stripe->prices->create(
-                ['product' => '{{PRODUCT_ID}}'
-                    ,'unit_amount' => 2000, 'currency' => 'eur']
-            );*/
             try {
 
                 $checkout_session = \Stripe\Checkout\Session::create([
@@ -137,7 +126,6 @@ class CheckoutController extends AbstractController
     #[Route('/checkout/cancel', name: 'app_checkout_cancel')]
     public function cancel(SessionInterface $session): Response
     {
-
         return $this->render('checkout/cancel.html.twig', [
             'controller_name' => 'CheckoutController',
         ]);
